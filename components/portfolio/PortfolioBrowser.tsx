@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { categories, projects, imagesFor, type Project } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,7 @@ export function PortfolioBrowser() {
   const [active, setActive] = useState<string>(ALL);
   const [openProject, setOpenProject] = useState<Project | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
+  const reduce = useReducedMotion();
 
   const filtered = useMemo(() => {
     if (active === ALL) return projects;
@@ -29,19 +30,42 @@ export function PortfolioBrowser() {
     document.body.style.overflow = "hidden";
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setOpenProject(null);
     document.body.style.overflow = "";
-  };
+  }, []);
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
+    setImageIndex((i) => (openProject ? (i + 1) % openProject.imageCount : i));
+  }, [openProject]);
+
+  const prevImage = useCallback(() => {
+    setImageIndex((i) =>
+      openProject ? (i - 1 + openProject.imageCount) % openProject.imageCount : i,
+    );
+  }, [openProject]);
+
+  // A 24-image gallery is unusable without arrow keys, and a modal that traps
+  // scroll must always be dismissible with Escape.
+  useEffect(() => {
     if (!openProject) return;
-    setImageIndex((i) => (i + 1) % openProject.imageCount);
-  };
-  const prevImage = () => {
-    if (!openProject) return;
-    setImageIndex((i) => (i - 1 + openProject.imageCount) % openProject.imageCount);
-  };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowRight") nextImage();
+      else if (e.key === "ArrowLeft") prevImage();
+      else return;
+      e.preventDefault();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [openProject, closeLightbox, nextImage, prevImage]);
+
+  // Restore scroll if this unmounts while the lightbox is still open.
+  useEffect(() => () => {
+    document.body.style.overflow = "";
+  }, []);
 
   return (
     <>
@@ -77,11 +101,22 @@ export function PortfolioBrowser() {
             <motion.button
               key={p.slug}
               layout
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              // Architectural wipe rather than a pop — the frame stays put and
+              // the image is uncovered from the bottom up.
+              initial={
+                reduce
+                  ? { opacity: 0 }
+                  : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
+              }
+              animate={
+                reduce ? { opacity: 1 } : { opacity: 1, clipPath: "inset(0 0 0% 0)" }
+              }
+              exit={
+                reduce ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
+              }
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => openLightbox(p)}
+              aria-label={`${p.title} — ${p.categoryLabel}, ${p.imageCount} images`}
               className="group relative aspect-[4/5] overflow-hidden bg-line text-left"
             >
               <Image
@@ -127,7 +162,7 @@ export function PortfolioBrowser() {
               <button
                 onClick={closeLightbox}
                 aria-label="Close"
-                className="h-10 w-10 flex items-center justify-center border border-bone/30 hover:bg-bone hover:text-ink transition-colors"
+                className="h-10 w-10 flex items-center justify-center border border-bone/30 bg-ink-raised hover:bg-bone hover:text-ink transition-colors"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.4" />
@@ -179,7 +214,14 @@ export function PortfolioBrowser() {
               )}
             </div>
             <div className="p-5 md:p-7 text-center text-xs text-bone/60" onClick={(e) => e.stopPropagation()}>
-              {imageIndex + 1} / {openProject.imageCount}
+              <span className="tabular-nums">
+                {imageIndex + 1} / {openProject.imageCount}
+              </span>
+              {openProject.imageCount > 1 && (
+                <span className="ml-3 hidden md:inline text-bone/40">
+                  Use ← → to browse · Esc to close
+                </span>
+              )}
             </div>
           </motion.div>
         )}

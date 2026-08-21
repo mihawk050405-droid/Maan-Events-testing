@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Reveal } from "@/components/motion/Reveal";
+import { AnimatedRule, Reveal } from "@/components/motion/Reveal";
 import { ReactNode } from "react";
 
 type Props = {
@@ -36,7 +36,7 @@ export function SectionHeading({
               align === "center" && "justify-center",
             )}
           >
-            <span className={cn("h-px w-8", invert ? "bg-mute-dark" : "bg-mute")} />
+            <AnimatedRule className={invert ? "bg-gold-soft" : "bg-gold"} delay={0.1} />
             <span>{eyebrow}</span>
           </div>
         </Reveal>

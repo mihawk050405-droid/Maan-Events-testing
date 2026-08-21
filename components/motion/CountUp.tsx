@@ -1,6 +1,12 @@
 "use client";
 
-import { useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import {
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+  animate,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export function CountUp({
@@ -12,6 +18,7 @@ export function CountUp({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-20% 0px" });
+  const reduce = useReducedMotion();
 
   // parse numeric portion and suffix (e.g. "1000+" -> 1000 + "+")
   const match = value.match(/^([\d.]+)(.*)$/);
@@ -24,6 +31,11 @@ export function CountUp({
 
   useEffect(() => {
     if (!inView) return;
+    // Ticking digits are motion too — snap straight to the number instead.
+    if (reduce) {
+      setDisplay(String(target));
+      return;
+    }
     const controls = animate(count, target, {
       duration,
       ease: [0.22, 1, 0.36, 1],
@@ -33,7 +45,7 @@ export function CountUp({
       controls.stop();
       unsubscribe();
     };
-  }, [inView, target, duration, count, rounded]);
+  }, [inView, target, duration, count, rounded, reduce]);
 
   if (!match) return <span ref={ref}>{value}</span>;
 

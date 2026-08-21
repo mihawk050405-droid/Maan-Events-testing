@@ -1,6 +1,6 @@
 import { company } from "@/content/company";
 import { CountUp } from "@/components/motion/CountUp";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { AnimatedRule, Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 
 export function Stats({ invert = false }: { invert?: boolean }) {
   return (
@@ -9,7 +9,7 @@ export function Stats({ invert = false }: { invert?: boolean }) {
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-end">
           <Reveal className="md:col-span-5">
             <div className={`text-xs uppercase tracking-[0.18em] mb-5 flex items-center gap-3 ${invert ? "text-mute-dark" : "text-mute"}`}>
-              <span className={`h-px w-8 ${invert ? "bg-mute-dark" : "bg-mute"}`} />
+              <AnimatedRule className={invert ? "bg-gold-soft" : "bg-gold"} delay={0.1} />
               <span>The Numbers</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl">

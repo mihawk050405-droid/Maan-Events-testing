@@ -10,7 +10,19 @@
   --color-line-dark: #1F1F24;
   --color-accent: #C8221C;
   --color-accent-hover: #A91812;
+  --color-accent-tint: #F7E9E7;
+
+  /* Surface steps. `bone` is the page, `sand` lifts a card off it, `paper`
+     is the brightest. On dark sections `ink-raised` does the same job. */
+  --color-sand: #EDE7DB;
+  --color-ink-raised: #16161C;
+
+  /* Bronze, not yellow — hue ~35deg at half saturation. Keep it to hairlines,
+     small marks and dark backgrounds, where it reads metallic. Large flat
+     fills on `bone` warm toward yellow, which this site deliberately avoids:
+     Maan Events builds for competing parties and yellow belongs to one. */
   --color-gold: #B8893E;
+  --color-gold-soft: #D7B77E;
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
@@ -40,6 +52,31 @@
     background: var(--color-ink);
     color: var(--color-bone);
   }
+
+  /* Every interactive element here has a :hover state; without this, keyboard
+     users get no equivalent. Offset so the ring clears image and dark fills. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  .bg-ink :focus-visible,
+  .text-bone :focus-visible {
+    outline-color: var(--color-gold-soft);
+  }
+
+  /* Backstop for anything animated in CSS rather than through framer-motion,
+     which is guarded per-component with useReducedMotion(). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @utility container-x {
@@ -64,3 +101,31 @@
 /* hide scrollbar on horizontal snap rows */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Nav links: the underline wipes in from the left and back out to the right,
+   rather than the bare colour swap this had before. Keyboard focus gets the
+   same affordance as hover. */
+.nav-link {
+  position: relative;
+  transition: color 300ms var(--ease-premium);
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35em;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 400ms var(--ease-premium);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after { transition: none; }
+}

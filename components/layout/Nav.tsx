@@ -59,7 +59,7 @@ export function Nav() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-10">
-            <Link href="/about-us/" className="text-sm hover:text-accent transition-colors">
+            <Link href="/about-us/" className="nav-link text-sm hover:text-accent">
               About
             </Link>
             <div
@@ -69,7 +69,7 @@ export function Nav() {
             >
               <Link
                 href="/services/"
-                className="text-sm hover:text-accent transition-colors py-2"
+                className="nav-link text-sm hover:text-accent py-2"
               >
                 Services
               </Link>
@@ -87,7 +87,7 @@ export function Nav() {
                         <Link
                           key={s.slug}
                           href={s.url}
-                          className="text-sm text-ink hover:text-accent transition-colors py-1"
+                          className="nav-link text-sm text-ink hover:text-accent py-1"
                         >
                           {s.shortTitle}
                         </Link>
@@ -97,10 +97,10 @@ export function Nav() {
                 )}
               </AnimatePresence>
             </div>
-            <Link href="/portfolio/" className="text-sm hover:text-accent transition-colors">
+            <Link href="/portfolio/" className="nav-link text-sm hover:text-accent">
               Portfolio
             </Link>
-            <Link href="/contact/" className="text-sm hover:text-accent transition-colors">
+            <Link href="/contact/" className="nav-link text-sm hover:text-accent">
               Contact
             </Link>
           </nav>

@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { MaskReveal } from "@/components/motion/Reveal";
 
 // Maan Events builds for competing political parties, so the hero must stay
 // party-neutral: no politicians, no party insignia, and no dominant party
@@ -10,15 +12,29 @@ import { motion } from "framer-motion";
 const HERO_IMAGE = "/portfolio/exhibitions/hitex-event/01.jpg";
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+
+  // Drift the backdrop slower than the page so the structures feel set back.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  // Positive y makes the backdrop lag the page. The element is 120% tall with
+  // 10% hanging above, so the drift (6% of 120% = 7.2% of the hero) can never
+  // pull the top edge into view.
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+
   return (
-    <section className="relative -mt-16 md:-mt-20 overflow-hidden bg-ink text-bone">
+    <section ref={ref} className="relative -mt-16 md:-mt-20 overflow-hidden bg-ink text-bone">
       {/* Background image */}
       <div className="absolute inset-0">
         <motion.div
-          initial={{ scale: 1.08 }}
+          initial={{ scale: reduce ? 1 : 1.08 }}
           animate={{ scale: 1 }}
           transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0"
+          style={reduce ? undefined : { y: parallaxY }}
+          className="absolute inset-x-0 -top-[10%] h-[120%]"
         >
           <Image
             src={HERO_IMAGE}
@@ -41,19 +57,29 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-bone/70 mb-6"
         >
-          <span className="h-px w-8 bg-bone/60" />
+          <motion.span
+            aria-hidden
+            className="block h-px w-8 origin-left bg-gold-soft"
+            initial={{ scaleX: reduce ? 1 : 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          />
           <span>Established 1983 · Maan Events</span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-5xl leading-[0.95] sm:text-6xl md:text-7xl lg:text-[8.5vw] xl:text-[7.5rem] max-w-[18ch]"
-        >
-          Event infrastructure,<br />
-          <span className="italic font-light text-bone/80">engineered at scale.</span>
-        </motion.h1>
+        <h1 className="font-display text-5xl leading-[0.95] sm:text-6xl md:text-7xl lg:text-[8.5vw] xl:text-[7.5rem] max-w-[18ch]">
+          <MaskReveal
+            delay={0.2}
+            // Descenders on "g"/"p" would clip against a tight box.
+            lineClassName="pb-[0.08em] -mb-[0.08em]"
+            lines={[
+              "Event infrastructure,",
+              <span key="2" className="italic font-light text-bone/80">
+                engineered at scale.
+              </span>,
+            ]}
+          />
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
