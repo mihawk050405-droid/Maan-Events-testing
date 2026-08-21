@@ -4,6 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+// Maan Events builds for competing political parties, so the hero must stay
+// party-neutral: no politicians, no party insignia, and no dominant party
+// colour (yellow in particular). Structure-only shots are the safe choice.
+const HERO_IMAGE = "/portfolio/exhibitions/hitex-event/01.jpg";
+
 export function Hero() {
   return (
     <section className="relative -mt-16 md:-mt-20 overflow-hidden bg-ink text-bone">
@@ -16,7 +21,7 @@ export function Hero() {
           className="absolute inset-0"
         >
           <Image
-            src="/portfolio/pm-events/amaravati-event/01.jpg"
+            src={HERO_IMAGE}
             alt="Maan Events — large scale event infrastructure"
             fill
             priority

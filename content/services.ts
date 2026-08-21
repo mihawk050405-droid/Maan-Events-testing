@@ -6,6 +6,12 @@ export type Service = {
   tagline: string;
   description: string;
   capabilities: string[];
+  /**
+   * Must stay party-neutral: Maan Events builds for competing political parties,
+   * so covers may not show politicians (in frame, or on banners and LED screens)
+   * or be dominated by a party colour — yellow above all. Prefer structure-led
+   * shots: aerials, empty builds, national-event imagery.
+   */
   cover: string;
   featured: boolean;
 };
@@ -25,7 +31,7 @@ export const services: Service[] = [
       "Integrated cable management for AV and AC",
       "Rapid deployment — large pandals in 72 hours",
     ],
-    cover: "/portfolio/cm-events/mahanadu-2025/01.jpg",
+    cover: "/portfolio/pm-events/kurnool-event/01.jpg",
     featured: true,
   },
   {
@@ -59,7 +65,7 @@ export const services: Service[] = [
       "Permitting and safety compliance support",
       "Decommission and site reinstatement",
     ],
-    cover: "/portfolio/pm-events/amaravati-event/01.jpg",
+    cover: "/portfolio/pm-events/yoga-day-vizag-event/01.jpg",
     featured: true,
   },
   {
@@ -76,7 +82,7 @@ export const services: Service[] = [
       "Anti-crush perimeter design",
       "Rapid deployment and reconfiguration",
     ],
-    cover: "/portfolio/cm-events/mahanadu-rajahmundry/01.webp",
+    cover: "/portfolio/cm-events/cm-police-event/01.jpg",
     featured: false,
   },
   {
@@ -93,7 +99,7 @@ export const services: Service[] = [
       "Silent operation suitable for AV",
       "Sustainability-conscious load planning",
     ],
-    cover: "/portfolio/pm-events/boothpur-event/01.webp",
+    cover: "/portfolio/pm-events/kurnool-event/04.jpg",
     featured: true,
   },
   {
@@ -195,7 +201,7 @@ export const services: Service[] = [
       "Acrylic and LED dance floors",
       "Red-carpet and protocol builds",
     ],
-    cover: "/portfolio/cm-events/mega-dsc/01.jpg",
+    cover: "/portfolio/president-events/puri-navy-day-event/01.jpg",
     featured: false,
   },
   {

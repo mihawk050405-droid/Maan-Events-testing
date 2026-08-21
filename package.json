@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "manifest": "node scripts/generate-portfolio-manifest.mjs",
+    "predev": "npm run manifest",
     "dev": "next dev",
+    "prebuild": "npm run manifest",
     "build": "next build",
     "start": "next start"
   },

@@ -1,3 +1,5 @@
+import { portfolioManifest } from "./portfolio-manifest";
+
 export type Project = {
   slug: string;
   title: string;
@@ -5,7 +7,8 @@ export type Project = {
   categoryLabel: string;
   cover: string;
   imageCount: number;
-  ext: "jpg" | "webp" | "png";
+  /** Full public paths, in display order. Extensions come from disk, not convention. */
+  images: string[];
 };
 
 export type Category = {
@@ -31,90 +34,107 @@ export const categories: Category[] = [
 const titleFromSlug = (s: string) =>
   s.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 
+/**
+ * `coverFile` pins which photo represents the project in the grid. Political
+ * shoots often lead with a leader portrait, and Maan Events builds for
+ * competing parties — so those projects point at a structure shot instead of
+ * whatever happens to sort first. Omit it and the first image wins.
+ */
 const mk = (
   category: string,
   slug: string,
-  imageCount: number,
-  ext: Project["ext"] = "jpg",
   titleOverride?: string,
+  coverFile?: string,
 ): Project => {
   const cat = categories.find((c) => c.slug === category)!;
+  const files = portfolioManifest[`${category}/${slug}`];
+
+  if (!files?.length) {
+    throw new Error(
+      `No images found for portfolio project "${category}/${slug}". ` +
+        `Add photos under public/portfolio/${category}/${slug}/ and run \`npm run manifest\`.`,
+    );
+  }
+
+  if (coverFile && !files.includes(coverFile)) {
+    throw new Error(
+      `Cover "${coverFile}" is not in public/portfolio/${category}/${slug}/ ` +
+        `(has: ${files.join(", ")}). Fix the name or run \`npm run manifest\`.`,
+    );
+  }
+
+  const images = files.map((f) => `/portfolio/${category}/${slug}/${f}`);
+
   return {
     slug,
     title: titleOverride ?? titleFromSlug(slug),
     category,
     categoryLabel: cat.label,
-    cover: `/portfolio/${category}/${slug}/01.${ext}`,
-    imageCount,
-    ext,
+    cover: `/portfolio/${category}/${slug}/${coverFile ?? files[0]}`,
+    imageCount: images.length,
+    images,
   };
 };
 
 export const projects: Project[] = [
   // PM Events
-  mk("pm-events", "amaravati-event", 10, "jpg", "Amaravati"),
-  mk("pm-events", "boothpur-event", 11, "webp", "Boothpur"),
-  mk("pm-events", "kurnool-event", 12, "jpg", "Kurnool"),
-  mk("pm-events", "sangareddy-event", 4, "jpg", "Sangareddy"),
-  mk("pm-events", "yoga-day-vizag-event", 7, "jpg", "International Yoga Day, Vizag"),
-  mk("pm-events", "nithin-gatkari-events-ambarpet", 7, "jpg", "Nitin Gadkari, Amberpet"),
+  mk("pm-events", "amaravati-event", "Amaravati"),
+  mk("pm-events", "boothpur-event", "Boothpur"),
+  mk("pm-events", "kurnool-event", "Kurnool"),
+  mk("pm-events", "sangareddy-event", "Sangareddy"),
+  mk("pm-events", "yoga-day-vizag-event", "International Yoga Day, Vizag"),
+  mk("pm-events", "nithin-gatkari-events-ambarpet", "Nitin Gadkari, Amberpet"),
 
   // President
-  mk("president-events", "gachibowli-stadium-event", 6, "jpg", "Gachibowli Stadium"),
-  mk("president-events", "puri-navy-day-event", 12, "jpg", "Puri Navy Day"),
+  mk("president-events", "gachibowli-stadium-event", "Gachibowli Stadium"),
+  mk("president-events", "puri-navy-day-event", "Puri Navy Day"),
 
   // CM Events
-  mk("cm-events", "mahanadu-2025", 6, "jpg", "Mahanadu 2025"),
-  mk("cm-events", "mahanadu-rajahmundry", 6, "webp", "Mahanadu Rajahmundry"),
-  mk("cm-events", "26th-january-amaravathi", 6, "jpg", "Republic Day, Amaravathi"),
-  mk("cm-events", "cm-police-event", 2, "jpg", "CM Police Event"),
-  mk("cm-events", "gandikota", 5, "jpg", "Gandikota"),
-  mk("cm-events", "mega-dsc", 8, "jpg", "Mega DSC"),
-  mk("cm-events", "ts-cm-event-abhinandhana-sabha", 7, "jpg", "Abhinandana Sabha"),
+  mk("cm-events", "26th-january-amaravathi", "Republic Day, Amaravathi"),
+  mk("cm-events", "cm-police-event", "CM Police Event"),
+  mk("cm-events", "gandikota", "Gandikota"),
+  mk("cm-events", "mega-dsc", "Mega DSC", "05.jpg"), // 02.jpg onward lead with leader portraits
+  mk("cm-events", "ts-cm-event-abhinandhana-sabha", "Abhinandana Sabha", "07.jpg"), // 02–05 carry CM portraits on banners
 
   // Corporate
-  mk("corporate", "am-ns", 23, "jpg", "AM/NS"),
-  mk("corporate", "wings-india", 24, "jpg", "Wings India"),
-  mk("corporate", "tv9-event", 10, "webp", "TV9"),
-  mk("corporate", "mahindra-car-jaisalmeer", 7, "jpg", "Mahindra · Jaisalmer"),
-  mk("corporate", "mahindra-udo-auto", 8, "jpg", "Mahindra UDO Auto"),
-  mk("corporate", "greenko-event", 6, "jpg", "Greenko"),
+  mk("corporate", "am-ns", "AM/NS"),
+  mk("corporate", "wings-india", "Wings India"),
+  mk("corporate", "tv9-event", "TV9"),
+  mk("corporate", "mahindra-car-jaisalmeer", "Mahindra · Jaisalmer"),
+  mk("corporate", "mahindra-udo-auto", "Mahindra UDO Auto"),
+  mk("corporate", "greenko-event", "Greenko"),
 
   // Exhibitions
-  mk("exhibitions", "hitex-event", 8, "jpg", "HITEX"),
-  mk("exhibitions", "saras-mela-guntur", 11, "jpg", "Saras Mela, Guntur"),
-  mk("exhibitions", "vizag-light-house-events", 5, "jpg", "Vizag Light House"),
+  mk("exhibitions", "hitex-event", "HITEX"),
+  mk("exhibitions", "saras-mela-guntur", "Saras Mela, Guntur"),
+  mk("exhibitions", "vizag-light-house-events", "Vizag Light House"),
 
   // Weddings
-  mk("weddings", "gmr-wedding-event-01", 13, "jpg", "GMR Wedding I"),
-  mk("weddings", "gmr-wedding-event-03", 6, "jpg", "GMR Wedding III"),
-  mk("weddings", "gmr-wedding-event-04", 9, "webp", "GMR Wedding IV"),
-  mk("weddings", "gme-wedding-event-02", 5, "jpg", "GME Wedding II"),
-  mk("weddings", "hitex-wedding", 6, "jpg", "HITEX Wedding"),
-  mk("weddings", "kondapur-wedding", 5, "jpg", "Kondapur Wedding"),
-  mk("weddings", "mahabubnagar", 5, "jpg", "Mahabubnagar Wedding"),
-  mk("weddings", "anantapur-wedding-event", 4, "jpg", "Anantapur Wedding"),
-  mk("weddings", "sangareddy-reception", 8, "jpg", "Sangareddy Reception"),
+  mk("weddings", "gmr-wedding-event-01", "GMR Wedding I"),
+  mk("weddings", "gmr-wedding-event-03", "GMR Wedding III"),
+  mk("weddings", "gmr-wedding-event-04", "GMR Wedding IV"),
+  mk("weddings", "gme-wedding-event-02", "GME Wedding II"),
+  mk("weddings", "hitex-wedding", "HITEX Wedding"),
+  mk("weddings", "kondapur-wedding", "Kondapur Wedding"),
+  mk("weddings", "mahabubnagar", "Mahabubnagar Wedding"),
+  mk("weddings", "anantapur-wedding-event", "Anantapur Wedding"),
+  mk("weddings", "sangareddy-reception", "Sangareddy Reception"),
 
   // Concerts
-  mk("concerts", "karthik", 7, "webp", "Karthik Live"),
-  mk("concerts", "zahir-khan", 3, "webp", "Zahir Khan"),
-  mk("concerts", "arijit-singh-event-gmr", 2, "png", "Arijit Singh, GMR"),
-  mk("concerts", "diljith-dosanjh-event", 4, "png", "Diljit Dosanjh"),
+  mk("concerts", "karthik", "Karthik Live"),
+  mk("concerts", "zahir-khan", "Zahir Khan"),
+  mk("concerts", "arijit-singh-event-gmr", "Arijit Singh, GMR"),
+  mk("concerts", "diljith-dosanjh-event", "Diljit Dosanjh"),
 
   // Movies
-  mk("movie-releases", "main", 6, "webp", "Film Premieres"),
+  mk("movie-releases", "main", "Film Premieres"),
 
   // Spiritual
-  mk("spiritual-events", "bathukamma-event", 4, "webp", "Bathukamma"),
-  mk("spiritual-events", "maha-tv-events", 5, "jpg", "Maha TV"),
+  mk("spiritual-events", "bathukamma-event", "Bathukamma"),
+  mk("spiritual-events", "maha-tv-events", "Maha TV"),
 ];
 
-export const imagesFor = (p: Project): string[] =>
-  Array.from({ length: p.imageCount }, (_, i) => {
-    const num = String(i + 1).padStart(2, "0");
-    return `/portfolio/${p.category}/${p.slug}/${num}.${p.ext}`;
-  });
+export const imagesFor = (p: Project): string[] => p.images;
 
 export const projectsByCategory = (slug: string) =>
   projects.filter((p) => p.category === slug);
