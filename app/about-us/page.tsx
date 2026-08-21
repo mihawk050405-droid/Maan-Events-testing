@@ -33,7 +33,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative -mt-16 md:-mt-20 bg-ink text-bone overflow-hidden">
+      <section className="relative -mt-16 md:-mt-20 bg-deep text-bone overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/portfolio/pm-events/yoga-day-vizag-event/01.jpg"
@@ -43,7 +43,7 @@ export default function AboutPage() {
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/65 via-ink/40 to-ink/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-deep/65 via-deep/40 to-deep/95" />
         </div>
         <Container className="relative pt-36 pb-20 md:pt-52 md:pb-32">
           <Reveal>
@@ -103,7 +103,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-ink text-bone">
+      <section className="bg-deep text-bone">
         <Container className="section-y">
           <Reveal>
             <div className="text-xs uppercase tracking-[0.18em] text-mute-dark mb-5 flex items-center gap-3">

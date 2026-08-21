@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function PortfolioPage() {
   return (
     <>
-      <section className="bg-ink text-bone -mt-16 md:-mt-20">
+      <section className="bg-deep text-bone -mt-16 md:-mt-20">
         <Container className="pt-36 md:pt-52 pb-16 md:pb-24">
           <Reveal>
             <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-6 flex items-center gap-3">

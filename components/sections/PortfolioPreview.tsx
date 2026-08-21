@@ -9,7 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export function PortfolioPreview() {
   return (
-    <section className="bg-ink text-bone">
+    <section className="bg-deep text-bone">
       <div className="container-x section-y">
         <Heading />
         <DesktopIndex />
@@ -100,7 +100,7 @@ function DesktopIndex() {
               >
                 <span
                   className={`font-mono text-[10px] w-7 shrink-0 transition-colors duration-300 ${
-                    isActive ? "text-accent" : "text-mute-dark"
+                    isActive ? "text-accent-light" : "text-mute-dark"
                   }`}
                 >
                   {String(i + 1).padStart(2, "0")}
@@ -126,7 +126,7 @@ function DesktopIndex() {
                 <motion.span
                   animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -8 }}
                   transition={{ duration: 0.3 }}
-                  className="inline-flex items-center text-accent"
+                  className="inline-flex items-center text-accent-light"
                   aria-hidden
                 >
                   <Arrow />
@@ -158,7 +158,7 @@ function DesktopIndex() {
               />
             </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-deep/90 via-deep/10 to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 p-7 xl:p-8 text-bone pointer-events-none">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -235,7 +235,7 @@ function MobileShowcase() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/30 to-deep/30" />
 
         {/* Top meta */}
         <div className="absolute top-5 inset-x-5 flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-bone/70">

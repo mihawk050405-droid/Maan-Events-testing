@@ -4,7 +4,7 @@ import { AnimatedRule, Reveal, Stagger, StaggerItem } from "@/components/motion/
 
 export function Stats({ invert = false }: { invert?: boolean }) {
   return (
-    <section className={invert ? "bg-ink text-bone" : "bg-bone text-ink"}>
+    <section className={invert ? "bg-deep text-bone" : "bg-bone text-ink"}>
       <div className="container-x section-y">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-end">
           <Reveal className="md:col-span-5">

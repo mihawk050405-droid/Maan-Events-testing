@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="bg-ink text-bone -mt-16 md:-mt-20">
+      <section className="bg-deep text-bone -mt-16 md:-mt-20">
         <Container className="pt-36 md:pt-52 pb-16 md:pb-24">
           <Reveal>
             <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-6 flex items-center gap-3">
@@ -56,7 +56,7 @@ export default function ServicesPage() {
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/20 to-transparent" />
                     <div className="absolute inset-0 p-7 flex flex-col justify-end text-bone">
                       <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-2">
                         {s.tagline}

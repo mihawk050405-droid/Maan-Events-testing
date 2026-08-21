@@ -17,7 +17,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
   return (
     <>
       {/* HERO */}
-      <section className="relative -mt-16 md:-mt-20 bg-ink text-bone overflow-hidden">
+      <section className="relative -mt-16 md:-mt-20 bg-deep text-bone overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={service.cover}
@@ -27,7 +27,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-deep/40 to-deep/95" />
         </div>
         <Container className="relative pt-40 pb-20 md:pt-56 md:pb-28">
           <Reveal>
@@ -85,7 +85,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
       </section>
 
       {/* PROJECT SHOWCASE */}
-      <section className="bg-ink text-bone">
+      <section className="bg-deep text-bone">
         <Container className="section-y">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
             <Reveal>
@@ -116,7 +116,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
                     sizes="(min-width: 768px) 33vw, 50vw"
                     className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.05]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/0 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/0 to-transparent" />
                   <div className="absolute inset-0 p-5 flex flex-col justify-end">
                     <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
                       {p.categoryLabel}
@@ -153,7 +153,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.05]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/30 to-transparent" />
                   <div className="absolute inset-0 p-5 flex flex-col justify-end text-bone">
                     <div className="font-display text-xl leading-tight">{r.shortTitle}</div>
                     <div className="mt-3 inline-flex items-center gap-2 text-[10px] uppercase tracking-wider opacity-80 group-hover:opacity-100">

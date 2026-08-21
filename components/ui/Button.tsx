@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary" | "ghost" | "outline-light";
 
 const styles: Record<Variant, string> = {
   primary:
-    "bg-ink text-bone hover:bg-accent transition-colors duration-300",
+    "bg-deep text-bone hover:bg-accent transition-colors duration-300",
   secondary:
     "bg-bone text-ink border border-line hover:border-ink transition-colors duration-300",
   ghost: "text-ink hover:text-accent transition-colors duration-300",

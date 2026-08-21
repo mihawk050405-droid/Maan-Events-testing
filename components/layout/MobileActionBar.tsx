@@ -17,7 +17,7 @@ export function MobileActionBar() {
           href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-col items-center gap-1 py-3 border-x border-line bg-ink text-bone active:bg-accent transition-colors"
+          className="flex flex-col items-center gap-1 py-3 border-x border-line bg-deep text-bone active:bg-accent transition-colors"
         >
           <WhatsAppIcon />
           <span>WhatsApp</span>

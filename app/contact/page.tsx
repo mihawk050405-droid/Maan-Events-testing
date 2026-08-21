@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-ink text-bone -mt-16 md:-mt-20">
+      <section className="bg-deep text-bone -mt-16 md:-mt-20">
         <Container className="pt-36 md:pt-52 pb-16 md:pb-24">
           <Reveal>
             <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-6 flex items-center gap-3">
@@ -54,7 +54,7 @@ export default function ContactPage() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-3 bg-ink text-bone px-6 py-5 hover:bg-accent transition-colors"
+                  className="group flex items-center justify-between gap-3 bg-deep text-bone px-6 py-5 hover:bg-accent transition-colors"
                 >
                   <span className="text-sm uppercase tracking-wider">WhatsApp Enquiry</span>
                   <ArrowRight />

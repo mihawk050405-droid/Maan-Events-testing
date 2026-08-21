@@ -5,7 +5,7 @@ import { company } from "@/content/company";
 
 export function CTA() {
   return (
-    <section className="bg-ink text-bone relative overflow-hidden">
+    <section className="bg-deep text-bone relative overflow-hidden">
       <div className="container-x section-y">
         <div className="grid md:grid-cols-12 gap-10 items-end">
           <Reveal className="md:col-span-8">

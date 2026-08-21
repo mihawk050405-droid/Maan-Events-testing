@@ -35,12 +35,16 @@ export function Nav() {
 
   return (
     <>
+      {/* The bar always carries its own background. It used to be transparent
+          until 8px of scroll, which left near-black nav text sitting on the
+          dark hero image — invisible on first paint of every landing. */}
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+          "bg-bone/90 backdrop-blur-md supports-[backdrop-filter]:bg-bone/75",
           scrolled || open
-            ? "bg-bone/85 backdrop-blur-md border-b border-line"
-            : "bg-transparent",
+            ? "border-b border-line shadow-[0_1px_24px_-8px_rgba(0,0,0,0.18)]"
+            : "border-b border-transparent",
         )}
       >
         <div className="container-x flex h-16 items-center justify-between md:h-20">

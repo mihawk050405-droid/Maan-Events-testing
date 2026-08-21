@@ -80,7 +80,7 @@ export function PortfolioBrowser() {
                 className={cn(
                   "px-4 py-2 text-xs uppercase tracking-wider whitespace-nowrap transition-colors border",
                   active === f.slug
-                    ? "bg-ink text-bone border-ink"
+                    ? "bg-deep text-bone border-ink"
                     : "border-line text-mute hover:border-ink hover:text-ink",
                 )}
               >
@@ -126,7 +126,7 @@ export function PortfolioBrowser() {
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/0 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/0 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
               <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-end text-bone">
                 <div className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
                   {p.categoryLabel}
@@ -149,7 +149,7 @@ export function PortfolioBrowser() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[80] bg-ink/95 backdrop-blur-sm flex flex-col"
+            className="fixed inset-0 z-[80] bg-deep/95 backdrop-blur-sm flex flex-col"
             onClick={closeLightbox}
           >
             <div className="flex items-center justify-between p-5 md:p-7 text-bone" onClick={(e) => e.stopPropagation()}>
@@ -162,7 +162,7 @@ export function PortfolioBrowser() {
               <button
                 onClick={closeLightbox}
                 aria-label="Close"
-                className="h-10 w-10 flex items-center justify-center border border-bone/30 bg-ink-raised hover:bg-bone hover:text-ink transition-colors"
+                className="h-10 w-10 flex items-center justify-center border border-bone/30 bg-deep-raised hover:bg-bone hover:text-ink transition-colors"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.4" />
@@ -195,7 +195,7 @@ export function PortfolioBrowser() {
                   <button
                     onClick={prevImage}
                     aria-label="Previous"
-                    className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-bone/70 hover:text-bone bg-ink/40 hover:bg-ink/60 transition-colors"
+                    className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-bone/70 hover:text-bone bg-deep/40 hover:bg-deep/60 transition-colors"
                   >
                     <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
                       <path d="M9 1L3 7L9 13" stroke="currentColor" strokeWidth="1.5" />
@@ -204,7 +204,7 @@ export function PortfolioBrowser() {
                   <button
                     onClick={nextImage}
                     aria-label="Next"
-                    className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-bone/70 hover:text-bone bg-ink/40 hover:bg-ink/60 transition-colors"
+                    className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center text-bone/70 hover:text-bone bg-deep/40 hover:bg-deep/60 transition-colors"
                   >
                     <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
                       <path d="M5 1L11 7L5 13" stroke="currentColor" strokeWidth="1.5" />

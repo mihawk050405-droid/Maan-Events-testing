@@ -105,7 +105,7 @@ function DesktopIndex() {
 
       {/* Sticky image — true half */}
       <div className="lg:sticky lg:top-24">
-        <div className="relative aspect-[3/4] overflow-hidden bg-ink">
+        <div className="relative aspect-[3/4] overflow-hidden bg-deep">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={current.slug}
@@ -124,7 +124,7 @@ function DesktopIndex() {
               />
             </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/0 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/0 to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 p-7 xl:p-8 text-bone pointer-events-none">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -177,7 +177,7 @@ function MobileShowcase() {
   return (
     <div className="lg:hidden">
       <div
-        className="relative overflow-hidden bg-ink"
+        className="relative overflow-hidden bg-deep"
         style={{ aspectRatio: "4 / 5" }}
         onTouchStart={() => setPaused(true)}
       >
@@ -201,7 +201,7 @@ function MobileShowcase() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/30 to-deep/30" />
 
         {/* Top meta */}
         <div className="absolute top-5 inset-x-5 flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-bone/70">
@@ -268,7 +268,7 @@ function MobileShowcase() {
       <div className="mt-5 grid grid-cols-2 gap-3">
         <Link
           href="/services/"
-          className="group flex items-center justify-between gap-2 bg-ink text-bone px-5 py-4 text-[11px] uppercase tracking-[0.18em]"
+          className="group flex items-center justify-between gap-2 bg-deep text-bone px-5 py-4 text-[11px] uppercase tracking-[0.18em]"
         >
           All 12 <Arrow />
         </Link>

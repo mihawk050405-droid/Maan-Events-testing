@@ -26,7 +26,7 @@ export function Hero() {
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
 
   return (
-    <section ref={ref} className="relative -mt-16 md:-mt-20 overflow-hidden bg-ink text-bone">
+    <section ref={ref} className="relative -mt-16 md:-mt-20 overflow-hidden bg-deep text-bone">
       {/* Background image */}
       <div className="absolute inset-0">
         <motion.div
@@ -45,8 +45,8 @@ export function Hero() {
             className="object-cover"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink/85" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-deep/40 to-deep/85" />
+        <div className="absolute inset-0 bg-gradient-to-r from-deep/60 via-transparent to-transparent" />
       </div>
 
       {/* Content */}

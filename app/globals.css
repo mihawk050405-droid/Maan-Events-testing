@@ -1,27 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0B0B0F;
+  /* Text colour. Softened off pure black — the old #0B0B0F read as harsh at
+     full-bleed. Still 15.7:1 on bone, so body copy loses nothing. */
+  --color-ink: #16191C;
+
+  /* Dark surfaces. Petrol teal rather than black: it sits opposite the red and
+     amber of the logo on the colour wheel, so the mark and the accent lift off
+     it. Also politically inert here — no AP/TS party runs teal, unlike yellow
+     (TDP), saffron (BJP), green (AIMIM), pink (BRS) or bright blue (YSRCP). */
+  --color-deep: #123A44;
+  --color-deep-raised: #17464F;
+
   --color-bone: #F5F1EA;
   --color-paper: #FFFFFF;
   --color-mute: #6B6B72;
-  --color-mute-dark: #9A9A9F;
+  /* Lightened from #9A9A9F, which only reached 4.37:1 on `deep`. */
+  --color-mute-dark: #A0A0A6;
   --color-line: #E5E0D6;
-  --color-line-dark: #1F1F24;
+  --color-line-dark: #1F3A42;
   --color-accent: #C8221C;
   --color-accent-hover: #A91812;
   --color-accent-tint: #F7E9E7;
 
-  /* Surface steps. `bone` is the page, `sand` lifts a card off it, `paper`
-     is the brightest. On dark sections `ink-raised` does the same job. */
+  /* The brand red only reaches 2.2:1 on `deep` (and was already failing at
+     3.5:1 on the old black), so dark sections use this lighter tint of it
+     instead — 4.8:1, clears AA for body text. */
+  --color-accent-light: #EF8378;
+
+  /* Surface steps: `bone` is the page, `sand` lifts a card off it, `paper` is
+     brightest. `deep-raised` does the same job on dark sections. */
   --color-sand: #EDE7DB;
-  --color-ink-raised: #16161C;
 
   /* Bronze, not yellow — hue ~35deg at half saturation. Keep it to hairlines,
      small marks and dark backgrounds, where it reads metallic. Large flat
      fills on `bone` warm toward yellow, which this site deliberately avoids:
-     Maan Events builds for competing parties and yellow belongs to one. */
-  --color-gold: #B8893E;
+     Maan Events builds for competing parties and yellow belongs to one.
+     `gold` is the on-light variant, darkened from #B8893E so a hairline is
+     actually visible against bone (2.8:1 -> 3.9:1); `gold-soft` is for dark. */
+  --color-gold: #9C712E;
   --color-gold-soft: #D7B77E;
 
   --font-sans: var(--font-inter), system-ui, sans-serif;

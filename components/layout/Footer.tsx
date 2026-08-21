@@ -5,7 +5,7 @@ import { services } from "@/content/services";
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-bone pb-28 md:pb-12 pt-20 md:pt-28">
+    <footer className="bg-deep text-bone pb-28 md:pb-12 pt-20 md:pt-28">
       <div className="container-x">
         <div className="grid gap-12 md:gap-16 md:grid-cols-12">
           <div className="md:col-span-5">
