@@ -41,9 +41,9 @@ export function Nav() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          "bg-bone/90 backdrop-blur-md supports-[backdrop-filter]:bg-bone/75",
+          "bg-[linear-gradient(135deg,rgba(255,255,255,0.92)_0%,rgba(240,250,248,0.94)_50%,rgba(224,244,240,0.96)_100%)] backdrop-blur-md",
           scrolled || open
-            ? "border-b border-line shadow-[0_1px_24px_-8px_rgba(0,0,0,0.18)]"
+            ? "border-b border-line shadow-[0_4px_30px_-8px_rgba(6,63,61,0.14)]"
             : "border-b border-transparent",
         )}
       >
@@ -62,8 +62,8 @@ export function Nav() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-10">
-            <Link href="/about-us/" className="nav-link text-sm hover:text-accent">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-10">
+            <Link href="/about-us/" className="nav-link text-sm font-medium hover:text-accent">
               About
             </Link>
             <div
@@ -73,9 +73,12 @@ export function Nav() {
             >
               <Link
                 href="/services/"
-                className="nav-link text-sm hover:text-accent py-2"
+                className="nav-link text-sm font-medium hover:text-accent py-2 flex items-center gap-1"
               >
                 Services
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="transition-transform opacity-70">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </Link>
               <AnimatePresence>
                 {servicesOpen && (
@@ -86,12 +89,12 @@ export function Nav() {
                     transition={{ duration: 0.2 }}
                     className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
                   >
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 min-w-[480px] bg-paper border border-line p-6 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.25)]">
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 min-w-[480px] bg-sand border border-line p-6 shadow-[0_24px_60px_-20px_rgba(6,63,61,0.2)] rounded-lg">
                       {services.map((s) => (
                         <Link
                           key={s.slug}
                           href={s.url}
-                          className="nav-link text-sm text-ink hover:text-accent py-1"
+                          className="nav-link text-sm text-ink hover:text-accent py-1 font-medium"
                         >
                           {s.shortTitle}
                         </Link>
@@ -101,10 +104,10 @@ export function Nav() {
                 )}
               </AnimatePresence>
             </div>
-            <Link href="/portfolio/" className="nav-link text-sm hover:text-accent">
+            <Link href="/portfolio/" className="nav-link text-sm font-medium hover:text-accent">
               Portfolio
             </Link>
-            <Link href="/contact/" className="nav-link text-sm hover:text-accent">
+            <Link href="/contact/" className="nav-link text-sm font-medium hover:text-accent">
               Contact
             </Link>
           </nav>
@@ -114,14 +117,14 @@ export function Nav() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center gap-2 text-sm border border-ink/15 hover:border-ink px-5 py-2.5 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-bone px-5 py-2.5 bg-[linear-gradient(135deg,#075F5D_0%,#0F918C_50%,#043F3D_100%)] hover:bg-[linear-gradient(180deg,#FF625F_0%,#B91C1C_100%)] transition-all duration-300 shadow-sm rounded-sm"
             >
               Enquire
               <ArrowRight />
             </a>
             <button
               onClick={() => setOpen((v) => !v)}
-              className="lg:hidden h-10 w-10 -mr-2 flex flex-col items-center justify-center gap-1.5"
+              className="md:hidden h-10 w-10 -mr-2 flex flex-col items-center justify-center gap-1.5"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
             >
@@ -153,7 +156,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-16 z-40 bg-bone lg:hidden overflow-y-auto"
+            className="fixed inset-0 top-16 z-40 bg-[linear-gradient(180deg,#FFFFFF_0%,#EDF8F6_50%,#D6EFEA_100%)] md:hidden overflow-y-auto shadow-2xl"
           >
             <motion.div
               initial={{ y: -8, opacity: 0 }}

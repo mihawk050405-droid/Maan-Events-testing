@@ -73,7 +73,14 @@ function DesktopIndex() {
               >
                 <span
                   className={`font-mono text-[10px] w-7 shrink-0 transition-colors duration-300 ${
-                    isActive ? "text-accent" : "text-mute"
+                    isActive
+                      ? // Gradient text needs background-clip:text + a
+                        // transparent fill color — this is why it can't
+                        // reuse the plain `text-accent` utility class the
+                        // way the inactive state does. Same endpoints as
+                        // the CTA button gradient, for consistency.
+                        "bg-[linear-gradient(180deg,#D60F10_0%,#830204_100%)] bg-clip-text text-transparent"
+                      : "text-mute"
                   }`}
                 >
                   {String(i + 1).padStart(2, "0")}
@@ -92,7 +99,13 @@ function DesktopIndex() {
                 <motion.span
                   animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -8 }}
                   transition={{ duration: 0.3 }}
-                  className="inline-flex items-center text-accent"
+                  // Solid midpoint of the gradient, not text-accent. The
+                  // arrow SVG below reads stroke="currentColor", which
+                  // resolves from this span's `color`. If this became
+                  // gradient text (text-transparent), the SVG would
+                  // inherit transparent too and disappear — currentColor
+                  // only carries a single resolved color, not a gradient.
+                  className="inline-flex items-center text-[#AC080A]"
                   aria-hidden
                 >
                   <Arrow />

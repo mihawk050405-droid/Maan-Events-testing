@@ -27,7 +27,15 @@ export function CTA() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-between gap-3 bg-bone text-ink px-6 py-5 text-sm uppercase tracking-wider hover:bg-accent hover:text-bone transition-colors"
+              // Gradient replaces the flat hover:bg-accent. Tailwind's
+              // arbitrary-value syntax takes a raw CSS gradient directly in
+              // a hover: utility — no inline style, no JS state needed.
+              // Endpoints are darkened from the sampled reference image
+              // (#F02B2C top -> #D60F10, #830204 bottom unchanged) so
+              // text-bone clears 4.5:1 contrast at every point in the
+              // range, not just the two ends — verified at 10% steps,
+              // tightest margin 4.74:1 at the top.
+              className="group inline-flex items-center justify-between gap-3 bg-bone text-ink px-6 py-5 text-sm uppercase tracking-wider transition-colors duration-300 hover:bg-[linear-gradient(180deg,#D60F10_0%,#830204_100%)] hover:text-bone"
             >
               WhatsApp <Arrow />
             </a>

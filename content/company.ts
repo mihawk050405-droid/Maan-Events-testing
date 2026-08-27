@@ -41,7 +41,7 @@ export const company = {
     { value: "42+", label: "Years of Craft", sub: "Since 1983" },
     { value: "1000+", label: "In-house Team", sub: "No vendor dependency" },
     { value: "500+", label: "Events Delivered", sub: "Govt · Corporate · Public" },
-    { value: "3", label: "States Operated", sub: "AP · Telangana · Karnataka" },
+    { value: "2", label: "States Operated", sub: "AP · Telangana " },
   ],
   marqueeWords: [
     "Pandals",
