@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 import { fileURLToPath } from "node:url";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
   trailingSlash: true,
   // Hides the dev-only on-screen route indicator (the [data-next-badge-root]
   // element). Build and runtime errors are still surfaced.

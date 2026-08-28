@@ -64,7 +64,7 @@ export default function ServicesPage() {
       <section
         className="text-white"
   style={{
-    background: "linear-gradient(90deg, #E6E4DA)",
+    background: "linear-gradient(90deg, #ffffff)",
         }}
       >
         <Container className="section-y">
