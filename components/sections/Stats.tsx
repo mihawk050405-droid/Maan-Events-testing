@@ -6,7 +6,7 @@ export function Stats({ invert = false }: { invert?: boolean }) {
   return (
     <section className={invert ? "bg-deep text-bone" : "bg-bone text-ink"}>
       <div className="container-x section-y">
-        <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-end">
+        <div className="grid md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-end">
           <Reveal className="md:col-span-5">
             <div className={`text-xs uppercase tracking-[0.18em] mb-5 flex items-center gap-3 ${invert ? "text-mute-dark" : "text-mute"}`}>
               <AnimatedRule className={invert ? "bg-gold-soft" : "bg-gold"} delay={0.1} />
@@ -20,7 +20,7 @@ export function Stats({ invert = false }: { invert?: boolean }) {
           <Stagger className="md:col-span-7 grid grid-cols-2 gap-x-8 gap-y-12 md:gap-y-14">
             {company.stats.map((s) => (
               <StaggerItem key={s.label}>
-                <div className={`font-display text-5xl md:text-6xl lg:text-7xl leading-none ${invert ? "text-bone" : "bg-[linear-gradient(135deg,#043F3D_0%,#0F918C_60%,#063F3D_100%)] bg-clip-text text-transparent"}`}>
+                <div className={`font-display text-5xl md:text-6xl lg:text-7xl leading-none ${invert ? "text-bone" : "gradient-text"}`}>
                   <CountUp value={s.value} />
                 </div>
                 <div className={`mt-3 text-sm font-medium uppercase tracking-wider ${invert ? "text-bone" : "text-ink"}`}>

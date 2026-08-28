@@ -58,13 +58,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${fraunces.variable}`}
     >
-      <body
-        className="min-h-dvh flex flex-col text-ink antialiased"
-        style={{
-          background:
-            "linear-gradient(90deg, #EFECE6 0%, #8A857C 50%, #EFECE6 100%)",
-        }}
-      >
+      {/* The page ground belongs to the body rule in globals.css. An
+          inline background here would beat that rule and put this page
+          outside the palette. */}
+      <body className="min-h-dvh flex flex-col text-ink antialiased">
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />

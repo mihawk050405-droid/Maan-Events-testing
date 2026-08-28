@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="bg-deep text-bone pb-28 md:pb-12 pt-20 md:pt-28">
       <div className="container-x">
-        <div className="grid gap-12 md:gap-16 md:grid-cols-12">
+        <div className="grid gap-12 lg:gap-16 md:grid-cols-12">
           <div className="md:col-span-5">
             <Link href="/" className="inline-flex items-baseline gap-2 mb-6" aria-label="Maan Events — home">
               <span className="inline-flex bg-bone px-3 py-2">

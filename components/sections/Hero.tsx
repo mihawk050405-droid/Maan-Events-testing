@@ -45,8 +45,8 @@ export function Hero() {
             className="object-cover"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-deep/40 to-deep/85" />
-        <div className="absolute inset-0 bg-gradient-to-r from-deep/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-deep/75 via-deep/55 to-deep/90 md:via-deep/40 md:to-deep/85" />
+        <div className="absolute inset-0 bg-gradient-to-r from-deep/70 via-deep/25 to-transparent md:from-deep/60 md:via-transparent" />
       </div>
 
       {/* Content */}
@@ -99,14 +99,14 @@ export function Hero() {
         >
           <Link
             href="/portfolio/"
-            className="group inline-flex items-center gap-3 bg-[linear-gradient(180deg,#FFFFFF_0%,#EAF6F4_100%)] text-ink px-7 py-4 text-sm uppercase tracking-wider hover:bg-accent hover:text-bone transition-all duration-300 shadow-md"
+            className="group inline-flex items-center gap-3 bg-[linear-gradient(180deg,#F0B968_0%,#E0912B_100%)] text-ink px-7 py-4 text-sm uppercase tracking-wider hover:bg-[linear-gradient(180deg,#E0912B_0%,#C2761A_100%)] transition-all duration-300 shadow-md"
           >
             View Portfolio
             <ArrowRight />
           </Link>
           <Link
             href="/services/"
-            className="group inline-flex items-center gap-3 border border-bone/30 bg-white/5 hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.15)_0%,rgba(15,145,140,0.25)_100%)] px-7 py-4 text-sm uppercase tracking-wider hover:border-bone transition-all duration-300"
+            className="group inline-flex items-center gap-3 border border-bone/30 bg-bone/5 hover:bg-[linear-gradient(135deg,rgba(247,241,230,0.12)_0%,rgba(224,145,43,0.22)_100%)] px-7 py-4 text-sm uppercase tracking-wider hover:border-bone transition-all duration-300"
           >
             Our Capabilities
             <ArrowRight />

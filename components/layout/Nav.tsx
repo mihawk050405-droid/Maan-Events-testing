@@ -41,9 +41,9 @@ export function Nav() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          "bg-[linear-gradient(135deg,rgba(255,255,255,0.92)_0%,rgba(240,250,248,0.94)_50%,rgba(224,244,240,0.96)_100%)] backdrop-blur-md",
+          "bg-[linear-gradient(135deg,rgba(252,249,242,0.92)_0%,rgba(247,241,230,0.94)_50%,rgba(237,227,211,0.96)_100%)] backdrop-blur-md",
           scrolled || open
-            ? "border-b border-line shadow-[0_4px_30px_-8px_rgba(6,63,61,0.14)]"
+            ? "border-b border-line shadow-[0_4px_30px_-8px_rgba(20,16,12,0.16)]"
             : "border-b border-transparent",
         )}
       >
@@ -89,7 +89,7 @@ export function Nav() {
                     transition={{ duration: 0.2 }}
                     className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
                   >
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 min-w-[480px] bg-sand border border-line p-6 shadow-[0_24px_60px_-20px_rgba(6,63,61,0.2)] rounded-lg">
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 min-w-[480px] bg-sand border border-line p-6 shadow-[0_24px_60px_-20px_rgba(20,16,12,0.22)] rounded-lg">
                       {services.map((s) => (
                         <Link
                           key={s.slug}
@@ -117,7 +117,9 @@ export function Nav() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-bone px-5 py-2.5 bg-[linear-gradient(135deg,#075F5D_0%,#0F918C_50%,#043F3D_100%)] hover:bg-[linear-gradient(180deg,#FF625F_0%,#B91C1C_100%)] transition-all duration-300 shadow-sm rounded-sm"
+              // Obsidian at rest, marigold on hover. The label flips to
+              // ink with it — marigold is too light to carry bone text.
+              className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-ink px-5 py-2.5 bg-[linear-gradient(135deg,#14100C_0%,#2E251C_50%,#14100C_100%)] hover:bg-[linear-gradient(180deg,#F0B968_0%,#C2761A_100%)] transition-all duration-300 shadow-sm rounded-sm"
             >
               Enquire
               <ArrowRight />
@@ -156,7 +158,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-16 z-40 bg-[linear-gradient(180deg,#FFFFFF_0%,#EDF8F6_50%,#D6EFEA_100%)] md:hidden overflow-y-auto shadow-2xl"
+            className="fixed inset-0 top-16 z-40 bg-[linear-gradient(180deg,#FCF9F2_0%,#F7F1E6_50%,#EDE3D3_100%)] md:hidden overflow-y-auto shadow-2xl"
           >
             <motion.div
               initial={{ y: -8, opacity: 0 }}

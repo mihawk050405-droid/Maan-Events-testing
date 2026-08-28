@@ -48,25 +48,8 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      {/* =========================================================
-          SERVICES SECTION
-
-          ⭐⭐ CHANGE YOUR GRADIENT COLORS HERE ⭐⭐
-
-          Current colors:
-          #DD2475 → #FF512F
-
-          Change ONLY these two hex values:
-          #F7F3EE 0%,
-          #E0D4E0 25%
-          Forest Green: #2D4A3E Sage Green: #8F9E8B Terracotta: #C05C46 Cream: #F5F2EB
-          ========================================================= */}
-      <section
-        className="text-white"
-  style={{
-    background: "linear-gradient(90deg, #E6E4DA)",
-        }}
-      >
+      {/* Services grid */}
+      <section className="bg-paper text-ink">
         <Container className="section-y">
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((s) => (
@@ -84,7 +67,7 @@ export default function ServicesPage() {
                       className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/45 to-transparent" />
 
                     <div className="absolute inset-0 p-7 flex flex-col justify-end text-bone">
                       <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-2">

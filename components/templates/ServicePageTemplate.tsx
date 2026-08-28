@@ -1,18 +1,59 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { serviceBySlug, services } from "@/content/services";
+import { serviceBySlug, services, type Service } from "@/content/services";
 import { projects } from "@/content/portfolio";
 import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
+
+const SHOWCASE_SIZE = 6;
+
+type ShowcaseTile = {
+  key: string;
+  src: string;
+  /** Absent for hand-picked images, which have no project behind them. */
+  categoryLabel?: string;
+  title?: string;
+};
+
+/**
+ * The gallery, in order of preference: the service's own hand-picked
+ * images, then projects from the categories it actually works in, then
+ * anything named. Projects still awaiting an event name sort last so a
+ * service page never leads with a row of placeholders.
+ */
+function showcaseFor(service: Service): ShowcaseTile[] {
+  if (service.gallery?.length) {
+    return service.gallery.slice(0, SHOWCASE_SIZE).map((src) => ({
+      key: src,
+      src,
+    }));
+  }
+
+  const cats = service.portfolioCategories ?? [];
+  const rank = (p: (typeof projects)[number]) => {
+    const i = cats.indexOf(p.category);
+    return (i === -1 ? cats.length : i) * 2 + (p.nameConfirmed ? 0 : 1);
+  };
+
+  return [...projects]
+    .sort((a, b) => rank(a) - rank(b))
+    .slice(0, SHOWCASE_SIZE)
+    .map((p) => ({
+      key: p.slug,
+      src: p.cover,
+      categoryLabel: p.categoryLabel,
+      title: p.nameConfirmed ? p.title : undefined,
+    }));
+}
 
 export function ServicePageTemplate({ slug }: { slug: string }) {
   const service = serviceBySlug(slug);
   if (!service) notFound();
 
   const related = services.filter((s) => s.slug !== slug).slice(0, 4);
-  const showcase = projects.slice(0, 6);
+  const showcase = showcaseFor(service);
 
   return (
     <>
@@ -54,7 +95,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
       {/* OVERVIEW + CAPABILITIES */}
       <section className="bg-bone">
         <Container className="section-y">
-          <div className="grid md:grid-cols-12 gap-12 md:gap-20">
+          <div className="grid md:grid-cols-12 gap-12 lg:gap-16">
             <Reveal className="md:col-span-5">
               <div className="text-xs uppercase tracking-[0.18em] text-mute mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-mute" />
@@ -106,23 +147,35 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
             </Reveal>
           </div>
           <Stagger className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            {showcase.map((p) => (
-              <StaggerItem key={p.slug}>
+            {showcase.map((tile) => (
+              <StaggerItem key={tile.key}>
                 <Link href="/portfolio/" className="group block relative aspect-[4/5] overflow-hidden">
                   <Image
-                    src={p.cover}
-                    alt={`${p.title} — ${p.categoryLabel}`}
+                    src={tile.src}
+                    alt={
+                      tile.title
+                        ? `${tile.title} — ${tile.categoryLabel}`
+                        : (tile.categoryLabel ?? service.title)
+                    }
                     fill
                     sizes="(min-width: 768px) 33vw, 50vw"
                     className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.05]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/0 to-transparent" />
-                  <div className="absolute inset-0 p-5 flex flex-col justify-end">
-                    <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
-                      {p.categoryLabel}
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/40 to-transparent" />
+                  {/* A tile with no confirmed event name carries no caption
+                      at all — better a clean frame than a "TBD" label. */}
+                  {tile.categoryLabel && (
+                    <div className="absolute inset-0 p-5 flex flex-col justify-end">
+                      <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
+                        {tile.categoryLabel}
+                      </div>
+                      {tile.title && (
+                        <div className="font-display text-lg md:text-xl leading-tight">
+                          {tile.title}
+                        </div>
+                      )}
                     </div>
-                    <div className="font-display text-lg md:text-xl leading-tight">{p.title}</div>
-                  </div>
+                  )}
                 </Link>
               </StaggerItem>
             ))}
@@ -153,7 +206,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.05]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/45 to-transparent" />
                   <div className="absolute inset-0 p-5 flex flex-col justify-end text-bone">
                     <div className="font-display text-xl leading-tight">{r.shortTitle}</div>
                     <div className="mt-3 inline-flex items-center gap-2 text-[10px] uppercase tracking-wider opacity-80 group-hover:opacity-100">

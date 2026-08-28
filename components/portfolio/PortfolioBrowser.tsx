@@ -116,22 +116,36 @@ export function PortfolioBrowser() {
               }
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => openLightbox(p)}
-              aria-label={`${p.title} — ${p.categoryLabel}, ${p.imageCount} images`}
+              aria-label={`${p.nameConfirmed ? p.title : "Untitled project"} — ${p.categoryLabel}, ${p.imageCount} images`}
               className="group relative aspect-[4/5] overflow-hidden bg-line text-left"
             >
               <Image
                 src={p.cover}
-                alt={`${p.title} — ${p.categoryLabel}`}
+                // Alt describes the work, not the placeholder — a screen
+                // reader should never be read "Event Name — TBD".
+                alt={p.nameConfirmed ? `${p.title} — ${p.categoryLabel}` : p.categoryLabel}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/0 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
+              {/* The caption runs to three lines on a phone-width tile, so
+                  the scrim has to stay opaque well past the halfway mark —
+                  at via-deep/0 the label sat on bare photo. */}
+              <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/45 to-transparent opacity-95 group-hover:opacity-100 transition-opacity" />
               <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-end text-bone">
                 <div className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
                   {p.categoryLabel}
                 </div>
-                <div className="font-display text-base md:text-xl leading-tight">{p.title}</div>
+                <div
+                  className={cn(
+                    "font-display text-base md:text-xl leading-tight",
+                    // A pending name reads as a held space, not as copy —
+                    // but it still has to be readable over a bright photo.
+                    !p.nameConfirmed && "italic font-light text-bone/75",
+                  )}
+                >
+                  {p.title}
+                </div>
                 <div className="mt-1 text-[10px] text-bone/60">
                   {p.imageCount} {p.imageCount === 1 ? "image" : "images"}
                 </div>
@@ -157,7 +171,14 @@ export function PortfolioBrowser() {
                 <div className="text-[10px] uppercase tracking-[0.22em] text-bone/60">
                   {openProject.categoryLabel}
                 </div>
-                <div className="font-display text-xl md:text-2xl">{openProject.title}</div>
+                <div
+                  className={cn(
+                    "font-display text-xl md:text-2xl",
+                    !openProject.nameConfirmed && "italic font-light text-bone/60",
+                  )}
+                >
+                  {openProject.title}
+                </div>
               </div>
               <button
                 onClick={closeLightbox}
@@ -182,7 +203,7 @@ export function PortfolioBrowser() {
               >
                 <Image
                   src={imagesFor(openProject)[imageIndex]}
-                  alt={`${openProject.title} ${imageIndex + 1}`}
+                  alt={`${openProject.nameConfirmed ? openProject.title : openProject.categoryLabel} — image ${imageIndex + 1} of ${openProject.imageCount}`}
                   fill
                   className="object-contain"
                   sizes="100vw"

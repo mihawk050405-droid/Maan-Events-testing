@@ -64,7 +64,7 @@ export default function AboutPage() {
       {/* Story */}
       <section className="bg-bone">
         <Container className="section-y">
-          <div className="grid md:grid-cols-12 gap-12 md:gap-20">
+          <div className="grid md:grid-cols-12 gap-12 lg:gap-16">
             <Reveal className="md:col-span-4">
               <div className="text-xs uppercase tracking-[0.18em] text-mute mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-mute" />

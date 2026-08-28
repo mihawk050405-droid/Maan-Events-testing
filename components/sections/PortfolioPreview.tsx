@@ -65,12 +65,16 @@ function useCategoryEntries(): CatEntry[] {
       .sort((a, b) => b.weight - a.weight)
       .map((c) => {
         const ps = projectsByCategory(c.slug);
+        // Represent each category with a project that has a confirmed
+        // event name where one exists, so the landing page doesn't lead
+        // with a "TBD" placeholder. The portfolio page still shows them.
+        const lead = ps.find((p) => p.nameConfirmed) ?? ps[0];
         return {
           slug: c.slug,
           label: c.label,
           count: ps.length,
-          cover: ps[0]?.cover ?? "",
-          featuredProjectTitle: ps[0]?.title ?? "",
+          cover: lead?.cover ?? "",
+          featuredProjectTitle: lead?.nameConfirmed ? lead.title : "",
         };
       })
       .filter((c) => c.cover);

@@ -14,6 +14,20 @@ export type Service = {
    */
   cover: string;
   featured: boolean;
+  /**
+   * Portfolio categories this service draws its showcase from, most
+   * relevant first. Used to fill the gallery until real per-service
+   * photography arrives — without it a service shows whichever projects
+   * happen to sort first, which is rarely its own work.
+   */
+  portfolioCategories?: string[];
+  /**
+   * Hand-picked images for this service's gallery, as public paths
+   * (e.g. "/portfolio/concerts/karthik/03.jpg"). Set this and it wins
+   * over portfolioCategories. Displayed at 4:5, matching the portfolio
+   * grid — supply images in that ratio.
+   */
+  gallery?: string[];
 };
 
 export const services: Service[] = [
@@ -32,6 +46,7 @@ export const services: Service[] = [
       "Power, AV and climate-control coordination",
     ],
     cover: "/portfolio/pm-events/kurnool-event/01.jpg",
+    portfolioCategories: ["pm-events", "president-events", "cm-events"],
     featured: true,
   },
 
@@ -50,6 +65,7 @@ export const services: Service[] = [
       "Guest management and event logistics",
     ],
     cover: "/portfolio/corporate/wings-india/01.jpg",
+    portfolioCategories: ["corporate"],
     featured: true,
   },
 
@@ -68,6 +84,7 @@ export const services: Service[] = [
       "Delegate and breakout-area planning",
     ],
     cover: "/portfolio/corporate/tv9-event/01.webp",
+    portfolioCategories: ["corporate", "exhibitions"],
     featured: true,
   },
 
@@ -86,6 +103,7 @@ export const services: Service[] = [
       "Custom fabrication and set design",
     ],
     cover: "/portfolio/corporate/wings-india/01.jpg",
+    portfolioCategories: ["corporate", "movie-releases"],
     featured: true,
   },
 
@@ -104,6 +122,7 @@ export const services: Service[] = [
       "Guest comfort and climate control",
     ],
     cover: "/portfolio/weddings/gmr-wedding-event-01/01.jpg",
+    portfolioCategories: ["weddings"],
     featured: true,
   },
 
@@ -122,6 +141,7 @@ export const services: Service[] = [
       "Stage, seating and public-area setup",
     ],
     cover: "/portfolio/pm-events/yoga-day-vizag-event/01.jpg",
+    portfolioCategories: ["spiritual-events", "pm-events"],
     featured: true,
   },
 
@@ -140,6 +160,7 @@ export const services: Service[] = [
       "Guest-area planning",
     ],
     cover: "/portfolio/weddings/hitex-wedding/01.jpg",
+    portfolioCategories: ["weddings", "concerts"],
     featured: false,
   },
 
@@ -158,6 +179,7 @@ export const services: Service[] = [
       "Temporary structures and weather protection",
     ],
     cover: "/portfolio/pm-events/kurnool-event/01.jpg",
+    portfolioCategories: ["president-events", "pm-events"],
     featured: false,
   },
 
@@ -176,6 +198,7 @@ export const services: Service[] = [
       "Power, structures and event infrastructure",
     ],
     cover: "/portfolio/pm-events/kurnool-event/01.jpg",
+    portfolioCategories: ["concerts", "movie-releases"],
     featured: false,
   },
 
@@ -194,6 +217,7 @@ export const services: Service[] = [
       "Lighting, AV and visitor-area integration",
     ],
     cover: "/portfolio/exhibitions/hitex-event/01.jpg",
+    portfolioCategories: ["exhibitions", "corporate"],
     featured: true,
   },
 ];

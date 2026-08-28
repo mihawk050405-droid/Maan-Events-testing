@@ -1,279 +1,254 @@
 @import "tailwindcss";
 
+/* =====================================================
+   OBSIDIAN & MARIGOLD
+   Warm near-black grounds · Marigold accent · Warm sand neutrals
+
+   This @theme block is the single source of truth for colour.
+   Everything downstream — Tailwind's generated utilities, the
+   hand-written token helpers, and the gradient classes — reads
+   from these tokens. Do not add a second :root palette underneath
+   it: a later :root silently overrides every value here, which is
+   how this file ended up carrying three competing schemes at once.
+   ===================================================== */
 @theme {
-  /* =====================================================
-     SOLID COLORS — keep these for text, borders, icons
-     ===================================================== */
-  /* PRIMARY BRAND — VIBRANT TEAL */
-  --color-ink: #04302E;
-  --color-deep: #0E6B4F;
-  --color-deep-raised: #00C2B8;
-  /* LIGHT */
-  /* BG COLOR */
-  --color-bone: #F2EFE2;
-  --color-paper: #FBF8F0;
-  /* MUTED TEAL-GREY */
-  /* Retuned to match sampled colors from actual rendered screenshot:
-     italic subheads / secondary text on dark teal sections were
-     rendering as #6AB89B, project counts as #3B796B-#2B6259 -
-     both noticeably brighter/greener than the old values below.
-     Old: --color-mute: #3E6B63;  --color-mute-dark: #1D4A43; */
-  --color-mute: #6AB89B;
-  --color-mute-dark: #3B796B;
-  /* --color-mute-legible: for secondary text that MUST stay readable on
-     the teal gradient (e.g. italic subheads) — --color-mute fails WCAG
-     contrast against the lighter gradient stops (as low as 1.08:1 at
-     #6FBFA0, versus the 3:1 minimum for large text). This is bone at
-     reduced weight instead of another teal, so it reads as "secondary"
-     without disappearing into the background. */
-  --color-mute-legible: color-mix(in srgb, var(--color-bone) 70%, transparent);
+  /* GROUNDS — dark. `deep` is the inverted-section ground, `ink` the
+     darkest note used for text on light sections and hard edges. */
+  --color-ink: #14100C;
+  --color-deep: #1C1712;
+  --color-deep-raised: #2E251C;
+
+  /* GROUNDS — light. `bone` is the page ground, `paper` the raised
+     panel, `sand` the tinted band (marquee, testimonials). */
+  --color-bone: #F7F1E6;
+  --color-paper: #EDE3D3;
+  --color-sand: #DFD2BC;
+
+  /* SECONDARY TEXT
+     --color-mute      → secondary text on LIGHT grounds (dark value)
+     --color-mute-dark → secondary text on DARK grounds (light value)
+     These two must stay on opposite ends of the scale. They were
+     previously set to the same dark green, which is why secondary
+     copy vanished on every inverted section. */
+  --color-mute: #6B6055;
+  --color-mute-dark: #C4B49C;
+  /* Bone at reduced opacity, for secondary text that sits over the
+     dark gradient and must stay legible at every stop. */
+  --color-mute-legible: color-mix(in srgb, #F7F1E6 72%, transparent);
+
   /* LINES */
-  /* --color-line-dark retuned to match sampled divider color on dark
-     sections (#4D917D). --color-line (for light sections) left as-is -
-     no light-section divider was visible in the reference to check it.
-     Old: --color-line-dark: #12645C; */
-  --color-line: #C9EEE6;
-  --color-line-dark: #4D917D;
-  /* PRIMARY ACTION — VIBRANT RED */
-  --color-accent: #FF3B30;
-  --color-accent-hover: #E01E14;
-  --color-accent-tint: #FFEDEB;
-  --color-accent-light: #FF8A80;
-  /* SOFT TEAL */
-  --color-sand: #E4FAF4;
-  /* SUPPORTING ACCENT */
-  --color-gold: #FFB300;
-  --color-gold-soft: #FFD54F;
+  --color-line: #DCCFB8;      /* dividers on light grounds */
+  --color-line-dark: #4A3D2E; /* dividers on dark grounds */
+
+  /* PRIMARY ACTION — MARIGOLD
+     Carries every CTA. Always pairs with --color-ink for text, never
+     bone: marigold is a light accent and needs a dark label. */
+  --color-accent: #E0912B;
+  --color-accent-hover: #C2761A;
+  --color-accent-tint: #FCEFDC;
+  --color-accent-light: #F0B968;
+
+  /* SUPPORTING WARM GOLD — eyebrows, rules, italic subheads */
+  --color-gold: #D9A441;
+  --color-gold-soft: #EFC97E;
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
-  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
-}
-/* =====================================================
-   ROOT CUSTOM PROPERTIES – GARDEN CELEBRATIONS
-   Deep greens · Wisteria plums · Terracotta corals · Warm golds
-   ===================================================== */
-:root {
-  --color-ink: #1A1A1A;
-  --color-deep: #1A4A3A;          /* darkest forest */
-  --color-deep-raised: #3E1F47;   /* deep plum */
-  --color-bone: #FCF7F0;          /* warm ivory */
-  --color-paper: #F2EAE3;         /* soft stone */
-  --color-mute: #1A4A3A;
-  --color-mute-dark: #1A4A3A;
-  --color-mute-legible: #9A9A9A;
-  --color-line: #D1C7C3;
-  --color-line-dark: #F2EAE3;
-  --color-accent: #F25F5C;        /* coral red */
-  --color-sand: #E8DCD8;
-  --color-gold: #D4A373;          /* deep champagne */
-  --color-gold-soft: #F4A261;     /* warm amber/gold */
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* =====================================================
-   ACTUAL GRADIENT BACKGROUNDS
+   GRADIENT BACKGROUNDS
+
+   These are unlayered rules, so they intentionally win over the
+   Tailwind-generated .bg-* utilities of the same name. Every dark
+   ground below stays within the obsidian range (#14100C–#332A20)
+   so that ivory text holds well past 4.5:1 at EVERY stop — the
+   previous mint gradient put bone text at roughly 1.7:1.
    ===================================================== */
 
-/* =====================================================
-   PRIMARY GARDEN GREEN
-   DARK FOREST → MINT SAGE
-   ===================================================== */
+/* PAGE GROUND — warm ivory */
 .bg-default {
-  background: #FCF7F0;
+  background: #F7F1E6;
 }
 
+/* =====================================================
+   PRIMARY DARK GROUND — OBSIDIAN
+   Used by every inverted section, the portfolio header and the
+   lightbox. A shallow vertical lift keeps it from reading as a
+   flat black slab without ever getting light enough to threaten
+   the text on top of it.
+   ===================================================== */
 .bg-deep {
   background: linear-gradient(
     180deg,
-
-    #74C69D 0%,
-    #5b997d 50%,
-    #74C69D 100%
-
+    #14100C 0%,
+    #241D16 50%,
+    #14100C 100%
   );
 }
 
 /* =====================================================
-   WISTERIA / PLUM
-   DEEP PLUM → SOFT LAVENDER
+   RAISED OBSIDIAN
+   Panels and controls sitting ON a .bg-deep ground — one step
+   lighter so the edge reads without a border.
    ===================================================== */
 .bg-deep-raised {
   background: linear-gradient(
     180deg,
-    #3E1F47 0%,
-    #C77DFF 25%,
-    #C77DFF 75%,
-    #3E1F47 100%
+    #2E251C 0%,
+    #3D3126 50%,
+    #2E251C 100%
   );
 }
 
 /* =====================================================
-   TERRACOTTA / CORAL
-   PALE BLUSH → DEEP TERRACOTTA
+   MARIGOLD — PRIMARY ACTION
+   Pair with --color-ink text, never bone.
    ===================================================== */
 .bg-accent {
   background: linear-gradient(
     135deg,
-    #FFDDD2 0%,
-    #F4845F 30%,
-    #F25F5C 55%,
-    #B23A2E 75%,
-    #8A261A 100%
+    #F0B968 0%,
+    #E0912B 45%,
+    #C2761A 100%
   );
 }
 
-/* =====================================================
-   CORAL HOVER
-   BRIGHT CORAL → DEEP TERRACOTTA
-   ===================================================== */
 .bg-accent-hover {
   background: linear-gradient(
-    180deg,
-    #FFE3D6 0%,
-    #FF8A65 35%,
-    #F25F5C 65%,
-    #8A261A 100%
+    135deg,
+    #E0912B 0%,
+    #C2761A 55%,
+    #A45F10 100%
   );
 }
 
-/* =====================================================
-   SOFT BLUSH (box inside testimony)
-   ===================================================== */
+/* SOFT MARIGOLD WASH (quote panel inside testimonials) */
 .bg-accent-tint {
   background: linear-gradient(
     135deg,
-    #FFF0EB 0%,
-    #FFDDD2 100%
+    #FDF5E7 0%,
+    #FCEFDC 100%
   );
 }
 
 /* =====================================================
-   IVORY → PALE SAGE
-   WARM STONE WITH A GENTLE GREEN HINT
+   IVORY → WARM SAND
+   Light raised panel.
    ===================================================== */
 .bg-paper {
   background: linear-gradient(
     190deg,
-    #FCF7F0 0%,
-    #E8F1E8 50%,
-    #FCF7F0 100%
+    #F7F1E6 0%,
+    #EDE3D3 50%,
+    #F7F1E6 100%
   );
 }
 
 /* =====================================================
    TRUSTED BY & THEIR WORDS
-   WARM IVORY → SOFT STONE
+   Warm ivory → deeper sand.
    ===================================================== */
 .bg-sand {
   background: linear-gradient(
     90deg,
-    #FCF7F0 0%,
-    #F2EAE3 100%
+    #F7F1E6 0%,
+    #E6DAC5 100%
   );
 }
 
 /* =====================================================
-   PREMIUM LARGE GRADIENT
-   FOREST GREEN → CHAMPAGNE GOLD
+   PREMIUM — OBSIDIAN WARMED WITH GOLD
+   The one dark ground that carries a visible gold cast, for
+   feature bands that need more presence than .bg-deep.
    ===================================================== */
 .bg-premium {
   background: linear-gradient(
     135deg,
-    #2C4A2E 0%,
-    #74C69D 18%,
-    #5b997d 50%,
-    #74C69D 82%,
-    #2C4A2E 100%
+    #14100C 0%,
+    #332A20 22%,
+    #4A3A26 50%,
+    #332A20 78%,
+    #14100C 100%
   );
 }
 
-/* =====================================================
-   GREEN → GOLD
-   CORPORATE / PREMIUM
-   ===================================================== */
 .bg-gold-emerald {
   background: linear-gradient(
     135deg,
-    #2C4A2E 0%,
-    #74C69D 18%,
-    #5b997d 50%,
-    #74C69D 82%,
-    #2C4A2E 100%
+    #14100C 0%,
+    #332A20 22%,
+    #4A3A26 50%,
+    #332A20 78%,
+    #14100C 100%
   );
 }
 
 /* =====================================================
-   GREEN → CORAL
    MAIN BRAND GRADIENT
+   OBSIDIAN → MARIGOLD. The accent only arrives in the last
+   fifth, so the band stays dark enough to carry ivory type
+   across the portion that actually holds text.
    ===================================================== */
 .bg-brand {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 30%,
-    #74C69D 55%,
-    #F4845F 80%,
-    #F25F5C 100%
+    #14100C 0%,
+    #241D16 35%,
+    #3D3126 62%,
+    #8A5A17 85%,
+    #C2761A 100%
   );
 }
 
-/* =====================================================
-   GREEN → PLUM
-   PORTFOLIO / CREATIVE
-   ===================================================== */
+/* PORTFOLIO / CREATIVE — obsidian into deep amber */
 .bg-teal-purple {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 30%,
-    #74C69D 55%,
-    #C77DFF 80%,
-    #7B2CBF 100%
+    #14100C 0%,
+    #241D16 35%,
+    #3D3126 62%,
+    #7A4E14 85%,
+    #A45F10 100%
   );
 }
 
-/* =====================================================
-   GREEN → BLUSH
-   SPECIAL EVENTS / GARDEN PARTIES
-   ===================================================== */
+/* SPECIAL EVENTS — obsidian into soft amber */
 .bg-teal-pink {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 30%,
-    #74C69D 55%,
-    #FFDDD2 80%,
-    #F4845F 100%
+    #14100C 0%,
+    #241D16 35%,
+    #4A3A26 62%,
+    #A87424 85%,
+    #E0912B 100%
   );
 }
 
-/* =====================================================
-   GREEN → AMBER
-   ENERGETIC SECTIONS
-   ===================================================== */
+/* ENERGETIC SECTIONS — obsidian into full marigold */
 .bg-teal-orange {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 30%,
-    #74C69D 55%,
-    #E9C46A 80%,
-    #F4A261 100%
+    #14100C 0%,
+    #241D16 35%,
+    #4A3A26 62%,
+    #C2761A 85%,
+    #F0B968 100%
   );
 }
 
 /* =====================================================
-   GRADIENT TEXT
-   FOREST → MINT
+   GRADIENT TEXT — for display figures on LIGHT grounds.
+   Stays dark end-to-end so the numerals keep their contrast.
    ===================================================== */
 .gradient-text {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 30%,
-    #40916C 55%,
-    #74C69D 75%,
-    #A8D5BA 100%
+    #14100C 0%,
+    #2E251C 35%,
+    #4A3A26 65%,
+    #6B5220 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -294,9 +269,9 @@
   body {
     background: linear-gradient(
       90deg,
-      #FCF7F0 0%,
-      #F2EAE3 50%,
-      #FCF7F0 100%
+      #F7F1E6 0%,
+      #EDE3D3 50%,
+      #F7F1E6 100%
     );
     color: var(--color-ink);
     font-family: var(--font-sans);

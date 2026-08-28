@@ -39,7 +39,7 @@ export default function ContactPage() {
 
       <section className="bg-bone">
         <Container className="section-y">
-          <div className="grid md:grid-cols-12 gap-12 md:gap-20">
+          <div className="grid md:grid-cols-12 gap-12 lg:gap-16">
             <Reveal className="md:col-span-5">
               <div className="text-xs uppercase tracking-[0.18em] text-mute mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-mute" />
@@ -54,7 +54,7 @@ export default function ContactPage() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-3 bg-deep text-bone px-6 py-5 hover:bg-accent transition-colors"
+                  className="group flex items-center justify-between gap-3 bg-deep text-bone px-6 py-5 hover:bg-accent hover:text-ink transition-colors"
                 >
                   <span className="text-sm uppercase tracking-wider">WhatsApp Enquiry</span>
                   <ArrowRight />

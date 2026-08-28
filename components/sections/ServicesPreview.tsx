@@ -75,11 +75,12 @@ function DesktopIndex() {
                   className={`font-mono text-[10px] w-7 shrink-0 transition-colors duration-300 ${
                     isActive
                       ? // Gradient text needs background-clip:text + a
-                        // transparent fill color — this is why it can't
-                        // reuse the plain `text-accent` utility class the
-                        // way the inactive state does. Same endpoints as
-                        // the CTA button gradient, for consistency.
-                        "bg-[linear-gradient(180deg,#D60F10_0%,#830204_100%)] bg-clip-text text-transparent"
+                        // transparent fill color, so this can't reuse the
+                        // plain `text-accent` utility the inactive state
+                        // uses. Stops are the burnt end of the marigold
+                        // ramp rather than --color-accent, which sits at
+                        // only ~2.4:1 at this size on an ivory ground.
+                        "bg-[linear-gradient(180deg,#A45F10_0%,#5E3C0E_100%)] bg-clip-text text-transparent"
                       : "text-mute"
                   }`}
                 >
@@ -105,7 +106,7 @@ function DesktopIndex() {
                   // gradient text (text-transparent), the SVG would
                   // inherit transparent too and disappear — currentColor
                   // only carries a single resolved color, not a gradient.
-                  className="inline-flex items-center text-[#AC080A]"
+                  className="inline-flex items-center text-[#7A4E14]"
                   aria-hidden
                 >
                   <Arrow />

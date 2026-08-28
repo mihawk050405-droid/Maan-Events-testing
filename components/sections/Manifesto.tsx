@@ -26,9 +26,9 @@ export function Manifesto() {
 
         {/* Image block */}
         <Reveal delay={0.1}>
-          <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-200 shadow-xl">
+          <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-sand-solid shadow-xl">
             <Image
-              src="/portfolio/concerts/zahir-khan/02.webp"  // ✅ fixed: added "s" to "concerts"
+              src="/portfolio/concerts/zahir-khan/02.webp"
               alt="Concert crowd – Zahir Khan"
               fill
               className="object-cover"
