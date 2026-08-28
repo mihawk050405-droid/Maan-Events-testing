@@ -58,11 +58,11 @@
   --color-deep-raised: #3E1F47;   /* deep plum */
   --color-bone: #FCF7F0;          /* warm ivory */
   --color-paper: #F2EAE3;         /* soft stone */
-  --color-mute: #6B6B6B;
-  --color-mute-dark: #4A4A4A;
+  --color-mute: #1A4A3A;
+  --color-mute-dark: #1A4A3A;
   --color-mute-legible: #9A9A9A;
   --color-line: #D1C7C3;
-  --color-line-dark: #A89F9A;
+  --color-line-dark: #F2EAE3;
   --color-accent: #F25F5C;        /* coral red */
   --color-sand: #E8DCD8;
   --color-gold: #D4A373;          /* deep champagne */
@@ -179,12 +179,11 @@
 .bg-premium {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 25%,
-    #1A4A3A 45%,
-    #D4A373 65%,
-    #F4A261 82%,
-    #E9C46A 100%
+    #2C4A2E 0%,
+    #74C69D 18%,
+    #5b997d 50%,
+    #74C69D 82%,
+    #2C4A2E 100%
   );
 }
 
@@ -195,11 +194,11 @@
 .bg-gold-emerald {
   background: linear-gradient(
     135deg,
-    #1A4A3A 0%,
-    #2D6A4F 30%,
-    #40916C 55%,
-    #F4A261 80%,
-    #D4A373 100%
+    #2C4A2E 0%,
+    #74C69D 18%,
+    #5b997d 50%,
+    #74C69D 82%,
+    #2C4A2E 100%
   );
 }
 
