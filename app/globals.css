@@ -1,65 +1,265 @@
 @import "tailwindcss";
 
 @theme {
-  /* Text colour. Softened off pure black — the old #0B0B0F read as harsh at
-     full-bleed. Still 15.7:1 on bone, so body copy loses nothing. */
-  --color-ink: #16191C;
-
-  /* Dark surfaces. Petrol teal rather than black: it sits opposite the red and
-     amber of the logo on the colour wheel, so the mark and the accent lift off
-     it. Also politically inert here — no AP/TS party runs teal, unlike yellow
-     (TDP), saffron (BJP), green (AIMIM), pink (BRS) or bright blue (YSRCP). */
-  --color-deep: #123A44;
-  --color-deep-raised: #17464F;
-
-  --color-bone: #F5F1EA;
+  /* =====================================================
+     SOLID COLORS — keep these for text, borders, icons
+     ===================================================== */
+  /* PRIMARY BRAND — DEEP TEAL */
+  --color-ink: #063F3D;
+  --color-deep: #063F3D;
+  --color-deep-raised: #0F9F9A;
+  /* LIGHT */
+  --color-bone: #FFFFFF;
   --color-paper: #FFFFFF;
-  --color-mute: #6B6B72;
-  /* Lightened from #9A9A9F, which only reached 4.37:1 on `deep`. */
-  --color-mute-dark: #A0A0A6;
-  --color-line: #E5E0D6;
-  --color-line-dark: #1F3A42;
-  --color-accent: #C8221C;
-  --color-accent-hover: #A91812;
-  --color-accent-tint: #F7E9E7;
-
-  /* The brand red only reaches 2.2:1 on `deep` (and was already failing at
-     3.5:1 on the old black), so dark sections use this lighter tint of it
-     instead — 4.8:1, clears AA for body text. */
-  --color-accent-light: #EF8378;
-
-  /* Surface steps: `bone` is the page, `sand` lifts a card off it, `paper` is
-     brightest. `deep-raised` does the same job on dark sections. */
-  --color-sand: #EDE7DB;
-
-  /* Bronze, not yellow — hue ~35deg at half saturation. Keep it to hairlines,
-     small marks and dark backgrounds, where it reads metallic. Large flat
-     fills on `bone` warm toward yellow, which this site deliberately avoids:
-     Maan Events builds for competing parties and yellow belongs to one.
-     `gold` is the on-light variant, darkened from #B8893E so a hairline is
-     actually visible against bone (2.8:1 -> 3.9:1); `gold-soft` is for dark. */
-  --color-gold: #9C712E;
-  --color-gold-soft: #D7B77E;
-
+  /* MUTED TEAL-GREY */
+  --color-mute: #5F8581;
+  --color-mute-dark: #8FB1AD;
+  /* LINES */
+  --color-line: #DCEDEA;
+  --color-line-dark: #174F4B;
+  /* PRIMARY ACTION — RED */
+  --color-accent: #E53935;
+  --color-accent-hover: #C62828;
+  --color-accent-tint: #FFF1F0;
+  --color-accent-light: #FF8A85;
+  /* SOFT TEAL */
+  --color-sand: #EDF8F7;
+  /* SUPPORTING ACCENT */
+  --color-gold: #F5B82E;
+  --color-gold-soft: #F7D56B;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
-
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* =====================================================
+   ACTUAL GRADIENT BACKGROUNDS
+   ===================================================== */
+/* =====================================================
+   PRIMARY TEAL
+   DARK TEAL → CYAN #2D4A3E Sage Green: #8F9E8B
+   ===================================================== */
+.bg-default {
+  background: linear-gradient(
+    90deg,
+    #EFECE6 0%,
+    #8A857C 50%,
+    #EFECE6 100%
+  );
+}
+.bg-deep {
+   background: linear-gradient(135deg, 
+        #2D4A3E 0%, 
+        #8F9E8B 18%, 
+        #2D4A3E 50%, 
+        #8F9E8B 82%, 
+        #2D4A3E 100%
+    );
+}
+/* =====================================================
+   BRIGHT TEAL
+   DEEP TEAL → BRIGHT CYAN
+   ===================================================== */
+.bg-deep-raised {
+  background: linear-gradient(
+    180deg,
+#032C2B 0%,
+#075F5D 25%,
+#075F5D 75%,
+#032C2B 100%
+  );
+}
+/* =====================================================
+   RED / CORAL
+   CORAL RED → DEEP RED
+   ===================================================== */
+.bg-accent {
+  background: linear-gradient(
+    135deg,
+    #FF6B6B 0%,
+    #F04444 30%,
+    #E53935 55%,
+    #D72F2F 75%,
+    #B91C1C 100%
+  );
+}
+/* =====================================================
+   RED HOVER
+   BRIGHT RED → DEEP RED
+   ===================================================== */
+.bg-accent-hover {
+  background: linear-gradient(
+    180deg,
+    #FF7A7A 0%,
+    #FF4545 35%,
+    #E53935 65%,
+    #991B1B 100%
+  );
+}
+/* =====================================================
+   SOFT RED (box inside testmony)
+   ===================================================== */
+.bg-accent-tint {
+  background: linear-gradient(
+    135deg,
+    #FFF9F8 0%,
+    #FFF0EF 40%,
+    #FFE1DF 70%,
+    #FFD0CD 100%
+  );
+}
+/* =====================================================
+   WHITE → PALE TEAL
+   ===================================================== */
+.bg-paper {
+  background: linear-gradient(
+    135deg,
+    #F7F3EE 0%,
+    #E0D4E0 25%,
+    #F7F3EE 50%,
+    #E0D4E0 75%,
+    #FAF1E8 100%
+  );
+}
+/* =====================================================
+   TRUSTED BY &THEIR WORDS ()
+   ===================================================== */
+
+.bg-sand {
+  background: linear-gradient(
+    135deg,
+    #EFECE6 0%, #8A857C 50%, #EFECE6 100%
+  );
+}
+/* =====================================================
+   PREMIUM LARGE TEAL GRADIENT
+   DEEP TEAL → BRIGHT CYAN
+   ===================================================== */
+.bg-premium {
+  background: linear-gradient(
+    135deg,
+    #021F20 0%,
+    #043F3D 25%,
+    #075F5D 45%,
+    #0F918C 65%,
+    #19C3C8 82%,
+    #22D3EE 100%
+  );
+}
+/* =====================================================
+   TEAL → RED
+   PREMIUM / CORPORATE
+   ===================================================== */
+.bg-gold-emerald {
+  background: linear-gradient(
+    135deg,
+    #043F3D 0%,
+    #075F5D 30%,
+    #0F918C 55%,
+    #E53935 80%,
+    #B91C1C 100%
+  );
+}
+/* =====================================================
+   TEAL → RED
+   MAIN BRAND GRADIENT
+   ===================================================== */
+
+.bg-brand {
+  background: linear-gradient(
+    135deg,
+    #FF6B6B 0%,
+    #F04444 30%,
+    #E53935 55%,
+    #D72F2F 75%,
+    #B91C1C 100%
+  );
+}
+/* =====================================================
+   TEAL → PURPLE
+   PORTFOLIO / CREATIVE
+   ===================================================== */
+.bg-teal-purple {
+  background: linear-gradient(
+    135deg,
+    #FF6B6B 0%,
+    #F04444 30%,
+    #E53935 55%,
+    #D72F2F 75%,
+    #B91C1C 100%
+  );
+}
+/* =====================================================
+   TEAL → PINK
+   SPECIAL EVENTS
+   ===================================================== */
+.bg-teal-pink {
+  background: linear-gradient(
+    135deg,
+    #FF6B6B 0%,
+    #075F5D 30%,
+    #14B8B0 55%,
+    #f47272 80%,
+    #db2727 100%
+  );
+}
+/* =====================================================
+   TEAL → ORANGE
+   ENERGETIC SECTIONS
+   ===================================================== */
+.bg-teal-orange {
+  background: linear-gradient(
+    135deg,
+    #043F3D 0%,
+    #075F5D 30%,
+    #10A6A0 55%,
+    #FB923C 80%,
+    #ea0c0c 100%
+  );
+}
+/* =====================================================
+   GRADIENT TEXT
+   TEAL → CYAN
+   ===================================================== */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #FF6B6B 0%,
+    #F04444 30%,
+    #E53935 55%,
+    #D72F2F 75%,
+    #B91C1C 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+/* =====================================================
+   BASE
+   ===================================================== */
 
 @layer base {
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
   body {
-    background: var(--color-bone);
+    background: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
-  h1, h2, h3, h4 {
+
+  h1,
+
+  h2,
+
+  h3,
+
+  h4 {
     font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.02em;
@@ -70,8 +270,6 @@
     color: var(--color-bone);
   }
 
-  /* Every interactive element here has a :hover state; without this, keyboard
-     users get no equivalent. Offset so the ring clears image and dark fills. */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
@@ -81,9 +279,6 @@
   .text-bone :focus-visible {
     outline-color: var(--color-gold-soft);
   }
-
-  /* Backstop for anything animated in CSS rather than through framer-motion,
-     which is guarded per-component with useReducedMotion(). */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -96,36 +291,42 @@
   }
 }
 
+/* =====================================================
+   OTHER UTILITIES
+   ===================================================== */
 @utility container-x {
   width: 100%;
   max-width: 1440px;
+  max-height: 50%;
   margin-inline: auto;
   padding-inline: 1.25rem;
-  @media (min-width: 768px) { padding-inline: 2rem; }
-  @media (min-width: 1280px) { padding-inline: 3rem; }
+  @media (min-width: 720px) {
+    padding-inline: 2rem;
+  }
 }
 
 @utility section-y {
-  padding-block: 4rem;
-  @media (min-width: 768px) { padding-block: 6rem; }
-  @media (min-width: 1024px) { padding-block: 8rem; }
-}
 
+  padding-block: 4rem;
+  @media (min-width: 768px) {
+    padding-block: 6rem;
+  }
+
+  @media (min-width: 14px) {
+    padding-block: 8rem;
+  }
+}
 @utility hairline {
   border-top: 1px solid var(--color-line);
 }
-
-/* hide scrollbar on horizontal snap rows */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* Nav links: the underline wipes in from the left and back out to the right,
-   rather than the bare colour swap this had before. Keyboard focus gets the
-   same affordance as hover. */
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
 .nav-link {
   position: relative;
   transition: color 300ms var(--ease-premium);
 }
+
 .nav-link::after {
   content: "";
   position: absolute;
@@ -144,5 +345,19 @@
   transform-origin: left;
 }
 @media (prefers-reduced-motion: reduce) {
-  .nav-link::after { transition: none; }
+  .nav-link::after {
+    transition: none;
+  }
 }
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
