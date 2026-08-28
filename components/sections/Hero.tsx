@@ -50,7 +50,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative container-x flex min-h-[100svh] flex-col justify-end pb-20 pt-32 md:pb-28 md:pt-40 lg:min-h-[110svh]">
+      <div className="relative container-x flex min-h-[65svh] lg:min-h-[70svh] flex-col justify-end pb-14 pt-24 md:pb-18 md:pt-32">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,14 +99,14 @@ export function Hero() {
         >
           <Link
             href="/portfolio/"
-            className="group inline-flex items-center gap-3 bg-bone text-ink px-7 py-4 text-sm uppercase tracking-wider hover:bg-accent hover:text-bone transition-colors duration-300"
+            className="group inline-flex items-center gap-3 bg-[linear-gradient(180deg,#FFFFFF_0%,#EAF6F4_100%)] text-ink px-7 py-4 text-sm uppercase tracking-wider hover:bg-accent hover:text-bone transition-all duration-300 shadow-md"
           >
             View Portfolio
             <ArrowRight />
           </Link>
           <Link
             href="/services/"
-            className="group inline-flex items-center gap-3 border border-bone/30 px-7 py-4 text-sm uppercase tracking-wider hover:border-bone transition-colors duration-300"
+            className="group inline-flex items-center gap-3 border border-bone/30 bg-white/5 hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.15)_0%,rgba(15,145,140,0.25)_100%)] px-7 py-4 text-sm uppercase tracking-wider hover:border-bone transition-all duration-300"
           >
             Our Capabilities
             <ArrowRight />

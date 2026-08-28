@@ -27,7 +27,20 @@ export function Testimonials() {
           ))}
         </Stagger>
         <Reveal delay={0.2}>
-          <p className="mt-12 border-l-2 border-accent bg-accent-tint px-5 py-4 text-sm text-ink/75 max-w-2xl">
+          {/*
+            border-color can't render a gradient — it needs border-image,
+            which is a different property and REPLACES border-color
+            entirely. border-image-slice: 1 is required or the image
+            renders nothing at all on a solid 2px rule like this.
+            Contrast is non-text/decorative (3:1 floor): gradient-top vs
+            sand 4.33:1, gradient-bottom vs sand 8.63:1, both clear easily.
+          */}
+          <p
+            className="mt-12 border-l-2 bg-accent-tint px-5 py-4 text-sm text-ink/75 max-w-2xl"
+            style={{
+              borderImage: "linear-gradient(180deg, #D60F10 0%, #830204 100%) 1",
+            }}
+          >
             More client testimonials will be published shortly. To request references for a
             specific engagement, please reach us directly.
           </p>

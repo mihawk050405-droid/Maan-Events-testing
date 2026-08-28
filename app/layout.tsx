@@ -21,7 +21,8 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://maanevents.com"),
   title: {
-    default: "Maan Events — Event Infrastructure for Government, Corporate & Mega Events",
+    default:
+      "Maan Events — Event Infrastructure for Government, Corporate & Mega Events",
     template: "%s · Maan Events",
   },
   description:
@@ -57,7 +58,13 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${fraunces.variable}`}
     >
-      <body className="min-h-dvh flex flex-col bg-bone text-ink antialiased">
+      <body
+        className="min-h-dvh flex flex-col text-ink antialiased"
+        style={{
+          background:
+            "linear-gradient(90deg, #EFECE6 0%, #8A857C 50%, #EFECE6 100%)",
+        }}
+      >
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />

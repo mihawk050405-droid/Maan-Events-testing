@@ -1,66 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-
   /* =====================================================
      SOLID COLORS — keep these for text, borders, icons
      ===================================================== */
-
   /* PRIMARY BRAND — DEEP TEAL */
   --color-ink: #063F3D;
   --color-deep: #063F3D;
   --color-deep-raised: #0F9F9A;
-
   /* LIGHT */
   --color-bone: #FFFFFF;
   --color-paper: #FFFFFF;
-
   /* MUTED TEAL-GREY */
   --color-mute: #5F8581;
   --color-mute-dark: #8FB1AD;
-
   /* LINES */
   --color-line: #DCEDEA;
-  --color-line-dark: #174F4C;
-
+  --color-line-dark: #174F4B;
   /* PRIMARY ACTION — RED */
   --color-accent: #E53935;
   --color-accent-hover: #C62828;
   --color-accent-tint: #FFF1F0;
   --color-accent-light: #FF8A85;
-
   /* SOFT TEAL */
   --color-sand: #EDF8F7;
-
   /* SUPPORTING ACCENT */
   --color-gold: #F5B82E;
   --color-gold-soft: #F7D56B;
-
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-
 /* =====================================================
    ACTUAL GRADIENT BACKGROUNDS
    ===================================================== */
-
-
 /* =====================================================
    PRIMARY TEAL
    DARK TEAL → CYAN #2D4A3E Sage Green: #8F9E8B
    ===================================================== */
-
 .bg-default {
-  background: linear-gradient(
-    90deg,
-    #EFECE6 0%,
-    #8A857C 50%,
-    #EFECE6 100%
-  );
+  background: #FFFFFF;
 }
-
 .bg-deep {
    background: linear-gradient(135deg,
         #2D4A3E 0%,
@@ -70,29 +50,23 @@
         #2D4A3E 100%
     );
 }
-
-
 /* =====================================================
    BRIGHT TEAL
    DEEP TEAL → BRIGHT CYAN
    ===================================================== */
-
 .bg-deep-raised {
   background: linear-gradient(
     180deg,
-    #032C2B 0%,
-    #075F5D 25%,
-    #075F5D 75%,
-    #032C2B 100%
+#032C2B 0%,
+#075F5D 25%,
+#075F5D 75%,
+#032C2B 100%
   );
 }
-
-
 /* =====================================================
    RED / CORAL
    CORAL RED → DEEP RED
    ===================================================== */
-
 .bg-accent {
   background: linear-gradient(
     135deg,
@@ -103,13 +77,10 @@
     #B91C1C 100%
   );
 }
-
-
 /* =====================================================
    RED HOVER
    BRIGHT RED → DEEP RED
    ===================================================== */
-
 .bg-accent-hover {
   background: linear-gradient(
     180deg,
@@ -119,36 +90,31 @@
     #991B1B 100%
   );
 }
-
-
 /* =====================================================
    SOFT RED (box inside testmony)
    ===================================================== */
-
 .bg-accent-tint {
   background: linear-gradient(
     135deg,
-    #EFECE6 0%,
-    #8A857C 50%,
-    #EFECE6 100%
+    #FFF9F8 0%,
+    #FFF0EF 40%,
+    #FFE1DF 70%,
+    #FFD0CD 100%
   );
 }
-
-
 /* =====================================================
    WHITE → PALE TEAL
    ===================================================== */
-
 .bg-paper {
   background: linear-gradient(
     135deg,
-    #EFECE6 0%,
-    #8A857C 50%,
-    #EFECE6 100%
+    #F7F3EE 0%,
+    #E0D4E0 25%,
+    #F7F3EE 50%,
+    #E0D4E0 75%,
+    #FAF1E8 100%
   );
 }
-
-
 /* =====================================================
    TRUSTED BY &THEIR WORDS ()
    ===================================================== */
@@ -156,18 +122,13 @@
 .bg-sand {
   background: linear-gradient(
     135deg,
-    #EFECE6 0%,
-    #8A857C 50%,
-    #EFECE6 100%
+    #ffffff
   );
 }
-
-
 /* =====================================================
    PREMIUM LARGE TEAL GRADIENT
    DEEP TEAL → BRIGHT CYAN
    ===================================================== */
-
 .bg-premium {
   background: linear-gradient(
     135deg,
@@ -179,13 +140,10 @@
     #22D3EE 100%
   );
 }
-
-
 /* =====================================================
    TEAL → RED
    PREMIUM / CORPORATE
    ===================================================== */
-
 .bg-gold-emerald {
   background: linear-gradient(
     135deg,
@@ -196,8 +154,6 @@
     #B91C1C 100%
   );
 }
-
-
 /* =====================================================
    TEAL → RED
    MAIN BRAND GRADIENT
@@ -213,13 +169,10 @@
     #B91C1C 100%
   );
 }
-
-
 /* =====================================================
    TEAL → PURPLE
    PORTFOLIO / CREATIVE
    ===================================================== */
-
 .bg-teal-purple {
   background: linear-gradient(
     135deg,
@@ -230,13 +183,10 @@
     #B91C1C 100%
   );
 }
-
-
 /* =====================================================
    TEAL → PINK
    SPECIAL EVENTS
    ===================================================== */
-
 .bg-teal-pink {
   background: linear-gradient(
     135deg,
@@ -247,13 +197,10 @@
     #db2727 100%
   );
 }
-
-
 /* =====================================================
    TEAL → ORANGE
    ENERGETIC SECTIONS
    ===================================================== */
-
 .bg-teal-orange {
   background: linear-gradient(
     135deg,
@@ -264,13 +211,10 @@
     #ea0c0c 100%
   );
 }
-
-
 /* =====================================================
    GRADIENT TEXT
    TEAL → CYAN
    ===================================================== */
-
 .gradient-text {
   background: linear-gradient(
     135deg,
@@ -285,27 +229,36 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
-
-
 /* =====================================================
    BASE
    ===================================================== */
 
 @layer base {
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
   body {
-    background: var(--color-paper);
+    background: linear-gradient(
+      90deg,
+      #EFECE6 0%,
+      #8A857C 50%,
+      #EFECE6 100%
+    );
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
+
   h1,
+
   h2,
+
   h3,
+
   h4 {
     font-family: var(--font-display);
     font-weight: 500;
@@ -316,6 +269,7 @@
     background: var(--color-ink);
     color: var(--color-bone);
   }
+
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
@@ -337,43 +291,37 @@
   }
 }
 
-
 /* =====================================================
    OTHER UTILITIES
    ===================================================== */
-
 @utility container-x {
   width: 100%;
   max-width: 1440px;
+  max-height: 50%;
   margin-inline: auto;
   padding-inline: 1.25rem;
   @media (min-width: 720px) {
     padding-inline: 2rem;
   }
-  @media (min-width: 1280px) {
-    padding-inline: 3rem;
-  }
 }
 
 @utility section-y {
+
   padding-block: 4rem;
   @media (min-width: 768px) {
     padding-block: 6rem;
   }
-  @media (min-width: 1400px) {
+
+  @media (min-width: 14px) {
     padding-block: 8rem;
   }
 }
-
 @utility hairline {
   border-top: 1px solid var(--color-line);
 }
-
-
 /* =====================================================
    NAVIGATION
    ===================================================== */
-
 .nav-link {
   position: relative;
   transition: color 300ms var(--ease-premium);
@@ -391,28 +339,23 @@
   transform-origin: right;
   transition: transform 400ms var(--ease-premium);
 }
-
 .nav-link:hover::after,
 .nav-link:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .nav-link::after {
     transition: none;
   }
 }
-
-
 /* =====================================================
    SCROLLBAR
    ===================================================== */
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
-}
 
+}
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
