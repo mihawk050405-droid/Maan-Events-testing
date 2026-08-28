@@ -84,12 +84,12 @@
 
 .bg-deep {
   background: linear-gradient(
-    135deg,
-    #2C4A2E 0%,
-    #74C69D 18%,
+    180deg,
+
+    #74C69D 0%,
     #5b997d 50%,
-    #74C69D 82%,
-    #2C4A2E 100%
+    #74C69D 100%
+
   );
 }
 
