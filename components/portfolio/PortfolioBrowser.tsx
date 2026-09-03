@@ -3,20 +3,22 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { categories, projects, imagesFor, type Project } from "@/content/portfolio";
+import { categories, galleryImages, type GalleryImage } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
 const ALL = "all";
 
 export function PortfolioBrowser() {
   const [active, setActive] = useState<string>(ALL);
-  const [openProject, setOpenProject] = useState<Project | null>(null);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const reduce = useReducedMotion();
 
+  // Category straight to images — no per-project grouping shown or
+  // clicked through. `filtered` is what's on screen and what the
+  // lightbox arrows step through.
   const filtered = useMemo(() => {
-    if (active === ALL) return projects;
-    return projects.filter((p) => p.category === active);
+    if (active === ALL) return galleryImages;
+    return galleryImages.filter((img) => img.category === active);
   }, [active]);
 
   const filters = useMemo(
@@ -24,31 +26,34 @@ export function PortfolioBrowser() {
     [],
   );
 
-  const openLightbox = (p: Project) => {
-    setOpenProject(p);
-    setImageIndex(0);
+  const openLightbox = (index: number) => {
+    setOpenIndex(index);
     document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = useCallback(() => {
-    setOpenProject(null);
+    setOpenIndex(null);
     document.body.style.overflow = "";
   }, []);
 
   const nextImage = useCallback(() => {
-    setImageIndex((i) => (openProject ? (i + 1) % openProject.imageCount : i));
-  }, [openProject]);
+    setOpenIndex((i) => (i === null ? i : (i + 1) % filtered.length));
+  }, [filtered.length]);
 
   const prevImage = useCallback(() => {
-    setImageIndex((i) =>
-      openProject ? (i - 1 + openProject.imageCount) % openProject.imageCount : i,
-    );
-  }, [openProject]);
+    setOpenIndex((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
+  }, [filtered.length]);
 
-  // A 24-image gallery is unusable without arrow keys, and a modal that traps
+  // Switching categories with the lightbox open would leave the index
+  // pointing at a different photo than the one on screen — close it.
+  useEffect(() => {
+    closeLightbox();
+  }, [active, closeLightbox]);
+
+  // A large gallery is unusable without arrow keys, and a modal that traps
   // scroll must always be dismissible with Escape.
   useEffect(() => {
-    if (!openProject) return;
+    if (openIndex === null) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeLightbox();
@@ -60,12 +65,14 @@ export function PortfolioBrowser() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [openProject, closeLightbox, nextImage, prevImage]);
+  }, [openIndex, closeLightbox, nextImage, prevImage]);
 
   // Restore scroll if this unmounts while the lightbox is still open.
   useEffect(() => () => {
     document.body.style.overflow = "";
   }, []);
+
+  const openImage: GalleryImage | null = openIndex === null ? null : filtered[openIndex];
 
   return (
     <>
@@ -97,9 +104,9 @@ export function PortfolioBrowser() {
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5"
       >
         <AnimatePresence mode="popLayout">
-          {filtered.map((p) => (
+          {filtered.map((img, i) => (
             <motion.button
-              key={p.slug}
+              key={img.key}
               layout
               // Architectural wipe rather than a pop — the frame stays put and
               // the image is uncovered from the bottom up.
@@ -115,39 +122,21 @@ export function PortfolioBrowser() {
                 reduce ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
               }
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              onClick={() => openLightbox(p)}
-              aria-label={`${p.nameConfirmed ? p.title : "Untitled project"} — ${p.categoryLabel}, ${p.imageCount} images`}
+              onClick={() => openLightbox(i)}
+              aria-label={img.categoryLabel}
               className="group relative aspect-[4/5] overflow-hidden bg-line text-left"
             >
               <Image
-                src={p.cover}
-                // Alt describes the work, not the placeholder — a screen
-                // reader should never be read "Event Name — TBD".
-                alt={p.nameConfirmed ? `${p.title} — ${p.categoryLabel}` : p.categoryLabel}
+                src={img.src}
+                alt={img.categoryLabel}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
               />
-              {/* The caption runs to three lines on a phone-width tile, so
-                  the scrim has to stay opaque well past the halfway mark —
-                  at via-deep/0 the label sat on bare photo. */}
-              <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/45 to-transparent opacity-95 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-end text-bone">
-                <div className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
-                  {p.categoryLabel}
-                </div>
-                <div
-                  className={cn(
-                    "font-display text-base md:text-xl leading-tight",
-                    // A pending name reads as a held space, not as copy —
-                    // but it still has to be readable over a bright photo.
-                    !p.nameConfirmed && "italic font-light text-bone/75",
-                  )}
-                >
-                  {p.title}
-                </div>
-                <div className="mt-1 text-[10px] text-bone/60">
-                  {p.imageCount} {p.imageCount === 1 ? "image" : "images"}
+              <div className="absolute inset-0 bg-gradient-to-t from-deep/70 via-deep/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-end text-bone opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] text-bone/80">
+                  {img.categoryLabel}
                 </div>
               </div>
             </motion.button>
@@ -157,7 +146,7 @@ export function PortfolioBrowser() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {openProject && (
+        {openImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -167,18 +156,8 @@ export function PortfolioBrowser() {
             onClick={closeLightbox}
           >
             <div className="flex items-center justify-between p-5 md:p-7 text-bone" onClick={(e) => e.stopPropagation()}>
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.22em] text-bone/60">
-                  {openProject.categoryLabel}
-                </div>
-                <div
-                  className={cn(
-                    "font-display text-xl md:text-2xl",
-                    !openProject.nameConfirmed && "italic font-light text-bone/60",
-                  )}
-                >
-                  {openProject.title}
-                </div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-bone/60">
+                {openImage.categoryLabel}
               </div>
               <button
                 onClick={closeLightbox}
@@ -195,15 +174,15 @@ export function PortfolioBrowser() {
               onClick={(e) => e.stopPropagation()}
             >
               <motion.div
-                key={imageIndex}
+                key={openIndex}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.35 }}
                 className="relative w-full h-full max-h-[78vh]"
               >
                 <Image
-                  src={imagesFor(openProject)[imageIndex]}
-                  alt={`${openProject.nameConfirmed ? openProject.title : openProject.categoryLabel} — image ${imageIndex + 1} of ${openProject.imageCount}`}
+                  src={openImage.src}
+                  alt={`${openImage.categoryLabel} — image ${(openIndex ?? 0) + 1} of ${filtered.length}`}
                   fill
                   className="object-contain"
                   sizes="100vw"
@@ -211,7 +190,7 @@ export function PortfolioBrowser() {
                 />
               </motion.div>
 
-              {openProject.imageCount > 1 && (
+              {filtered.length > 1 && (
                 <>
                   <button
                     onClick={prevImage}
@@ -236,9 +215,9 @@ export function PortfolioBrowser() {
             </div>
             <div className="p-5 md:p-7 text-center text-xs text-bone/60" onClick={(e) => e.stopPropagation()}>
               <span className="tabular-nums">
-                {imageIndex + 1} / {openProject.imageCount}
+                {(openIndex ?? 0) + 1} / {filtered.length}
               </span>
-              {openProject.imageCount > 1 && (
+              {filtered.length > 1 && (
                 <span className="ml-3 hidden md:inline text-bone/40">
                   Use ← → to browse · Esc to close
                 </span>

@@ -234,6 +234,40 @@ export const projects: Project[] = [
 /** Projects still awaiting a confirmed event name from the client. */
 export const projectsAwaitingName = projects.filter((p) => !p.nameConfirmed);
 
+/* =======================================================================
+   GALLERY IMAGES
+
+   The portfolio page shows images directly under a category — the
+   per-project grouping (event names, many still "TBD") is a curation
+   detail, not something a visitor picks through. `galleryImages`
+   flattens every project's photos into one ordered list, category
+   trust order preserved, so the page can go straight from category to
+   image with no subcategory step in between.
+   ======================================================================= */
+
+export type GalleryImage = {
+  /** Stable key for list rendering — not shown anywhere. */
+  key: string;
+  src: string;
+  category: string;
+  categoryLabel: string;
+};
+
+export const galleryImages: GalleryImage[] = [...projects]
+  .sort((a, b) => {
+    const wa = categories.find((c) => c.slug === a.category)?.weight ?? 0;
+    const wb = categories.find((c) => c.slug === b.category)?.weight ?? 0;
+    return wb - wa;
+  })
+  .flatMap((p) =>
+    p.images.map((src, i) => ({
+      key: `${p.slug}-${i}`,
+      src,
+      category: p.category,
+      categoryLabel: p.categoryLabel,
+    })),
+  );
+
 export const imagesFor = (p: Project): string[] => p.images;
 
 export const projectsByCategory = (slug: string) =>
