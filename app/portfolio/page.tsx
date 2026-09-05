@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { PortfolioBrowser } from "@/components/portfolio/PortfolioBrowser";
 import { CTA } from "@/components/sections/CTA";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: "Portfolio — Selected Work Across Government, Corporate & Public Events",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function PortfolioPage() {
   return (
     <>
+      <BreadcrumbJsonLd crumbs={[{ name: "Home", url: "/" }, { name: "Portfolio", url: "/portfolio/" }]} />
       <section className="bg-deep text-bone -mt-16 md:-mt-20">
         <Container className="pt-36 md:pt-52 pb-16 md:pb-24">
           <Reveal>

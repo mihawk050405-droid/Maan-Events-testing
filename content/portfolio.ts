@@ -186,11 +186,11 @@ export const projects: Project[] = [
   mk("cm-events", "cm-police-event", { name: "CM Police Event" }),
   mk("cm-events", "gandikota"),
   // 02.jpg onward lead with leader portraits
-  mk("cm-events", "mega-dsc", { name: "Mega DSC", cover: "05.jpg" }),
+  mk("cm-events", "mega-dsc", { name: "Mega DSC", cover: "04.jpg" }),
   // 02–05 carry CM portraits on banners
   mk("cm-events", "ts-cm-event-abhinandhana-sabha", {
     name: "Abhinandana Sabha",
-    cover: "07.jpg",
+    cover: "06.jpg",
   }),
 
   // Corporate
@@ -251,6 +251,8 @@ export type GalleryImage = {
   src: string;
   category: string;
   categoryLabel: string;
+  /** The confirmed event name, when there is one — feeds image alt text. */
+  title?: string;
 };
 
 export const galleryImages: GalleryImage[] = [...projects]
@@ -265,6 +267,7 @@ export const galleryImages: GalleryImage[] = [...projects]
       src,
       category: p.category,
       categoryLabel: p.categoryLabel,
+      title: p.nameConfirmed ? (p.name ?? undefined) : undefined,
     })),
   );
 

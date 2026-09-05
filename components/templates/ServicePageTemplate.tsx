@@ -6,6 +6,7 @@ import { projects } from "@/content/portfolio";
 import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
+import { ServiceJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const SHOWCASE_SIZE = 6;
 
@@ -57,6 +58,14 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
 
   return (
     <>
+      <ServiceJsonLd service={service} />
+      <BreadcrumbJsonLd
+        crumbs={[
+          { name: "Home", url: "/" },
+          { name: "Services", url: "/services/" },
+          { name: service.shortTitle, url: service.url },
+        ]}
+      />
       {/* HERO */}
       <section className="relative -mt-16 md:-mt-20 bg-deep text-bone overflow-hidden">
         <div className="absolute inset-0">
@@ -236,11 +245,21 @@ function Arrow() {
 export function serviceMetadata(slug: string) {
   const s = serviceBySlug(slug);
   if (!s) return {};
+  const description = `${s.tagline} ${s.description}`;
   return {
-    title: `${s.title}`,
-    description: `${s.tagline} ${s.description}`,
+    title: s.title,
+    description,
+    keywords: s.keywords,
     alternates: { canonical: s.url },
     openGraph: {
+      title: `${s.title} · Maan Events`,
+      description: s.tagline,
+      type: "website" as const,
+      url: s.url,
+      images: [{ url: s.cover, alt: s.title }],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
       title: `${s.title} · Maan Events`,
       description: s.tagline,
       images: [s.cover],

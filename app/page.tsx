@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/Hero";
-import { LocalBusinessJsonLd } from "@/components/seo/JsonLd";
 import { Stats } from "@/components/sections/Stats";
 import { Manifesto } from "@/components/sections/Manifesto";
 import { ServicesPreview } from "@/components/sections/ServicesPreview";
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <LocalBusinessJsonLd />
       <Hero />
       <Stats />
       <Manifesto />

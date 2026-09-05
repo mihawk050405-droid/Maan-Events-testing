@@ -6,10 +6,13 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { categories, galleryImages, type GalleryImage } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
-const ALL = "all";
-
 export function PortfolioBrowser() {
-  const [active, setActive] = useState<string>(ALL);
+  const filters = useMemo(
+    () => categories.sort((a, b) => b.weight - a.weight).map((c) => ({ slug: c.slug, label: c.label })),
+    [],
+  );
+
+  const [active, setActive] = useState<string>(() => filters[0]?.slug ?? "");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const reduce = useReducedMotion();
 
@@ -17,14 +20,8 @@ export function PortfolioBrowser() {
   // clicked through. `filtered` is what's on screen and what the
   // lightbox arrows step through.
   const filtered = useMemo(() => {
-    if (active === ALL) return galleryImages;
     return galleryImages.filter((img) => img.category === active);
   }, [active]);
-
-  const filters = useMemo(
-    () => [{ slug: ALL, label: "All" }, ...categories.sort((a, b) => b.weight - a.weight).map((c) => ({ slug: c.slug, label: c.label }))],
-    [],
-  );
 
   const openLightbox = (index: number) => {
     setOpenIndex(index);
@@ -123,12 +120,12 @@ export function PortfolioBrowser() {
               }
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => openLightbox(i)}
-              aria-label={img.categoryLabel}
+              aria-label={img.title ? `${img.title} — ${img.categoryLabel}` : img.categoryLabel}
               className="group relative aspect-[4/5] overflow-hidden bg-line text-left"
             >
               <Image
                 src={img.src}
-                alt={img.categoryLabel}
+                alt={img.title ? `${img.title} — ${img.categoryLabel}` : img.categoryLabel}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
@@ -182,7 +179,7 @@ export function PortfolioBrowser() {
               >
                 <Image
                   src={openImage.src}
-                  alt={`${openImage.categoryLabel} — image ${(openIndex ?? 0) + 1} of ${filtered.length}`}
+                  alt={`${openImage.title ? `${openImage.title} — ` : ""}${openImage.categoryLabel} — image ${(openIndex ?? 0) + 1} of ${filtered.length}`}
                   fill
                   className="object-contain"
                   sizes="100vw"

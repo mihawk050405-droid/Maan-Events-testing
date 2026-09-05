@@ -6,6 +6,7 @@ import { Stats } from "@/components/sections/Stats";
 import { ClientMarquee } from "@/components/sections/ClientMarquee";
 import { CTA } from "@/components/sections/CTA";
 import { company } from "@/content/company";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: "About Maan Events — Since 1983",
@@ -32,6 +33,7 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbJsonLd crumbs={[{ name: "Home", url: "/" }, { name: "About Us", url: "/about-us/" }]} />
       {/* Hero */}
       <section className="relative -mt-16 md:-mt-20 bg-deep text-bone overflow-hidden">
         <div className="absolute inset-0">

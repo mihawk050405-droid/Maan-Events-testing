@@ -28,6 +28,15 @@ export type Service = {
    * grid — supply images in that ratio.
    */
   gallery?: string[];
+  /**
+   * Extra search terms this page should rank for beyond what's already in
+   * title/tagline/description — folded into its meta keywords and JSON-LD.
+   * Covers both the audience-facing phrasing ("Prime Minister event
+   * management") and the discipline-level terms merged in from the old
+   * per-discipline pages (pandals, staging, barricading, etc.) so that
+   * consolidated equity actually lands on-topic.
+   */
+  keywords?: string[];
 };
 
 export const services: Service[] = [
@@ -38,16 +47,27 @@ export const services: Service[] = [
     shortTitle: "Government & Public Sector Events",
     tagline: "Large-scale events built with precision and protocol.",
     description:
-      "End-to-end event production for government departments and public-sector organisations, including official ceremonies, public gatherings, conferences, inaugurations and large-scale civic events.",
+      "End-to-end event infrastructure for Prime Minister events, President events and Chief Minister events, plus government department ceremonies, public-sector inaugurations and large-scale civic gatherings — built to VVIP security protocol and delivered on a national-event timeline.",
     capabilities: [
-      "Protocol-compliant event infrastructure",
-      "Large-scale venue and audience management",
-      "Stage, seating and barricading systems",
-      "Power, AV and climate-control coordination",
+      "Prime Minister & President visit infrastructure",
+      "Chief Minister and state government events",
+      "VVIP protocol-compliant stage, seating and barricading",
+      "Large-scale venue construction, power, AV and climate control",
     ],
     cover: "/portfolio/pm-events/kurnool-event/01.jpg",
     portfolioCategories: ["pm-events", "president-events", "cm-events"],
     featured: true,
+    keywords: [
+      "Prime Minister event management company",
+      "President event infrastructure India",
+      "Chief Minister event company",
+      "VVIP event infrastructure",
+      "government event contractor India",
+      "aluminium hangar structures for events",
+      "superstructure and pandal contractors",
+      "venue construction for government events",
+      "event barricading services",
+    ],
   },
 
   {
@@ -67,6 +87,11 @@ export const services: Service[] = [
     cover: "/portfolio/corporate/wings-india/01.jpg",
     portfolioCategories: ["corporate"],
     featured: true,
+    keywords: [
+      "corporate event management company India",
+      "corporate event infrastructure",
+      "annual day event company",
+    ],
   },
 
   {
@@ -86,6 +111,11 @@ export const services: Service[] = [
     cover: "/portfolio/corporate/tv9-event/01.webp",
     portfolioCategories: ["corporate", "exhibitions"],
     featured: true,
+    keywords: [
+      "conference infrastructure company",
+      "summit event management India",
+      "conference hall setup",
+    ],
   },
 
   {
@@ -105,6 +135,11 @@ export const services: Service[] = [
     cover: "/portfolio/corporate/wings-india/01.jpg",
     portfolioCategories: ["corporate", "movie-releases"],
     featured: true,
+    keywords: [
+      "product launch event company",
+      "brand activation event infrastructure",
+      "experiential marketing event production",
+    ],
   },
 
   {
@@ -124,6 +159,13 @@ export const services: Service[] = [
     cover: "/portfolio/weddings/gmr-wedding-event-01/01.jpg",
     portfolioCategories: ["weddings"],
     featured: true,
+    keywords: [
+      "luxury wedding event company India",
+      "wedding decoration and furniture contractor",
+      "wedding pagoda and tent contractor",
+      "wedding carpeting and flooring services",
+      "wedding stage decoration company",
+    ],
   },
 
   {
@@ -143,6 +185,12 @@ export const services: Service[] = [
     cover: "/portfolio/pm-events/yoga-day-vizag-event/01.jpg",
     portfolioCategories: ["spiritual-events", "pm-events"],
     featured: true,
+    keywords: [
+      "spiritual event infrastructure company",
+      "religious gathering event management",
+      "weatherproof shed for outdoor events",
+      "large congregation event setup",
+    ],
   },
 
   {
@@ -162,6 +210,7 @@ export const services: Service[] = [
     cover: "/portfolio/weddings/hitex-wedding/01.jpg",
     portfolioCategories: ["weddings", "concerts"],
     featured: false,
+    keywords: ["social event management company", "private party event infrastructure"],
   },
 
   {
@@ -181,6 +230,7 @@ export const services: Service[] = [
     cover: "/portfolio/pm-events/kurnool-event/01.jpg",
     portfolioCategories: ["president-events", "pm-events"],
     featured: false,
+    keywords: ["sports event infrastructure company", "stadium event management India"],
   },
 
   {
@@ -200,6 +250,11 @@ export const services: Service[] = [
     cover: "/portfolio/pm-events/kurnool-event/01.jpg",
     portfolioCategories: ["concerts", "movie-releases"],
     featured: false,
+    keywords: [
+      "concert stage construction company",
+      "live event staging contractor",
+      "event stage rental India",
+    ],
   },
 
   {
@@ -219,6 +274,11 @@ export const services: Service[] = [
     cover: "/portfolio/exhibitions/hitex-event/01.jpg",
     portfolioCategories: ["exhibitions", "corporate"],
     featured: true,
+    keywords: [
+      "exhibition stall fabrication company",
+      "trade fair infrastructure India",
+      "exhibition facade and pavilion design",
+    ],
   },
 ];
 

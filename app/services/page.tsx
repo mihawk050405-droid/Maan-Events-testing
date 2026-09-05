@@ -5,17 +5,19 @@ import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { services } from "@/content/services";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Services — Twelve Disciplines Under One Roof",
+  title: "Services — Event Infrastructure Disciplines Under One Roof",
   description:
-    "From engineered superstructures to red-carpet finishing — Maan Events delivers twelve event infrastructure disciplines, all in-house.",
+    "From Prime Minister and President events to weddings, exhibitions and concerts — Maan Events delivers every event infrastructure discipline in-house, across ten specialised service lines.",
   alternates: { canonical: "/services/" },
 };
 
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbJsonLd crumbs={[{ name: "Home", url: "/" }, { name: "Services", url: "/services/" }]} />
       {/* =========================================================
           HERO SECTION
           ========================================================= */}
@@ -30,7 +32,7 @@ export default function ServicesPage() {
 
           <Reveal delay={0.1}>
             <h1 className="font-display text-5xl md:text-7xl lg:text-[7.5rem] leading-[0.95] max-w-5xl">
-              Twelve disciplines.
+              Ten disciplines.
               <br />
               <span className="italic font-light text-bone/80">
                 One in-house team.

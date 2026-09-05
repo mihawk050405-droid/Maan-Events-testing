@@ -14,11 +14,31 @@ const nextConfig: NextConfig = {
     qualities: [60, 75, 85],
   },
   async redirects() {
-    return [
-      // SEO: common misspelling fix while preserving the indexed URL
-      { source: "/barricading", destination: "/barrication", permanent: true },
-      { source: "/barricading/", destination: "/barrication/", permanent: true },
-    ];
+    // These 12 routes are leftover discipline-level pages from an earlier
+    // site structure — content/services.ts now organizes offerings by
+    // event type instead, so each one 301s into the event-type page whose
+    // description most directly covers that discipline. This keeps any
+    // inbound links/search equity pointed at a live, indexed page instead
+    // of a 404.
+    const legacy: Record<string, string> = {
+      "air-conditioning": "government-public-sector-events",
+      "aluminium-structure-and-hangers": "government-public-sector-events",
+      "barrication": "government-public-sector-events",
+      "barricading": "government-public-sector-events",
+      "superstructure-hangers-pandals": "government-public-sector-events",
+      "venue-construction": "government-public-sector-events",
+      "staging": "concerts-entertainment",
+      "exhibition-facades-and-stall-designs": "exhibitions-trade-fairs",
+      "weather-sheds": "spiritual-devotional-events",
+      "carpeting-and-flooring": "signature-weddings",
+      "event-decoration": "signature-weddings",
+      "furniture": "signature-weddings",
+      "pagodas-tents": "signature-weddings",
+    };
+    return Object.entries(legacy).flatMap(([source, destSlug]) => [
+      { source: `/${source}`, destination: `/services/${destSlug}/`, permanent: true },
+      { source: `/${source}/`, destination: `/services/${destSlug}/`, permanent: true },
+    ]);
   },
 };
 
