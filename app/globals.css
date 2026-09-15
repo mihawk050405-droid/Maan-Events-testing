@@ -1,22 +1,27 @@
 @import "tailwindcss";
 
 /* =====================================================
-   OBSIDIAN & MARIGOLD
-   Warm near-black grounds · Marigold accent · Warm sand neutrals
+   OBSIDIAN, MARIGOLD & SIGNAL RED
+   Warm near-black grounds · Vibrant yellow accent · Vivid red accent
 
    This @theme block is the single source of truth for colour.
    Everything downstream — Tailwind's generated utilities, the
    hand-written token helpers, and the gradient classes — reads
    from these tokens. Do not add a second :root palette underneath
    it: a later :root silently overrides every value here, which is
-   how this file ended up carrying three competing schemes at once.
+   how this file previously ended up carrying three competing
+   schemes at once.
    ===================================================== */
 @theme {
-  /* GROUNDS — dark. `deep` is the inverted-section ground, `ink` the
-     darkest note used for text on light sections and hard edges. */
+  /* GROUNDS — dark. `deep` is the inverted-section ground — a vibrant
+     deep red, not neutral black, so every inverted section (hero, nav,
+     footer, CTA) carries the brand's red instead of reading as generic
+     dark chrome. `ink` stays near-black — it is text on LIGHT sections
+     and small hard edges, not a section ground, so it doesn't need to
+     carry colour. */
   --color-ink: #14100C;
-  --color-deep: #1C1712;
-  --color-deep-raised: #2E251C;
+  --color-deep: #43101A;
+  --color-deep-raised: #5C1826;
 
   /* GROUNDS — light. `bone` is the page ground, `paper` the raised
      panel, `sand` the tinted band (marquee, testimonials). */
@@ -40,17 +45,26 @@
   --color-line: #DCCFB8;      /* dividers on light grounds */
   --color-line-dark: #4A3D2E; /* dividers on dark grounds */
 
-  /* PRIMARY ACTION — MARIGOLD
-     Carries every CTA. Always pairs with --color-ink for text, never
-     bone: marigold is a light accent and needs a dark label. */
-  --color-accent: #E0912B;
-  --color-accent-hover: #C2761A;
-  --color-accent-tint: #FCEFDC;
-  --color-accent-light: #F0B968;
+  /* PRIMARY ACTION — VIBRANT YELLOW
+     Carries every primary CTA. Always pairs with --color-ink for
+     text, never bone: yellow is a light accent and needs a dark
+     label. */
+  --color-accent: #F5B400;
+  --color-accent-hover: #D69A00;
+  --color-accent-tint: #FFF3D6;
+  --color-accent-light: #FFCF3D;
+
+  /* SECONDARY ACTION — SIGNAL RED
+     The contrast partner to accent yellow — used for emphasis
+     bands, secondary CTAs and highlight moments. Pairs with
+     --color-bone for text, never ink. */
+  --color-red: #D6293B;
+  --color-red-hover: #B01E2E;
+  --color-red-tint: #FBE3E5;
 
   /* SUPPORTING WARM GOLD — eyebrows, rules, italic subheads */
-  --color-gold: #D9A441;
-  --color-gold-soft: #EFC97E;
+  --color-gold: #E0A415;
+  --color-gold-soft: #F5CD5C;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
@@ -62,7 +76,7 @@
 
    These are unlayered rules, so they intentionally win over the
    Tailwind-generated .bg-* utilities of the same name. Every dark
-   ground below stays within the obsidian range (#14100C–#332A20)
+   ground below stays within the deep-red range (#3A0E16–#5C1826)
    so that ivory text holds well past 4.5:1 at EVERY stop — the
    previous mint gradient put bone text at roughly 1.7:1.
    ===================================================== */
@@ -73,63 +87,85 @@
 }
 
 /* =====================================================
-   PRIMARY DARK GROUND — OBSIDIAN
+   PRIMARY DARK GROUND — VIBRANT RED
    Used by every inverted section, the portfolio header and the
-   lightbox. A shallow vertical lift keeps it from reading as a
-   flat black slab without ever getting light enough to threaten
-   the text on top of it.
+   lightbox. A shallow vertical lift keeps the red from reading as
+   a flat slab without ever getting light enough to threaten the
+   text on top of it.
    ===================================================== */
 .bg-deep {
   background: linear-gradient(
     180deg,
-    #14100C 0%,
-    #241D16 50%,
-    #14100C 100%
+    #3A0E16 0%,
+    #5C1826 50%,
+    #3A0E16 100%
   );
 }
 
 /* =====================================================
-   RAISED OBSIDIAN
+   RAISED RED
    Panels and controls sitting ON a .bg-deep ground — one step
    lighter so the edge reads without a border.
    ===================================================== */
 .bg-deep-raised {
   background: linear-gradient(
     180deg,
-    #2E251C 0%,
-    #3D3126 50%,
-    #2E251C 100%
+    #5C1826 0%,
+    #742035 50%,
+    #5C1826 100%
   );
 }
 
 /* =====================================================
-   MARIGOLD — PRIMARY ACTION
+   VIBRANT YELLOW — PRIMARY ACTION
    Pair with --color-ink text, never bone.
    ===================================================== */
 .bg-accent {
   background: linear-gradient(
     135deg,
-    #F0B968 0%,
-    #E0912B 45%,
-    #C2761A 100%
+    #FFCF3D 0%,
+    #F5B400 45%,
+    #D69A00 100%
   );
 }
 
 .bg-accent-hover {
   background: linear-gradient(
     135deg,
-    #E0912B 0%,
-    #C2761A 55%,
-    #A45F10 100%
+    #F5B400 0%,
+    #D69A00 55%,
+    #B37F00 100%
   );
 }
 
-/* SOFT MARIGOLD WASH (quote panel inside testimonials) */
+/* SOFT YELLOW WASH (quote panel inside testimonials) */
 .bg-accent-tint {
   background: linear-gradient(
     135deg,
-    #FDF5E7 0%,
-    #FCEFDC 100%
+    #FFF8E6 0%,
+    #FFF3D6 100%
+  );
+}
+
+/* =====================================================
+   SIGNAL RED — SECONDARY ACTION
+   Pair with --color-bone text, never ink.
+   ===================================================== */
+.bg-red {
+  background: linear-gradient(
+    135deg,
+    #E4485A 0%,
+    #D6293B 45%,
+    #B01E2E 100%
+  );
+}
+
+.bg-red-hover {
+  background: linear-gradient(
+    135deg,
+    #D6293B 0%,
+    #B01E2E 55%,
+    #8C1622 100%
   );
 }
 
@@ -159,82 +195,35 @@
 }
 
 /* =====================================================
-   PREMIUM — OBSIDIAN WARMED WITH GOLD
+   PREMIUM — DEEP RED WARMED WITH GOLD
    The one dark ground that carries a visible gold cast, for
    feature bands that need more presence than .bg-deep.
    ===================================================== */
 .bg-premium {
   background: linear-gradient(
     135deg,
-    #14100C 0%,
-    #332A20 22%,
-    #4A3A26 50%,
-    #332A20 78%,
-    #14100C 100%
-  );
-}
-
-.bg-gold-emerald {
-  background: linear-gradient(
-    135deg,
-    #14100C 0%,
-    #332A20 22%,
-    #4A3A26 50%,
-    #332A20 78%,
-    #14100C 100%
+    #3A0E16 0%,
+    #5C1826 22%,
+    #7A3A1E 50%,
+    #5C1826 78%,
+    #3A0E16 100%
   );
 }
 
 /* =====================================================
    MAIN BRAND GRADIENT
-   OBSIDIAN → MARIGOLD. The accent only arrives in the last
-   fifth, so the band stays dark enough to carry ivory type
-   across the portion that actually holds text.
+   RED → YELLOW. The vibrant, high-contrast pairing the rest of the
+   dark grounds only hint at — used for feature bands that should
+   read as unmistakably "Maan" at a glance.
    ===================================================== */
 .bg-brand {
   background: linear-gradient(
     135deg,
-    #14100C 0%,
-    #241D16 35%,
-    #3D3126 62%,
-    #8A5A17 85%,
-    #C2761A 100%
-  );
-}
-
-/* PORTFOLIO / CREATIVE — obsidian into deep amber */
-.bg-teal-purple {
-  background: linear-gradient(
-    135deg,
-    #14100C 0%,
-    #241D16 35%,
-    #3D3126 62%,
-    #7A4E14 85%,
-    #A45F10 100%
-  );
-}
-
-/* SPECIAL EVENTS — obsidian into soft amber */
-.bg-teal-pink {
-  background: linear-gradient(
-    135deg,
-    #14100C 0%,
-    #241D16 35%,
-    #4A3A26 62%,
-    #A87424 85%,
-    #E0912B 100%
-  );
-}
-
-/* ENERGETIC SECTIONS — obsidian into full marigold */
-.bg-teal-orange {
-  background: linear-gradient(
-    135deg,
-    #14100C 0%,
-    #241D16 35%,
-    #4A3A26 62%,
-    #C2761A 85%,
-    #F0B968 100%
+    #3A0E16 0%,
+    #8C1622 30%,
+    #D6293B 58%,
+    #E88A00 82%,
+    #F5B400 100%
   );
 }
 
@@ -331,6 +320,7 @@
 .text-line { color: var(--color-line); }
 .text-line-dark { color: var(--color-line-dark); }
 .text-accent { color: var(--color-accent); }
+.text-red { color: var(--color-red); }
 .text-sand { color: var(--color-sand); }
 .text-gold { color: var(--color-gold); }
 .text-gold-soft { color: var(--color-gold-soft); }
@@ -340,11 +330,14 @@
 .bg-bone { background-color: var(--color-bone); }
 .bg-paper-solid { background-color: var(--color-paper); }
 .bg-sand-solid { background-color: var(--color-sand); }
+.bg-red-solid { background-color: var(--color-red); }
+.bg-red-tint { background-color: var(--color-red-tint); }
 
 .border-line { border-color: var(--color-line); }
 .border-line-dark { border-color: var(--color-line-dark); }
 .border-deep { border-color: var(--color-deep); }
 .border-accent { border-color: var(--color-accent); }
+.border-red { border-color: var(--color-red); }
 
 /* =====================================================
    OTHER UTILITIES

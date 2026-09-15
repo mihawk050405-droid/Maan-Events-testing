@@ -77,10 +77,10 @@ function DesktopIndex() {
                       ? // Gradient text needs background-clip:text + a
                         // transparent fill color, so this can't reuse the
                         // plain `text-accent` utility the inactive state
-                        // uses. Stops are the burnt end of the marigold
+                        // uses. Stops are the burnt end of the accent-yellow
                         // ramp rather than --color-accent, which sits at
                         // only ~2.4:1 at this size on an ivory ground.
-                        "bg-[linear-gradient(180deg,#A45F10_0%,#5E3C0E_100%)] bg-clip-text text-transparent"
+                        "bg-[linear-gradient(180deg,#B37F00_0%,#6B4A00_100%)] bg-clip-text text-transparent"
                       : "text-mute"
                   }`}
                 >
@@ -106,7 +106,7 @@ function DesktopIndex() {
                   // gradient text (text-transparent), the SVG would
                   // inherit transparent too and disappear — currentColor
                   // only carries a single resolved color, not a gradient.
-                  className="inline-flex items-center text-[#7A4E14]"
+                  className="inline-flex items-center text-[#8C6800]"
                   aria-hidden
                 >
                   <Arrow />

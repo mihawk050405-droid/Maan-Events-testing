@@ -23,7 +23,7 @@ export type Service = {
   portfolioCategories?: string[];
   /**
    * Hand-picked images for this service's gallery, as public paths
-   * (e.g. "/portfolio/concerts/karthik/03.jpg"). Set this and it wins
+   * (e.g. "/portfolio/concerts/karthik/03.webp"). Set this and it wins
    * over portfolioCategories. Displayed at 4:5, matching the portfolio
    * grid — supply images in that ratio.
    */
@@ -271,7 +271,7 @@ export const services: Service[] = [
       "Branded facades and signage",
       "Lighting, AV and visitor-area integration",
     ],
-    cover: "/portfolio/exhibitions/hitex-event/01.jpg",
+    cover: "/portfolio/exhibitions/hitex-event/03.jpg",
     portfolioCategories: ["exhibitions", "corporate"],
     featured: true,
     keywords: [

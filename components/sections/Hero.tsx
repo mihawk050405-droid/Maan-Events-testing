@@ -7,9 +7,12 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { MaskReveal } from "@/components/motion/Reveal";
 
 // Maan Events builds for competing political parties, so the hero must stay
-// party-neutral: no politicians, no party insignia, and no dominant party
-// colour (yellow in particular). Structure-only shots are the safe choice.
-const HERO_IMAGE = "/portfolio/exhibitions/hitex-event/01.jpg";
+// party-neutral in its IMAGERY: no politicians, no party insignia, no
+// banners naming a party. Structure-only shots are the safe choice. The
+// red/yellow brand palette itself is used deliberately across the whole
+// site, hero included, per client direction — neutrality is enforced by
+// keeping the photography structure-only, not by avoiding the brand colours.
+const HERO_IMAGE = "/portfolio/exhibitions/hitex-event/03.jpg";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -99,14 +102,14 @@ export function Hero() {
         >
           <Link
             href="/portfolio/"
-            className="group inline-flex items-center gap-3 bg-[linear-gradient(180deg,#F0B968_0%,#E0912B_100%)] text-ink px-7 py-4 text-sm uppercase tracking-wider hover:bg-[linear-gradient(180deg,#E0912B_0%,#C2761A_100%)] transition-all duration-300 shadow-md"
+            className="group inline-flex items-center gap-3 bg-[linear-gradient(180deg,#FFCF3D_0%,#F5B400_100%)] text-ink px-7 py-4 text-sm uppercase tracking-wider hover:bg-[linear-gradient(180deg,#F5B400_0%,#D69A00_100%)] transition-all duration-300 shadow-md"
           >
             View Portfolio
             <ArrowRight />
           </Link>
           <Link
             href="/services/"
-            className="group inline-flex items-center gap-3 border border-bone/30 bg-bone/5 hover:bg-[linear-gradient(135deg,rgba(247,241,230,0.12)_0%,rgba(224,145,43,0.22)_100%)] px-7 py-4 text-sm uppercase tracking-wider hover:border-bone transition-all duration-300"
+            className="group inline-flex items-center gap-3 border border-bone/30 bg-bone/5 hover:bg-[linear-gradient(135deg,rgba(247,241,230,0.12)_0%,rgba(245,180,0,0.22)_100%)] px-7 py-4 text-sm uppercase tracking-wider hover:border-bone transition-all duration-300"
           >
             Our Capabilities
             <ArrowRight />

@@ -30,10 +30,10 @@ export function CTA() {
               // Gradient replaces the flat hover:bg-accent. Tailwind's
               // arbitrary-value syntax takes a raw CSS gradient directly in
               // a hover: utility — no inline style, no JS state needed.
-              // Marigold is a LIGHT accent, so the label stays text-ink
+              // Accent yellow is a LIGHT accent, so the label stays text-ink
               // through both states rather than flipping to bone; the
-              // darkest stop (#C2761A) still clears 4.5:1 against ink.
-              className="group inline-flex items-center justify-between gap-3 bg-bone text-ink px-6 py-5 text-sm uppercase tracking-wider transition-colors duration-300 hover:bg-[linear-gradient(180deg,#F0B968_0%,#C2761A_100%)]"
+              // darkest stop (#D69A00) still clears 4.5:1 against ink.
+              className="group inline-flex items-center justify-between gap-3 bg-bone text-ink px-6 py-5 text-sm uppercase tracking-wider transition-colors duration-300 hover:bg-[linear-gradient(180deg,#FFCF3D_0%,#D69A00_100%)]"
             >
               WhatsApp <Arrow />
             </a>

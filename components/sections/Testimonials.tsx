@@ -33,14 +33,14 @@ export function Testimonials() {
             entirely. border-image-slice: 1 is required or the image
             renders nothing at all on a solid 2px rule like this.
             Contrast is non-text/decorative (3:1 floor). Stops come from
-            the burnt end of the marigold ramp rather than
+            the burnt end of the accent-yellow ramp rather than
             --color-accent, which sits at only ~2.2:1 against the
             accent-tint ground behind it.
           */}
           <p
             className="mt-12 border-l-2 bg-accent-tint px-5 py-4 text-sm text-ink/75 max-w-2xl"
             style={{
-              borderImage: "linear-gradient(180deg, #C2761A 0%, #7A4E14 100%) 1",
+              borderImage: "linear-gradient(180deg, #D69A00 0%, #8C6800 100%) 1",
             }}
           >
             More client testimonials will be published shortly. To request references for a

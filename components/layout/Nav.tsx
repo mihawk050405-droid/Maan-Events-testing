@@ -117,9 +117,9 @@ export function Nav() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              // Obsidian at rest, marigold on hover. The label flips to
-              // ink with it — marigold is too light to carry bone text.
-              className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-ink px-5 py-2.5 bg-[linear-gradient(135deg,#14100C_0%,#2E251C_50%,#14100C_100%)] hover:bg-[linear-gradient(180deg,#F0B968_0%,#C2761A_100%)] transition-all duration-300 shadow-sm rounded-sm"
+              // Deep red at rest, accent yellow on hover. The label flips
+              // to ink with it — yellow is too light to carry bone text.
+              className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-ink px-5 py-2.5 bg-[linear-gradient(135deg,#3A0E16_0%,#5C1826_50%,#3A0E16_100%)] hover:bg-[linear-gradient(180deg,#FFCF3D_0%,#D69A00_100%)] transition-all duration-300 shadow-sm rounded-sm"
             >
               Enquire
               <ArrowRight />

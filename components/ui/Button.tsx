@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 type Variant = "primary" | "secondary" | "ghost" | "outline-light";
 
 const styles: Record<Variant, string> = {
-  // Marigold is a light accent, so the label has to flip to ink on
+  // Accent yellow is a light accent, so the label has to flip to ink on
   // hover — bone on --color-accent lands at about 2.3:1.
   primary:
     "bg-deep text-bone hover:bg-accent hover:text-ink transition-colors duration-300",
