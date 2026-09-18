@@ -5,7 +5,9 @@ import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { services } from "@/content/services";
+import { faqs } from "@/content/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { FAQ } from "@/components/sections/FAQ";
 
 export const metadata: Metadata = {
   title: "Services — Event Infrastructure Disciplines Under One Roof",
@@ -107,6 +109,11 @@ export default function ServicesPage() {
           </Stagger>
         </Container>
       </section>
+
+      <FAQ
+        faqs={faqs}
+        heading="The best event company for every category we serve."
+      />
 
       {/* =========================================================
           CTA SECTION

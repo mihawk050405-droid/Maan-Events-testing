@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { serviceBySlug, services, type Service } from "@/content/services";
+import { faqForService } from "@/content/faqs";
 import { projects } from "@/content/portfolio";
 import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
+import { FAQ } from "@/components/sections/FAQ";
 import { ServiceJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const SHOWCASE_SIZE = 6;
@@ -55,6 +57,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
 
   const related = services.filter((s) => s.slug !== slug).slice(0, 4);
   const showcase = showcaseFor(service);
+  const faq = faqForService(slug);
 
   return (
     <>
@@ -228,6 +231,8 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
           </Stagger>
         </Container>
       </section>
+
+      {faq && <FAQ faqs={[faq]} heading="Frequently asked" />}
 
       <CTA />
     </>

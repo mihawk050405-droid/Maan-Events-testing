@@ -1,4 +1,5 @@
 import { company } from "@/content/company";
+import { services } from "@/content/services";
 import type { Service } from "@/content/services";
 
 const SITE_URL = "https://maanevents.com";
@@ -11,8 +12,11 @@ const localBusinessData = {
   alternateName: company.name,
   description: company.positioning,
   url: SITE_URL,
+  logo: `${SITE_URL}/favicon.ico`,
+  image: `${SITE_URL}/portfolio/pm-events/kurnool-event/01.jpg`,
   email: company.email,
   telephone: company.primaryPhone,
+  priceRange: "$$$",
   foundingDate: String(company.founded),
   areaServed: ["Andhra Pradesh", "Telangana", "Karnataka", "India"],
   address: company.offices.map((o) => ({
@@ -21,6 +25,23 @@ const localBusinessData = {
     addressLocality: o.lines[o.lines.length - 1],
     addressCountry: "IN",
   })),
+  // What this business is known for — the ten disciplines search engines
+  // should associate with the org itself, not just with each service's
+  // own page, so a query naming any one of them can surface the brand.
+  knowsAbout: services.map((s) => s.title),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Event Infrastructure Services",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.title,
+        description: s.tagline,
+        url: `${SITE_URL}${s.url}`,
+      },
+    })),
+  },
   sameAs: Object.values(company.social).filter((v) => v && v !== "#"),
 };
 
@@ -61,6 +82,27 @@ export function BreadcrumbJsonLd({ crumbs }: { crumbs: Crumb[] }) {
       position: i + 1,
       name: c.name,
       item: `${SITE_URL}${c.url}`,
+    })),
+  };
+  return <JsonLdScript data={data} />;
+}
+
+export type Faq = { question: string; answer: string };
+
+/**
+ * Marks up a visible FAQ section so search engines and AI answer engines
+ * can lift a direct answer for "best/top event company for <category>"
+ * style queries straight from the page they already trust for that
+ * content, rather than only inferring it from prose.
+ */
+export function FaqJsonLd({ faqs }: { faqs: Faq[] }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
     })),
   };
   return <JsonLdScript data={data} />;

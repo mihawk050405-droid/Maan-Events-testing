@@ -28,12 +28,12 @@ function Heading() {
         <Reveal>
           <div className="text-[10px] md:text-xs uppercase tracking-[0.22em] text-mute mb-4 flex items-center gap-3">
             <span className="h-px w-8 bg-mute" />
-            <span>Capabilities — 12 in-house disciplines</span>
+            <span>Capabilities — 10 in-house disciplines</span>
           </div>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="text-4xl md:text-5xl lg:text-6xl">
-            Twelve disciplines.<br />
+            Ten disciplines.<br />
             <span className="italic font-light text-mute">One in-house team.</span>
           </h2>
         </Reveal>
@@ -284,7 +284,7 @@ function MobileShowcase() {
           href="/services/"
           className="group flex items-center justify-between gap-2 bg-deep text-bone px-5 py-4 text-[11px] uppercase tracking-[0.18em]"
         >
-          All 12 <Arrow />
+          All 10 <Arrow />
         </Link>
         <Link
           href="/portfolio/"
