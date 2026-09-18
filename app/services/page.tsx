@@ -42,9 +42,9 @@ export default function ServicesPage() {
 
           <Reveal delay={0.2}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-bone/80">
-              Every layer of an event — structure, climate, floor, decor,
-              safety — designed, fabricated and installed by Maan Events
-              directly. No vendor chains.
+              From structure and climate to flooring, decor and safety,
+              every layer of an event is designed, fabricated and installed
+              by our own team — with no outsourcing and no compromise.
             </p>
           </Reveal>
         </Container>

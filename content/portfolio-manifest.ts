@@ -29,6 +29,8 @@ export const portfolioManifest: Record<string, string[]> = {
   "pm-events/yoga-day-vizag-event": ["01.jpg", "03.webp", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
   "president-events/gachibowli-stadium-event": ["01.jpg", "04.jpg", "05.jpg", "06.jpg"],
   "president-events/puri-navy-day-event": ["01.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "08.webp", "09.webp", "10.webp", "11.webp", "12.webp"],
+  "product-launches/main": ["DJI_20260212072228_0470_D-Enhanced-NR.jpg", "DJI_20260212072528_0478_D.jpg", "DJI_20260212072732_0483_D.jpg", "SSK09427.jpg", "SSK09457.jpg", "SSK094576.jpg", "SSK09530.jpg"],
+  "social/main": ["DJI_20251128120522_0096_D.jpg", "DSC09361.JPG", "DSC09589.jpg"],
   "spiritual-events/bathukamma-event": ["01.webp", "02.webp", "03.webp"],
   "spiritual-events/maha-tv-events": ["01.jpg", "03.jpg", "04.webp", "05.webp"],
   "weddings/anantapur-wedding-event": ["01.jpg", "02.jpg", "03.jpg", "04.jpg"],

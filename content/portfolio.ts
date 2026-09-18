@@ -60,16 +60,37 @@ export type Category = {
 };
 
 export const categories: Category[] = [
-  { slug: "pm-events", label: "Prime Minister Events", description: "National-stage events graced by the Prime Minister of India.", weight: 100 },
-  { slug: "president-events", label: "President Events", description: "Hosting the President of India and head-of-state protocols.", weight: 95 },
-  { slug: "cm-events", label: "Chief Minister Events", description: "State-level political ceremonies, rallies and assemblies.", weight: 90 },
-  { slug: "corporate", label: "Corporate", description: "Product launches, brand activations and corporate ceremonies.", weight: 80 },
-  { slug: "exhibitions", label: "Exhibitions", description: "Trade shows, expos and exhibition pavilions.", weight: 70 },
-  { slug: "weddings", label: "Weddings", description: "Premium wedding and reception infrastructure.", weight: 60 },
-  { slug: "concerts", label: "Concerts", description: "Stadium and arena-scale music events.", weight: 50 },
-  { slug: "movie-releases", label: "Film Releases", description: "Film premieres and pre-release events.", weight: 40 },
-  { slug: "spiritual-events", label: "Spiritual Events", description: "Devotional gatherings and cultural assemblies.", weight: 30 },
+  { slug: "government-public-sector-events", label: "Government & Public Sector Events", description: "Prime Minister, President and Chief Minister events, plus government department ceremonies and civic gatherings.", weight: 100 },
+  { slug: "corporate-business-events", label: "Corporate & Business Events", description: "Corporate gatherings, annual meets, leadership events and business functions.", weight: 90 },
+  { slug: "conferences-summits", label: "Conferences & Summits", description: "Conferences, conventions, summits and knowledge-led gatherings.", weight: 80 },
+  { slug: "product-launches-brand-experiences", label: "Product Launches & Brand Experiences", description: "Product launches, brand activations and experiential campaigns.", weight: 70 },
+  { slug: "signature-weddings", label: "Signature Weddings", description: "Premium wedding and reception infrastructure.", weight: 60 },
+  { slug: "spiritual-devotional-events", label: "Spiritual & Devotional Events", description: "Devotional gatherings, religious ceremonies and large public congregations.", weight: 50 },
+  { slug: "social-lifestyle-events", label: "Social & Lifestyle Events", description: "Social celebrations, lifestyle gatherings and private functions.", weight: 40 },
+  { slug: "sports-events", label: "Sports Events", description: "Sporting events, tournaments, ceremonies and fan experiences.", weight: 30 },
+  { slug: "concerts-entertainment", label: "Concerts & Entertainment", description: "Stadium and arena-scale music events, film premieres and live entertainment.", weight: 20 },
+  { slug: "exhibitions-trade-fairs", label: "Exhibitions & Trade Fairs", description: "Trade shows, expos and exhibition pavilions.", weight: 10 },
 ];
+
+/**
+ * The photo folders on disk (public/portfolio/<folder>/...) still use the
+ * old, narrower names — they're just storage buckets, not the categories
+ * shown on the site. This maps each disk folder to the single service
+ * category its projects are grouped under everywhere in the UI.
+ */
+const FOLDER_CATEGORY: Record<string, string> = {
+  "pm-events": "government-public-sector-events",
+  "president-events": "government-public-sector-events",
+  "cm-events": "government-public-sector-events",
+  corporate: "corporate-business-events",
+  "product-launches": "product-launches-brand-experiences",
+  exhibitions: "exhibitions-trade-fairs",
+  weddings: "signature-weddings",
+  social: "social-lifestyle-events",
+  concerts: "concerts-entertainment",
+  "movie-releases": "concerts-entertainment",
+  "spiritual-events": "spiritual-devotional-events",
+};
 
 /**
  * A project's editable settings. Everything here is optional, so filling
@@ -98,13 +119,14 @@ type ProjectOptions = {
 };
 
 const mk = (
-  category: string,
+  folder: string,
   slug: string,
   options: ProjectOptions = {},
 ): Project => {
   const { name, select, cover } = options;
+  const category = FOLDER_CATEGORY[folder];
   const cat = categories.find((c) => c.slug === category)!;
-  const dir = `${category}/${slug}`;
+  const dir = `${folder}/${slug}`;
   const files = portfolioManifest[dir];
 
   if (!files?.length) {
@@ -201,6 +223,9 @@ export const projects: Project[] = [
   mk("corporate", "mahindra-udo-auto", { name: "Mahindra UDO Auto" }),
   mk("corporate", "greenko-event", { name: "Greenko" }),
 
+  // Product Launches & Brand Experiences
+  mk("product-launches", "main"),
+
   // Exhibitions
   mk("exhibitions", "hitex-event", { name: "HITEX" }),
   mk("exhibitions", "saras-mela-guntur", { name: "Saras Mela" }),
@@ -216,6 +241,9 @@ export const projects: Project[] = [
   mk("weddings", "mahabubnagar"),
   mk("weddings", "anantapur-wedding-event"),
   mk("weddings", "sangareddy-reception"),
+
+  // Social & Lifestyle Events
+  mk("social", "main"),
 
   // Concerts
   mk("concerts", "karthik", { name: "Karthik Live" }),
