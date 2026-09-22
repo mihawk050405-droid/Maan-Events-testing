@@ -41,7 +41,7 @@ export function CTA() {
               href={`tel:${company.primaryPhone}`}
               className="group inline-flex items-center justify-between gap-3 border border-bone/25 px-6 py-5 text-sm uppercase tracking-wider hover:border-bone transition-colors"
             >
-              Call {company.primaryPhone} <Arrow />
+              Call {company.primaryPhoneDisplay} <Arrow />
             </a>
             <a
               href={`mailto:${company.email}`}

@@ -20,7 +20,7 @@ export const portfolioManifest: Record<string, string[]> = {
   "exhibitions/hitex-event": ["03.jpg", "06.webp", "08.webp"],
   "exhibitions/saras-mela-guntur": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "06.jpg", "07.jpg", "08.jpg", "11.jpg"],
   "exhibitions/vizag-light-house-events": ["01.jpg", "04.jpg", "05.jpg"],
-  "movie-releases/main": ["01.webp", "02.webp", "03.webp", "04.webp", "05.webp", "06.webp"],
+  "movie-releases/main": ["movie-release-aerial.png", "services-hero.jpeg", "01.webp", "02.webp", "03.webp", "04.webp", "05.webp", "06.webp"],
   "pm-events/amaravati-event": ["02.jpg", "03.jpg", "07.jpg", "08.jpg", "09.jpg"],
   "pm-events/boothpur-event": ["01.webp", "04.webp", "05.jpg", "06.jpg", "07.jpg", "08.jpg", "09.jpg", "10.jpg"],
   "pm-events/kurnool-event": ["01.jpg", "05.jpg", "07.jpg", "08.jpg", "09.jpg", "10.jpg", "11.webp", "12.webp"],

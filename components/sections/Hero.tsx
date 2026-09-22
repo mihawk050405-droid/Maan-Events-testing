@@ -12,7 +12,7 @@ import { MaskReveal } from "@/components/motion/Reveal";
 // red/yellow brand palette itself is used deliberately across the whole
 // site, hero included, per client direction — neutrality is enforced by
 // keeping the photography structure-only, not by avoiding the brand colours.
-const HERO_IMAGE = "/DJI_20260108110749_0057_D.JPG";
+const HERO_IMAGE = "/portfolio/movie-releases/main/movie-release-aerial.png";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);

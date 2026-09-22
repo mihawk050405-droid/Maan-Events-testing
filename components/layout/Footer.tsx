@@ -26,7 +26,7 @@ export function Footer() {
             </p>
             <div className="mt-8 grid grid-cols-1 gap-1.5 text-sm">
               <a href={`tel:${company.primaryPhone}`} className="hover:text-bone text-mute-dark">
-                {company.primaryPhone}
+                {company.primaryPhoneDisplay}
               </a>
               <a href={`mailto:${company.email}`} className="hover:text-bone text-mute-dark">
                 {company.email}

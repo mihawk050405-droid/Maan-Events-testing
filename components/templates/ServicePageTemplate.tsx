@@ -181,11 +181,6 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
                       <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-1">
                         {tile.categoryLabel}
                       </div>
-                      {tile.title && (
-                        <div className="font-display text-lg md:text-xl leading-tight">
-                          {tile.title}
-                        </div>
-                      )}
                     </div>
                   )}
                 </Link>

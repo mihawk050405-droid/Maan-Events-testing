@@ -67,7 +67,7 @@ export default function ContactPage() {
                 >
                   <span>
                     <span className="block text-[10px] uppercase tracking-[0.18em] text-mute">Call</span>
-                    <span className="text-lg">{company.primaryPhone}</span>
+                    <span className="text-lg">{company.primaryPhoneDisplay}</span>
                   </span>
                   <ArrowRight />
                 </a>

@@ -26,7 +26,7 @@ function Heading() {
         <Reveal>
           <div className="text-[10px] md:text-xs uppercase tracking-[0.22em] text-mute-dark mb-4 flex items-center gap-3">
             <span className="h-px w-8 bg-mute-dark" />
-            <span>Selected Work — 9 Categories</span>
+            <span>Selected Work — 8 Categories</span>
           </div>
         </Reveal>
         <Reveal delay={0.05}>

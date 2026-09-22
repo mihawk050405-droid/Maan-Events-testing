@@ -5,8 +5,10 @@ export const company = {
   founded: 1983,
   positioning:
     "A specialist event design, event management and event hire company rendering avant-garde designs with expertise, passion and creativity.",
-  phones: ["+91 77023 02102", "+91 77023 02103", "+91 77023 02104"],
+  phones: ["+91 77023 02102", "+91 77023 02103", "+91 77023 02110", "+91 77023 02135"],
   primaryPhone: "+91 77023 02102",
+  // Display form for direct-line lists — full number plus alternate last-two-digit extensions.
+  primaryPhoneDisplay: "+91 77023 02102 / 03 / 10 / 35",
   email: "info@maanevents.com",
   whatsapp: "917702302102",
   social: {

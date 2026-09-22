@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { services } from "@/content/services";
+import { infraDisciplines } from "@/content/infrastructure";
 import { faqs } from "@/content/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { FAQ } from "@/components/sections/FAQ";
@@ -49,6 +50,63 @@ export default function ServicesPage() {
               by our own team — with no outsourcing and no compromise.
             </p>
           </Reveal>
+        </Container>
+      </section>
+
+      {/* =========================================================
+          OUR INFRASTRUCTURE
+          ========================================================= */}
+      <section className="bg-deep text-bone">
+        <Container className="section-y">
+          <Reveal>
+            <div className="text-xs uppercase tracking-[0.18em] text-mute-dark mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-mute-dark" />
+              <span>Our Infra</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl max-w-3xl mb-10 md:mb-14">
+              Thirteen disciplines,
+              <br />
+              <span className="italic font-light text-mute-dark">
+                built and stocked in-house.
+              </span>
+            </h2>
+          </Reveal>
+
+          <Stagger className="flex flex-col gap-12 md:gap-16" gap={0.06}>
+            {infraDisciplines.map((d, i) => {
+              const reversed = i % 2 === 1;
+              return (
+                <StaggerItem key={d.slug} y={14}>
+                  <div
+                    className={`flex flex-col sm:items-center gap-6 sm:gap-10 md:gap-14 ${
+                      reversed ? "sm:flex-row-reverse" : "sm:flex-row"
+                    }`}
+                  >
+                    <div className="relative aspect-square w-full max-w-[240px] mx-auto sm:mx-0 shrink-0 overflow-hidden">
+                      <Image
+                        src={d.image}
+                        alt={d.label}
+                        fill
+                        sizes="240px"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="text-center sm:text-left">
+                      <div className="font-display text-mute-dark text-sm mb-2">
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <h3 className="font-display text-xl md:text-2xl mb-2">
+                        {d.label}
+                      </h3>
+                      <p className="text-sm md:text-base leading-relaxed text-bone/80 max-w-md mx-auto sm:mx-0">
+                        {d.description}
+                      </p>
+                    </div>
+                  </div>
+                </StaggerItem>
+              );
+            })}
+          </Stagger>
         </Container>
       </section>
 
