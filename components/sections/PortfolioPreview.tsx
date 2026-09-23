@@ -172,11 +172,8 @@ function DesktopIndex() {
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="text-[10px] uppercase tracking-[0.22em] text-bone/75 mb-2">
-                  {current.label}
-                </div>
                 <div className="font-display text-2xl xl:text-3xl leading-tight">
-                  {current.featuredProjectTitle}
+                  {current.label}
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -259,11 +256,8 @@ function MobileShowcase() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-2">
-                {current.categoryLabel}
-              </div>
               <h3 className="font-display text-3xl md:text-4xl leading-[1.05] mb-6 max-w-[14ch]">
-                {current.title}
+                {current.categoryLabel}
               </h3>
               <Link
                 href="/portfolio/"
