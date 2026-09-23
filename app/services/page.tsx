@@ -6,6 +6,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { services } from "@/content/services";
 import { infraDisciplines } from "@/content/infrastructure";
+import { InfraIcon } from "@/components/icons/InfraIcon";
 import { faqs } from "@/content/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { FAQ } from "@/components/sections/FAQ";
@@ -82,15 +83,7 @@ export default function ServicesPage() {
                       reversed ? "sm:flex-row-reverse" : "sm:flex-row"
                     }`}
                   >
-                    <div className="relative aspect-square w-full max-w-[240px] mx-auto sm:mx-0 shrink-0 overflow-hidden">
-                      <Image
-                        src={d.image}
-                        alt={d.label}
-                        fill
-                        sizes="240px"
-                        className="object-contain"
-                      />
-                    </div>
+                    <InfraIcon slug={d.slug} />
                     <div className="text-center sm:text-left">
                       <div className="font-display text-mute-dark text-sm mb-2">
                         {String(i + 1).padStart(2, "0")}
