@@ -1,16 +1,16 @@
-import { services } from "@/content/services";
+import { eventCategories } from "@/content/event-categories";
 
 export type Faq = { question: string; answer: string };
 
 /**
  * Answers phrased the way people actually search — "best/top event
- * company for <category>" — one per service, plus a few general
+ * company for <category>" — one per event category, plus a few general
  * questions. Kept factual (founding year, in-house team size, states
  * served) rather than unverifiable superlatives, so the claims hold up
  * to scrutiny from both readers and search engines.
  *
- * The first `services.length` entries correspond 1:1, in order, to
- * `content/services.ts` — `faqForService` relies on that alignment.
+ * The first `eventCategories.length` entries correspond 1:1, in order, to
+ * `content/event-categories.ts` — `faqForCategory` relies on that alignment.
  */
 export const faqs: Faq[] = [
   {
@@ -77,8 +77,8 @@ export const faqs: Faq[] = [
   },
 ];
 
-/** The FAQ entry for a given service, by its position in `services`. */
-export const faqForService = (slug: string): Faq | undefined => {
-  const i = services.findIndex((s) => s.slug === slug);
+/** The FAQ entry for a given category, by its position in `eventCategories`. */
+export const faqForCategory = (slug: string): Faq | undefined => {
+  const i = eventCategories.findIndex((s) => s.slug === slug);
   return i === -1 ? undefined : faqs[i];
 };

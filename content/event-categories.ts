@@ -1,4 +1,4 @@
-export type Service = {
+export type EventCategory = {
   slug: string;
   url: string;
   title: string;
@@ -39,10 +39,16 @@ export type Service = {
   keywords?: string[];
 };
 
-export const services: Service[] = [
+/**
+ * The ten event types Maan works across. These are PORTFOLIO categories
+ * (each has a page at /portfolio/<slug>/), not services — the services
+ * this site sells are the infrastructure offerings in
+ * content/infrastructure.ts.
+ */
+export const eventCategories: EventCategory[] = [
   {
     slug: "government-public-sector-events",
-    url: "/services/government-public-sector-events/",
+    url: "/portfolio/government-public-sector-events/",
     title: "Government & Public Sector Events",
     shortTitle: "Government & Public Sector Events",
     tagline: "Large-scale events built with precision and protocol.",
@@ -72,7 +78,7 @@ export const services: Service[] = [
 
   {
     slug: "corporate-business-events",
-    url: "/services/corporate-business-events/",
+    url: "/portfolio/corporate-business-events/",
     title: "Corporate & Business Events",
     shortTitle: "Corporate & Business Events",
     tagline: "Professional environments for businesses that mean business.",
@@ -96,7 +102,7 @@ export const services: Service[] = [
 
   {
     slug: "conferences-summits",
-    url: "/services/conferences-summits/",
+    url: "/portfolio/conferences-summits/",
     title: "Conferences & Summits",
     shortTitle: "Conferences & Summits",
     tagline: "Ideas deserve an environment built around them.",
@@ -120,7 +126,7 @@ export const services: Service[] = [
 
   {
     slug: "product-launches-brand-experiences",
-    url: "/services/product-launches-brand-experiences/",
+    url: "/portfolio/product-launches-brand-experiences/",
     title: "Product Launches & Brand Experiences",
     shortTitle: "Product Launches & Brand Experiences",
     tagline: "Make the first impression impossible to forget.",
@@ -144,7 +150,7 @@ export const services: Service[] = [
 
   {
     slug: "signature-weddings",
-    url: "/services/signature-weddings/",
+    url: "/portfolio/signature-weddings/",
     title: "Signature Weddings",
     shortTitle: "Signature Weddings",
     tagline: "Celebrations designed around your story.",
@@ -170,7 +176,7 @@ export const services: Service[] = [
 
   {
     slug: "spiritual-devotional-events",
-    url: "/services/spiritual-devotional-events/",
+    url: "/portfolio/spiritual-devotional-events/",
     title: "Spiritual & Devotional Events",
     shortTitle: "Spiritual & Devotional Events",
     tagline: "Purposeful spaces for meaningful gatherings.",
@@ -195,7 +201,7 @@ export const services: Service[] = [
 
   {
     slug: "social-lifestyle-events",
-    url: "/services/social-lifestyle-events/",
+    url: "/portfolio/social-lifestyle-events/",
     title: "Social & Lifestyle Events",
     shortTitle: "Social & Lifestyle Events",
     tagline: "Spaces made for people to connect.",
@@ -215,7 +221,7 @@ export const services: Service[] = [
 
   {
     slug: "sports-events",
-    url: "/services/sports-events/",
+    url: "/portfolio/sports-events/",
     title: "Sports Events",
     shortTitle: "Sports Events",
     tagline: "Built for competition, crowds and spectacle.",
@@ -235,7 +241,7 @@ export const services: Service[] = [
 
   {
     slug: "concerts-entertainment",
-    url: "/services/concerts-entertainment/",
+    url: "/portfolio/concerts-entertainment/",
     title: "Concerts & Entertainment",
     shortTitle: "Concerts & Entertainment",
     tagline: "Big stages. Bigger experiences.",
@@ -259,7 +265,7 @@ export const services: Service[] = [
 
   {
     slug: "exhibitions-trade-fairs",
-    url: "/services/exhibitions-trade-fairs/",
+    url: "/portfolio/exhibitions-trade-fairs/",
     title: "Exhibitions & Trade Fairs",
     shortTitle: "Exhibitions & Trade Fairs",
     tagline: "Build environments where businesses get noticed.",
@@ -282,7 +288,7 @@ export const services: Service[] = [
   },
 ];
 
-export const featuredServices = services.filter((s) => s.featured);
+export const featuredCategories = eventCategories.filter((s) => s.featured);
 
-export const serviceBySlug = (slug: string) =>
-  services.find((s) => s.slug === slug);
+export const categoryBySlug = (slug: string) =>
+  eventCategories.find((s) => s.slug === slug);

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { serviceBySlug, services, type Service } from "@/content/services";
-import { faqForService } from "@/content/faqs";
+import { categoryBySlug, eventCategories, type EventCategory } from "@/content/event-categories";
+import { faqForCategory } from "@/content/faqs";
 import { projects } from "@/content/portfolio";
 import { Container } from "@/components/ui/Container";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { FAQ } from "@/components/sections/FAQ";
-import { ServiceJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const SHOWCASE_SIZE = 6;
 
@@ -26,7 +26,7 @@ type ShowcaseTile = {
  * anything named. Projects still awaiting an event name sort last so a
  * service page never leads with a row of placeholders.
  */
-function showcaseFor(service: Service): ShowcaseTile[] {
+function showcaseFor(service: EventCategory): ShowcaseTile[] {
   if (service.gallery?.length) {
     return service.gallery.slice(0, SHOWCASE_SIZE).map((src) => ({
       key: src,
@@ -52,21 +52,21 @@ function showcaseFor(service: Service): ShowcaseTile[] {
     }));
 }
 
-export function ServicePageTemplate({ slug }: { slug: string }) {
-  const service = serviceBySlug(slug);
+/** One portfolio category — /portfolio/<slug>/. */
+export function CategoryPageTemplate({ slug }: { slug: string }) {
+  const service = categoryBySlug(slug);
   if (!service) notFound();
 
-  const related = services.filter((s) => s.slug !== slug).slice(0, 4);
+  const related = eventCategories.filter((s) => s.slug !== slug).slice(0, 4);
   const showcase = showcaseFor(service);
-  const faq = faqForService(slug);
+  const faq = faqForCategory(slug);
 
   return (
     <>
-      <ServiceJsonLd service={service} />
       <BreadcrumbJsonLd
         crumbs={[
           { name: "Home", url: "/" },
-          { name: "Services", url: "/services/" },
+          { name: "Portfolio", url: "/portfolio/" },
           { name: service.shortTitle, url: service.url },
         ]}
       />
@@ -87,7 +87,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
           <Reveal>
             <div className="text-[10px] uppercase tracking-[0.22em] text-bone/70 mb-5 flex items-center gap-3">
               <span className="h-px w-8 bg-bone/60" />
-              <Link href="/services/" className="hover:text-bone">Services</Link>
+              <Link href="/portfolio/" className="hover:text-bone">Portfolio</Link>
               <span className="text-bone/40">/</span>
               <span>{service.shortTitle}</span>
             </div>
@@ -112,7 +112,7 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
             <Reveal className="md:col-span-5">
               <div className="text-xs uppercase tracking-[0.18em] text-mute mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-mute" />
-                <span>The Discipline</span>
+                <span>The Category</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl">
                 Built in-house.<br />
@@ -197,10 +197,10 @@ export function ServicePageTemplate({ slug }: { slug: string }) {
           <Reveal>
             <div className="text-xs uppercase tracking-[0.18em] text-mute mb-5 flex items-center gap-3">
               <span className="h-px w-8 bg-mute" />
-              <span>Adjacent Capabilities</span>
+              <span>More of our work</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl mb-12">
-              Often delivered together.
+              Other event categories.
             </h2>
           </Reveal>
           <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -243,8 +243,8 @@ function Arrow() {
   );
 }
 
-export function serviceMetadata(slug: string) {
-  const s = serviceBySlug(slug);
+export function categoryMetadata(slug: string) {
+  const s = categoryBySlug(slug);
   if (!s) return {};
   const description = `${s.tagline} ${s.description}`;
   return {
