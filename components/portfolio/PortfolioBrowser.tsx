@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { categories, galleryImages, type GalleryImage } from "@/content/portfolio";
@@ -19,7 +19,31 @@ export function PortfolioBrowser() {
 
   const [active, setActive] = useState<string>(() => filters[0]?.slug ?? "");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // Mobile only: start on a category index where the names lead, then
+  // drill into one category's grid. Desktop always shows tabs + grid.
+  const [mobileView, setMobileView] = useState<"index" | "grid">("index");
+  const topRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+
+  const indexEntries = useMemo(
+    () =>
+      filters.map((f) => {
+        const imgs = galleryImages.filter((img) => img.category === f.slug);
+        return { ...f, count: imgs.length, thumbs: imgs.slice(0, 4) };
+      }),
+    [filters],
+  );
+
+  const openCategory = (slug: string) => {
+    setActive(slug);
+    setMobileView("grid");
+    topRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  };
+
+  const backToIndex = () => {
+    setMobileView("index");
+    topRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  };
 
   // Category straight to images — no per-project grouping shown or
   // clicked through. `filtered` is what's on screen and what the
@@ -76,10 +100,73 @@ export function PortfolioBrowser() {
 
   const openImage: GalleryImage | null = openIndex === null ? null : filtered[openIndex];
 
+  const activeLabel = filters.find((f) => f.slug === active)?.label ?? "";
+
   return (
     <>
-      {/* Filters */}
-      <div className="sticky top-16 md:top-20 z-20 bg-bone/90 backdrop-blur-md border-b border-line -mx-5 md:-mx-8 px-5 md:px-8 mb-12 md:mb-16">
+      <div ref={topRef} className="scroll-mt-20" />
+
+      {/* Mobile: category index */}
+      <ol className={cn("md:hidden border-t border-line", mobileView !== "index" && "hidden")}>
+        {indexEntries.map((c, i) => (
+          <li key={c.slug} className="border-b border-line">
+            <button
+              type="button"
+              onClick={() => openCategory(c.slug)}
+              className="w-full text-left py-6 flex gap-4 active:bg-paper transition-colors"
+            >
+              <span className="font-mono text-[11px] text-mute pt-1.5 w-6 shrink-0">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="flex items-start justify-between gap-4">
+                  <span className="font-display text-[1.65rem] leading-[1.1] tracking-tight">{c.label}</span>
+                  <svg width="18" height="12" viewBox="0 0 14 10" fill="none" aria-hidden className="mt-2.5 shrink-0 text-ink/60">
+                    <path d="M9 1L13 5L9 9M13 5H0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="square" />
+                  </svg>
+                </span>
+                <span className="mt-1.5 block text-[11px] uppercase tracking-[0.18em] text-mute">
+                  {c.count} photos
+                </span>
+                <span className="mt-4 grid grid-cols-4 gap-1.5" aria-hidden>
+                  {c.thumbs.map((t) => (
+                    <span key={t.key} className="relative aspect-square overflow-hidden bg-line">
+                      <Image src={t.src} alt="" fill sizes="22vw" className="object-cover" />
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+
+      {/* Mobile: sticky bar while inside a category */}
+      <div
+        className={cn(
+          "md:hidden sticky top-16 z-20 bg-bone/95 backdrop-blur-md border-b border-line -mx-5 px-5 mb-8",
+          mobileView !== "grid" && "hidden",
+        )}
+      >
+        <div className="flex items-center gap-4 py-3.5">
+          <button
+            type="button"
+            onClick={backToIndex}
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-mute shrink-0"
+          >
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
+              <path d="M5 1L1 5L5 9M1 5H14" stroke="currentColor" strokeWidth="1.3" strokeLinecap="square" />
+            </svg>
+            All
+          </button>
+          <span className="h-4 w-px bg-line" />
+          <span className="font-display text-lg leading-tight truncate">{activeLabel}</span>
+          <span className="ml-auto font-mono text-[10px] text-mute shrink-0">{filtered.length}</span>
+        </div>
+      </div>
+
+      {/* Desktop: filters */}
+      <div className="hidden md:block sticky top-16 z-20 bg-bone/90 backdrop-blur-md border-b border-line -mx-5 md:-mx-8 px-5 md:px-8 mb-12 md:mb-16">
         <div className="overflow-x-auto no-scrollbar">
           <div className="flex gap-1.5 py-4 min-w-max">
             {filters.map((f) => (
@@ -103,7 +190,10 @@ export function PortfolioBrowser() {
       {/* Grid */}
       <motion.div
         layout
-        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5"
+        className={cn(
+          "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5",
+          mobileView === "index" && "max-md:hidden",
+        )}
       >
         <AnimatePresence mode="popLayout">
           {filtered.map((img, i) => (
