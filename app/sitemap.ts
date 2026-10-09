@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { services } from "@/content/services";
+import { infraDisciplines } from "@/content/infrastructure";
+import { eventCategories } from "@/content/event-categories";
 
 const BASE = "https://maanevents.com";
 
@@ -10,10 +11,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "/about-us/", priority: 0.8, changeFrequency: "monthly" as const },
     { url: "/services/", priority: 0.9, changeFrequency: "monthly" as const },
     { url: "/portfolio/", priority: 0.9, changeFrequency: "weekly" as const },
+    { url: "/clients/", priority: 0.7, changeFrequency: "monthly" as const },
     { url: "/contact/", priority: 0.7, changeFrequency: "yearly" as const },
-    ...services.map((s) => ({
+    ...infraDisciplines.map((s) => ({
       url: s.url,
       priority: 0.8,
+      changeFrequency: "monthly" as const,
+    })),
+    ...eventCategories.map((c) => ({
+      url: c.url,
+      priority: 0.7,
       changeFrequency: "monthly" as const,
     })),
   ];

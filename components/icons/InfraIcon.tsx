@@ -284,9 +284,34 @@ const ART: Record<string, Art> = {
   },
 };
 
-export function InfraIcon({ slug }: { slug: string }) {
+/** The bare line drawing, for badges and inline use. */
+export function InfraGlyph({ slug, className }: { slug: string; className?: string }) {
   const art = ART[slug];
   if (!art) return null;
+
+  return (
+    <svg
+      viewBox="0 8 64 48"
+      fill="none"
+      aria-hidden
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <g stroke="currentColor" strokeWidth={1.1}>
+        {art.structure}
+      </g>
+      <g stroke={GOLD} strokeWidth={1.3}>
+        {art.accent}
+      </g>
+      <path d="M4 55H60" stroke="currentColor" strokeWidth={1.1} opacity={0.35} />
+    </svg>
+  );
+}
+
+/** The glyph on its drawing plate — corner ticks and a raised ground. */
+export function InfraIcon({ slug }: { slug: string }) {
+  if (!ART[slug]) return null;
 
   return (
     <div className="relative aspect-square w-full max-w-[220px] shrink-0 mx-auto sm:mx-0">
@@ -299,22 +324,7 @@ export function InfraIcon({ slug }: { slug: string }) {
       <span className="absolute -bottom-px -right-px h-3.5 w-3.5 border-b border-r border-gold/60" />
 
       <div className="absolute inset-0 p-[15%]">
-        <svg
-          viewBox="0 8 64 48"
-          fill="none"
-          aria-hidden
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-full w-full text-bone/85"
-        >
-          <g stroke="currentColor" strokeWidth={1.1}>
-            {art.structure}
-          </g>
-          <g stroke={GOLD} strokeWidth={1.3}>
-            {art.accent}
-          </g>
-          <path d="M4 55H60" stroke="currentColor" strokeWidth={1.1} opacity={0.35} />
-        </svg>
+        <InfraGlyph slug={slug} className="h-full w-full text-bone/85" />
       </div>
     </div>
   );

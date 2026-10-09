@@ -22,15 +22,3 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
-export const clientLogos = [
-  "Government of Andhra Pradesh",
-  "Government of Telangana",
-  "Government of Karnataka",
-  "South Central Railway",
-  "South Western Railway",
-  "GMR Group",
-  "Mahindra",
-  "Greenko",
-  "ArcelorMittal Nippon Steel",
-  "TV9",
-];

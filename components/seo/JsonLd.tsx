@@ -1,6 +1,5 @@
 import { company } from "@/content/company";
-import { services } from "@/content/services";
-import type { Service } from "@/content/services";
+import { infraDisciplines, type InfraDiscipline } from "@/content/infrastructure";
 
 const SITE_URL = "https://maanevents.com";
 
@@ -25,18 +24,18 @@ const localBusinessData = {
     addressLocality: o.lines[o.lines.length - 1],
     addressCountry: "IN",
   })),
-  // What this business is known for — the ten disciplines search engines
-  // should associate with the org itself, not just with each service's
-  // own page, so a query naming any one of them can surface the brand.
-  knowsAbout: services.map((s) => s.title),
+  // What this business is known for — the infrastructure services search
+  // engines should associate with the org itself, not just with each
+  // service's own page, so a query naming any one of them can surface it.
+  knowsAbout: infraDisciplines.map((s) => s.label),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Event Infrastructure Services",
-    itemListElement: services.map((s) => ({
+    itemListElement: infraDisciplines.map((s) => ({
       "@type": "Offer",
       itemOffered: {
         "@type": "Service",
-        name: s.title,
+        name: s.label,
         description: s.tagline,
         url: `${SITE_URL}${s.url}`,
       },
@@ -52,15 +51,15 @@ export function LocalBusinessJsonLd() {
 
 /**
  * One entry per service page, describing it as a Service offered by the
- * LocalBusiness above — the piece search engines use to connect "Prime
- * Minister event management" (etc.) as something this business actually
+ * LocalBusiness above — the piece search engines use to connect "German
+ * hangars" (etc.) as something this business actually
  * does, not just a page that mentions the phrase.
  */
-export function ServiceJsonLd({ service }: { service: Service }) {
+export function ServiceJsonLd({ service }: { service: InfraDiscipline }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: service.title,
+    name: service.label,
     description: service.description,
     provider: { "@id": `${SITE_URL}/#org` },
     areaServed: ["Andhra Pradesh", "Telangana", "Karnataka", "India"],

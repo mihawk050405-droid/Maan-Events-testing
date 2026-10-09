@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { fileURLToPath } from "node:url";
+import { eventCategories } from "./content/event-categories";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
@@ -14,31 +15,39 @@ const nextConfig: NextConfig = {
     qualities: [60, 75, 85],
   },
   async redirects() {
-    // These 12 routes are leftover discipline-level pages from an earlier
-    // site structure — content/services.ts now organizes offerings by
-    // event type instead, so each one 301s into the event-type page whose
-    // description most directly covers that discipline. This keeps any
-    // inbound links/search equity pointed at a live, indexed page instead
-    // of a 404.
+    // Leftover discipline-level URLs from an earlier site structure, each
+    // pointed at the infrastructure service page that now covers it, so
+    // inbound links and search equity land on a live page instead of a 404.
     const legacy: Record<string, string> = {
-      "air-conditioning": "government-public-sector-events",
-      "aluminium-structure-and-hangers": "government-public-sector-events",
-      "barrication": "government-public-sector-events",
-      "barricading": "government-public-sector-events",
-      "superstructure-hangers-pandals": "government-public-sector-events",
-      "venue-construction": "government-public-sector-events",
-      "staging": "concerts-entertainment",
-      "exhibition-facades-and-stall-designs": "exhibitions-trade-fairs",
-      "weather-sheds": "spiritual-devotional-events",
-      "carpeting-and-flooring": "signature-weddings",
-      "event-decoration": "signature-weddings",
-      "furniture": "signature-weddings",
-      "pagodas-tents": "signature-weddings",
+      "air-conditioning": "/services/air-conditioning/",
+      "aluminium-structure-and-hangers": "/services/german-hangars/",
+      "barrication": "/services/barricading/",
+      "barricading": "/services/barricading/",
+      "superstructure-hangers-pandals": "/services/megastructures-and-superstructures/",
+      "venue-construction": "/services/venue-construction/",
+      "staging": "/services/staging-and-platforming/",
+      "exhibition-facades-and-stall-designs": "/services/facades-and-stalls/",
+      "weather-sheds": "/services/weather-sheds/",
+      "carpeting-and-flooring": "/services/venue-construction/",
+      "event-decoration": "/services/event-decoration/",
+      "furniture": "/services/furniture/",
+      "pagodas-tents": "/services/pagodas-and-cottages/",
     };
-    return Object.entries(legacy).flatMap(([source, destSlug]) => [
-      { source: `/${source}`, destination: `/services/${destSlug}/`, permanent: true },
-      { source: `/${source}/`, destination: `/services/${destSlug}/`, permanent: true },
-    ]);
+    // The event-type pages used to be "services"; they are portfolio
+    // categories now and live under /portfolio/.
+    const movedCategories = eventCategories.map((c) => c.slug);
+
+    return [
+      ...Object.entries(legacy).flatMap(([source, destination]) => [
+        { source: `/${source}`, destination, permanent: true },
+        { source: `/${source}/`, destination, permanent: true },
+      ]),
+      ...movedCategories.map((slug) => ({
+        source: `/services/${slug}/`,
+        destination: `/portfolio/${slug}/`,
+        permanent: true,
+      })),
+    ];
   },
 };
 

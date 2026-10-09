@@ -2,10 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
-import { clientLogos } from "@/content/testimonials";
+import { marqueeClients } from "@/content/clients";
 
 export function ClientMarquee() {
-  const row = [...clientLogos, ...clientLogos];
+  const row = [...marqueeClients, ...marqueeClients];
   const reduce = useReducedMotion();
   const [paused, setPaused] = useState(false);
 

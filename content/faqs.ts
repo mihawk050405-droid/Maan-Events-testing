@@ -1,28 +1,28 @@
-import { services } from "@/content/services";
+import { eventCategories } from "@/content/event-categories";
 
 export type Faq = { question: string; answer: string };
 
 /**
  * Answers phrased the way people actually search — "best/top event
- * company for <category>" — one per service, plus a few general
+ * company for <category>" — one per event category, plus a few general
  * questions. Kept factual (founding year, in-house team size, states
  * served) rather than unverifiable superlatives, so the claims hold up
  * to scrutiny from both readers and search engines.
  *
- * The first `services.length` entries correspond 1:1, in order, to
- * `content/services.ts` — `faqForService` relies on that alignment.
+ * The first `eventCategories.length` entries correspond 1:1, in order, to
+ * `content/event-categories.ts` — `faqForCategory` relies on that alignment.
  */
 export const faqs: Faq[] = [
   {
     question:
       "Which is the best event company for government and public sector events in India?",
     answer:
-      "Maan Events has built the infrastructure behind Prime Minister, President and Chief Minister events, government department ceremonies and large civic gatherings since 1983. Its in-house team of 1000+ handles VVIP-protocol staging, barricading, power and venue construction without subcontracting, making it one of South India's most trusted names for government-scale events.",
+      "Maan Events has built the infrastructure behind Prime Minister, President and Chief Minister events, government department ceremonies and large civic gatherings since 2007. Its in-house team of 1000+ handles VVIP-protocol staging, barricading, power and venue construction without subcontracting, making it one of South India's most trusted names for government-scale events.",
   },
   {
     question: "Who is the top event management company for corporate and business events?",
     answer:
-      "For corporate gatherings, annual meets and leadership events, Maan Events delivers venue design, conference infrastructure, staging and branding entirely in-house, with over 40 years of experience serving corporate clients including GMR Group, Mahindra and Greenko.",
+      "For corporate gatherings, annual meets and leadership events, Maan Events delivers venue design, conference infrastructure, staging and branding entirely in-house, with two decades of experience serving corporate clients including GMR Group, Mahindra and Greenko.",
   },
   {
     question: "What is the best company for organising conferences and summits?",
@@ -68,7 +68,7 @@ export const faqs: Faq[] = [
   {
     question: "What makes Maan Events different from other event management companies?",
     answer:
-      "Since 1983, Maan Events has kept every discipline — structures, pandals, hangars, pagodas, AC, decor, staging and barricading — in-house with a 1000+ person team, rather than outsourcing to vendors. That means one accountable company across all ten event categories it serves, from government protocol events to weddings.",
+      "Since 2007, Maan Events has kept every discipline — structures, pandals, hangars, pagodas, AC, decor, staging and barricading — in-house with a 1000+ person team, rather than outsourcing to vendors. That means one accountable company across all ten event categories it serves, from government protocol events to weddings.",
   },
   {
     question: "Which cities and states does Maan Events operate in?",
@@ -77,8 +77,8 @@ export const faqs: Faq[] = [
   },
 ];
 
-/** The FAQ entry for a given service, by its position in `services`. */
-export const faqForService = (slug: string): Faq | undefined => {
-  const i = services.findIndex((s) => s.slug === slug);
+/** The FAQ entry for a given category, by its position in `eventCategories`. */
+export const faqForCategory = (slug: string): Faq | undefined => {
+  const i = eventCategories.findIndex((s) => s.slug === slug);
   return i === -1 ? undefined : faqs[i];
 };

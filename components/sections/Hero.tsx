@@ -67,7 +67,7 @@ export function Hero() {
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           />
-          <span>Established 1983 · Maan Events</span>
+          <span>Established 2007 · Maan Events</span>
         </motion.div>
 
         <h1 className="font-display text-5xl leading-[0.95] sm:text-6xl md:text-7xl lg:text-[8.5vw] xl:text-[7.5rem] max-w-[18ch]">
@@ -90,7 +90,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8 max-w-xl text-base leading-relaxed text-bone/80 md:text-lg"
         >
-          Four decades building the stages, structures and pavilions behind India&apos;s
+          Two decades building the stages, structures and pavilions behind India&apos;s
           largest government, corporate and public events.
         </motion.p>
 

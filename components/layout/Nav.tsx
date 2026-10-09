@@ -2,25 +2,28 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn, whatsappLink } from "@/lib/utils";
-import { services } from "@/content/services";
+import { infraDisciplines } from "@/content/infrastructure";
 
 const primaryLinks = [
   { href: "/about-us/", label: "About" },
   { href: "/services/", label: "Services" },
   { href: "/portfolio/", label: "Portfolio" },
+  { href: "/clients/", label: "Clients" },
   { href: "/contact/", label: "Contact" },
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -33,83 +36,133 @@ export function Nav() {
     };
   }, [open]);
 
+  // Every page opens on a dark hero that is pulled up under this bar, so at
+  // the top it can sit transparent with light type. Once the hero scrolls
+  // away (or the drawer opens) it becomes a solid frosted bar.
+  const solid = scrolled || open;
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href);
+
   return (
     <>
-      {/* The bar always carries its own background. It used to be transparent
-          until 8px of scroll, which left near-black nav text sitting on the
-          dark hero image — invisible on first paint of every landing. */}
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          "bg-[linear-gradient(135deg,rgba(252,249,242,0.92)_0%,rgba(247,241,230,0.94)_50%,rgba(237,227,211,0.96)_100%)] backdrop-blur-md",
-          scrolled || open
-            ? "border-b border-line shadow-[0_4px_30px_-8px_rgba(20,16,12,0.16)]"
-            : "border-b border-transparent",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-500",
+          solid
+            ? "bg-bone/85 backdrop-blur-xl border-b border-line shadow-[0_8px_30px_-12px_rgba(20,16,12,0.25)]"
+            : "bg-gradient-to-b from-deep/60 to-transparent border-b border-transparent",
         )}
       >
-        <div className="container-x flex h-16 items-center justify-between md:h-20">
-          <Link href="/" className="flex items-baseline gap-2 group" onClick={() => setOpen(false)} aria-label="Maan Events — home">
+        <div
+          className={cn(
+            "container-x flex items-center justify-between transition-[height] duration-500",
+            solid ? "h-16" : "h-16 md:h-20",
+          )}
+        >
+          <Link
+            href="/"
+            className="flex items-center shrink-0"
+            onClick={() => setOpen(false)}
+            aria-label="Maan — home"
+          >
+            {/* The logo carries its brand colours on the light bar; over the
+                dark hero it is knocked out to white so it stays legible. */}
             <Image
               src="/logo.png"
               alt="Maan"
               width={175}
               height={100}
               priority
-              className="h-7 w-auto md:h-8"
+              className={cn(
+                "w-auto transition-[filter,height] duration-500",
+                solid ? "h-9" : "h-9 md:h-11 brightness-0 invert",
+              )}
             />
-            <span className="font-display text-base md:text-lg tracking-tight text-mute leading-none translate-y-[1px]">
-              Events
-            </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6 lg:gap-10">
-            <Link href="/about-us/" className="nav-link text-sm font-medium hover:text-accent">
-              About
-            </Link>
-            <div
-              className="relative"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <Link
-                href="/services/"
-                className="nav-link text-sm font-medium hover:text-accent py-2 flex items-center gap-1"
-              >
-                Services
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="transition-transform opacity-70">
-                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <AnimatePresence>
-                {servicesOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 4 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
+          <nav
+            aria-label="Primary"
+            className={cn(
+              "hidden md:flex items-center gap-7 lg:gap-10 text-[13px] font-medium uppercase tracking-[0.14em] transition-colors duration-500",
+              solid ? "text-ink" : "text-bone",
+            )}
+          >
+            {primaryLinks.map((l) =>
+              l.href === "/services/" ? (
+                <div
+                  key={l.href}
+                  className="relative"
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
+                  onFocus={() => setServicesOpen(true)}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicesOpen(false);
+                  }}
+                >
+                  <Link
+                    href={l.href}
+                    aria-expanded={servicesOpen}
+                    className={cn("nav-link py-2 flex items-center gap-1.5", isActive(l.href) && "is-active")}
                   >
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 min-w-[480px] bg-sand border border-line p-6 shadow-[0_24px_60px_-20px_rgba(20,16,12,0.22)] rounded-lg">
-                      {services.map((s) => (
-                        <Link
-                          key={s.slug}
-                          href={s.url}
-                          className="nav-link text-sm text-ink hover:text-accent py-1 font-medium"
-                        >
-                          {s.shortTitle}
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-            <Link href="/portfolio/" className="nav-link text-sm font-medium hover:text-accent">
-              Portfolio
-            </Link>
-            <Link href="/contact/" className="nav-link text-sm font-medium hover:text-accent">
-              Contact
-            </Link>
+                    {l.label}
+                    <svg
+                      width="9"
+                      height="6"
+                      viewBox="0 0 10 6"
+                      fill="none"
+                      aria-hidden
+                      className={cn("transition-transform duration-300 opacity-70", servicesOpen && "rotate-180")}
+                    >
+                      <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                  <AnimatePresence>
+                    {servicesOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 6 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
+                      >
+                        <div className="w-[680px] bg-bone text-ink border border-line p-7 shadow-[0_30px_70px_-25px_rgba(20,16,12,0.35)] normal-case tracking-normal">
+                          <div className="flex items-baseline justify-between mb-5 pb-4 border-b border-line">
+                            <span className="text-[10px] uppercase tracking-[0.22em] text-mute">
+                              Infrastructure As A Service
+                            </span>
+                            <Link
+                              href="/services/"
+                              className="text-[11px] uppercase tracking-[0.18em] text-ink hover:text-accent-hover"
+                            >
+                              All services →
+                            </Link>
+                          </div>
+                          <ul className="grid grid-cols-3 gap-x-6 gap-y-1">
+                            {infraDisciplines.map((d) => (
+                              <li key={d.slug}>
+                                <Link
+                                  href={d.url}
+                                  className="block py-1.5 text-sm font-normal text-ink/80 hover:text-ink hover:translate-x-0.5 transition-all"
+                                >
+                                  {d.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={cn("nav-link py-2", isActive(l.href) && "is-active")}
+                >
+                  {l.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -117,9 +170,12 @@ export function Nav() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              // Deep red at rest, accent yellow on hover. The label flips
-              // to ink with it — yellow is too light to carry bone text.
-              className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-ink px-5 py-2.5 bg-[linear-gradient(135deg,#3A0E16_0%,#5C1826_50%,#3A0E16_100%)] hover:bg-[linear-gradient(180deg,#FFCF3D_0%,#D69A00_100%)] transition-all duration-300 shadow-sm rounded-sm"
+              className={cn(
+                "hidden sm:inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.14em] px-5 py-2.5 border transition-all duration-500",
+                solid
+                  ? "border-deep bg-deep text-bone hover:bg-accent hover:border-accent hover:text-ink"
+                  : "border-bone/50 text-bone hover:bg-bone hover:text-ink",
+              )}
             >
               Enquire
               <ArrowRight />
@@ -130,18 +186,16 @@ export function Nav() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
             >
-              <span
-                className={cn(
-                  "block h-px w-6 bg-ink transition-all duration-300",
-                  open && "translate-y-[3px] rotate-45",
-                )}
-              />
-              <span
-                className={cn(
-                  "block h-px w-6 bg-ink transition-all duration-300",
-                  open && "-translate-y-[3px] -rotate-45",
-                )}
-              />
+              {[0, 1].map((i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    "block h-px w-6 transition-all duration-300",
+                    solid ? "bg-ink" : "bg-bone",
+                    open && (i === 0 ? "translate-y-[3.5px] rotate-45" : "-translate-y-[3.5px] -rotate-45"),
+                  )}
+                />
+              ))}
             </button>
           </div>
         </div>
@@ -158,45 +212,58 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-16 z-40 bg-[linear-gradient(180deg,#FCF9F2_0%,#F7F1E6_50%,#EDE3D3_100%)] md:hidden overflow-y-auto shadow-2xl"
+            className="fixed inset-0 top-16 z-40 bg-bone md:hidden overflow-y-auto"
           >
             <motion.div
               initial={{ y: -8, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="container-x py-10 pb-32"
+              className="container-x py-8 pb-32"
             >
               <ul className="flex flex-col">
-                {primaryLinks.map((l) => (
+                {primaryLinks.map((l, i) => (
                   <li key={l.href} className="border-b border-line">
                     <Link
                       href={l.href}
                       onClick={() => setOpen(false)}
-                      className="block py-5 font-display text-3xl tracking-tight hover:text-accent transition-colors"
+                      className={cn(
+                        "flex items-baseline gap-4 py-5 font-display text-3xl tracking-tight transition-colors",
+                        isActive(l.href) ? "text-accent-hover" : "hover:text-accent-hover",
+                      )}
                     >
+                      <span className="font-mono text-[10px] text-mute">{String(i + 1).padStart(2, "0")}</span>
                       {l.label}
                     </Link>
                   </li>
                 ))}
               </ul>
               <div className="mt-10">
-                <div className="text-xs uppercase tracking-[0.18em] text-mute mb-4">
-                  Services
+                <div className="text-[10px] uppercase tracking-[0.22em] text-mute mb-4">
+                  Infrastructure As A Service
                 </div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                  {services.map((s) => (
-                    <li key={s.slug}>
+                <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
+                  {infraDisciplines.map((d) => (
+                    <li key={d.slug}>
                       <Link
-                        href={s.url}
+                        href={d.url}
                         onClick={() => setOpen(false)}
-                        className="block py-1 text-base hover:text-accent transition-colors"
+                        className="block py-1 text-sm hover:text-accent-hover transition-colors"
                       >
-                        {s.shortTitle}
+                        {d.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-10 flex items-center justify-between bg-deep text-bone px-6 py-5 text-sm uppercase tracking-[0.14em]"
+              >
+                Enquire on WhatsApp
+                <ArrowRight />
+              </a>
             </motion.div>
           </motion.div>
         )}

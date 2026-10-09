@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { company } from "@/content/company";
-import { services } from "@/content/services";
+import { infraDisciplines } from "@/content/infrastructure";
 
 export function Footer() {
   return (
@@ -9,7 +9,7 @@ export function Footer() {
       <div className="container-x">
         <div className="grid gap-12 lg:gap-16 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Link href="/" className="inline-flex items-baseline gap-2 mb-6" aria-label="Maan Events — home">
+            <Link href="/" className="inline-flex items-center mb-6" aria-label="Maan — home">
               <span className="inline-flex bg-bone px-3 py-2">
                 <Image
                   src="/logo.png"
@@ -19,7 +19,6 @@ export function Footer() {
                   className="h-8 w-auto"
                 />
               </span>
-              <span className="font-display text-lg tracking-tight text-mute-dark">Events</span>
             </Link>
             <p className="text-mute-dark max-w-md leading-relaxed">
               {company.positioning}
@@ -43,6 +42,7 @@ export function Footer() {
               <li><Link href="/about-us/" className="hover:text-bone text-mute-dark">About</Link></li>
               <li><Link href="/services/" className="hover:text-bone text-mute-dark">Services</Link></li>
               <li><Link href="/portfolio/" className="hover:text-bone text-mute-dark">Portfolio</Link></li>
+              <li><Link href="/clients/" className="hover:text-bone text-mute-dark">Clients</Link></li>
               <li><Link href="/contact/" className="hover:text-bone text-mute-dark">Contact</Link></li>
             </ul>
           </div>
@@ -52,10 +52,10 @@ export function Footer() {
               Services
             </div>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-              {services.map((s) => (
+              {infraDisciplines.map((s) => (
                 <li key={s.slug}>
                   <Link href={s.url} className="hover:text-bone text-mute-dark">
-                    {s.shortTitle}
+                    {s.label}
                   </Link>
                 </li>
               ))}
