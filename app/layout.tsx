@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s · Maan Events",
   },
   description:
-    "Since 1983, Maan Events has built the infrastructure behind India's largest government, corporate and public events. In-house pandals, hangars, pagodas, AC, decor and venue construction at scale.",
+    "Since 2007, Maan Events has built the infrastructure behind India's largest government, corporate and public events. In-house pandals, hangars, pagodas, AC, decor and venue construction at scale.",
   keywords: [
     "event infrastructure India",
     "pandal construction",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Maan Events — Event Infrastructure at Scale",
     description:
-      "India's premier event infrastructure company. Trusted by governments, corporates and the nation's largest public events since 1983.",
+      "India's premier event infrastructure company. Trusted by governments, corporates and the nation's largest public events since 2007.",
     type: "website",
     locale: "en_IN",
     siteName: "Maan Events",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Maan Events — Event Infrastructure at Scale",
     description:
-      "India's premier event infrastructure company. Trusted by governments, corporates and the nation's largest public events since 1983.",
+      "India's premier event infrastructure company. Trusted by governments, corporates and the nation's largest public events since 2007.",
     images: ["/portfolio/pm-events/kurnool-event/01.jpg"],
   },
   robots: { index: true, follow: true },

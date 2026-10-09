@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Maan Events — Event Infrastructure for Government, Corporate & Mega Events",
   description:
-    "Looking for the best event company for government, corporate, wedding, spiritual or concert events? Since 1983, Maan Events has delivered 500+ events across 10 categories with a 1000+ person in-house team — no vendor dependency.",
+    "Looking for the best event company for government, corporate, wedding, spiritual or concert events? For two decades, Maan Events has delivered 500+ events across 10 categories with a 1000+ person in-house team — no vendor dependency.",
   keywords: [
     "best event company in India",
     "top event management company",
