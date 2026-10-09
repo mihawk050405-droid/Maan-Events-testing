@@ -44,7 +44,8 @@ function showcaseFor(service: Service): ShowcaseTile[] {
     .sort((a, b) => rank(a) - rank(b))
     .slice(0, SHOWCASE_SIZE)
     .map((p) => ({
-      key: p.slug,
+      // Not p.slug — several projects share the slug "main" across folders.
+      key: p.cover,
       src: p.cover,
       categoryLabel: p.categoryLabel,
       title: p.nameConfirmed ? p.title : undefined,

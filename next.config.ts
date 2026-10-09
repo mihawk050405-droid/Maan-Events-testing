@@ -14,10 +14,11 @@ const nextConfig: NextConfig = {
     qualities: [60, 75, 85],
   },
   async redirects() {
-    // These 12 routes are leftover discipline-level pages from an earlier
+    // These 13 routes are leftover discipline-level pages from an earlier
     // site structure — content/services.ts now organizes offerings by
-    // event type instead, so each one 301s into the event-type page whose
-    // description most directly covers that discipline. This keeps any
+    // event type instead, so each one permanently redirects (308) into the
+    // event-type page whose description most directly covers that
+    // discipline. This keeps any
     // inbound links/search equity pointed at a live, indexed page instead
     // of a 404.
     const legacy: Record<string, string> = {

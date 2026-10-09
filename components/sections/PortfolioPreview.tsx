@@ -227,7 +227,11 @@ function MobileShowcase() {
           >
             <Image
               src={current.cover}
-              alt={`${current.categoryLabel} — ${current.title}`}
+              alt={
+                current.nameConfirmed
+                  ? `${current.categoryLabel} — ${current.title}`
+                  : current.categoryLabel
+              }
               fill
               priority={idx === 0}
               sizes="100vw"

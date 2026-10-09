@@ -8,7 +8,12 @@ import { cn } from "@/lib/utils";
 
 export function PortfolioBrowser() {
   const filters = useMemo(
-    () => categories.sort((a, b) => b.weight - a.weight).map((c) => ({ slug: c.slug, label: c.label })),
+    () =>
+      [...categories]
+        .sort((a, b) => b.weight - a.weight)
+        // A category with no photos yet would open onto an empty grid.
+        .filter((c) => galleryImages.some((img) => img.category === c.slug))
+        .map((c) => ({ slug: c.slug, label: c.label })),
     [],
   );
 
