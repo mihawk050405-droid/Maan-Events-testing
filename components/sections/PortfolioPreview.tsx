@@ -7,6 +7,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { categories, projectsByCategory, featuredProjects } from "@/content/portfolio";
 import { Reveal } from "@/components/motion/Reveal";
 
+const POPULATED_CATEGORIES = categories.filter(
+  (c) => projectsByCategory(c.slug).length > 0,
+).length;
+
 export function PortfolioPreview() {
   return (
     <section className="bg-deep text-bone">
@@ -26,7 +30,7 @@ function Heading() {
         <Reveal>
           <div className="text-[10px] md:text-xs uppercase tracking-[0.22em] text-mute-dark mb-4 flex items-center gap-3">
             <span className="h-px w-8 bg-mute-dark" />
-            <span>Selected Work — 8 Categories</span>
+            <span>Selected Work — {POPULATED_CATEGORIES} Event Categories</span>
           </div>
         </Reveal>
         <Reveal delay={0.05}>
@@ -97,7 +101,7 @@ function DesktopIndex() {
           return (
             <li key={c.slug} className="border-b border-line-dark">
               <Link
-                href="/portfolio/"
+                href={`/portfolio/${c.slug}/`}
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 className="group flex items-center gap-6 py-[18px] xl:py-[22px]"
@@ -264,10 +268,10 @@ function MobileShowcase() {
                 {current.categoryLabel}
               </h3>
               <Link
-                href="/portfolio/"
+                href={`/portfolio/${current.category}/`}
                 className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] border-b border-bone pb-1"
               >
-                Open Project <Arrow />
+                View Category <Arrow />
               </Link>
             </motion.div>
           </AnimatePresence>

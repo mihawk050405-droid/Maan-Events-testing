@@ -4,7 +4,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { services, featuredServices } from "@/content/services";
+import { infraDisciplines } from "@/content/infrastructure";
+
+// The homepage "capabilities" are the infrastructure services — what the
+// client actually supplies. Event types live in the portfolio section
+// below, so the two no longer repeat each other.
+const services = infraDisciplines.map((d) => ({
+  slug: d.slug,
+  url: d.url,
+  title: d.label,
+  tagline: d.tagline,
+  cover: d.cover,
+}));
 import { Reveal } from "@/components/motion/Reveal";
 
 export function ServicesPreview() {
@@ -28,13 +39,13 @@ function Heading() {
         <Reveal>
           <div className="text-[10px] md:text-xs uppercase tracking-[0.22em] text-mute mb-4 flex items-center gap-3">
             <span className="h-px w-8 bg-mute" />
-            <span>Capabilities — 10 in-house disciplines</span>
+            <span>Infrastructure As A Service — {services.length} in-house services</span>
           </div>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="text-4xl md:text-5xl lg:text-6xl">
-            Ten disciplines.<br />
-            <span className="italic font-light text-mute">One in-house team.</span>
+            Everything an event stands on.<br />
+            <span className="italic font-light text-mute">Owned and built in-house.</span>
           </h2>
         </Reveal>
       </div>
@@ -172,7 +183,7 @@ function DesktopIndex() {
 /* ----------------------------- MOBILE --------------------------------- */
 
 function MobileShowcase() {
-  const items = featuredServices.length >= 4 ? featuredServices : services.slice(0, 6);
+  const items = services;
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
 
